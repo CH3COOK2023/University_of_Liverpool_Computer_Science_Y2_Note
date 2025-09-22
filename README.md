@@ -1,0 +1,2 @@
+# University_of_Liverpool_Computer_Science_Y2_Note
+这个仓库用于存放英国利物浦大学大三计算机专业的笔记
