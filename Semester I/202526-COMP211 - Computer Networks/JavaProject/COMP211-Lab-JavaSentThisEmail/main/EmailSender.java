@@ -18,17 +18,16 @@ public class EmailSender {
         if (!responseMessage.startsWith("220")) throw new Exception("220 reply not received from server.");
 
         // Send example
-        bw.write("HELO alice");
-        bw.newLine();
+        bw.write("HELO alice\r\n");
         bw.flush();
         System.out.println(responseMessage = br.readLine());
         if (!responseMessage.startsWith("250")) throw new Exception("250 reply not received from server.");
 
 
         // Send MAIL FROM command.
-        bw.write("MAIL FROM: <sender@example.com>");
+        bw.write("MAIL FROM: <sender@example.com>\r\n");
         bw.flush();
-        System.out.println(responseMessage = br.readLine());
+        System.out.println(responseMessage = br.readLine()); // 卡住
 
         // Send RCPT TO command.
 

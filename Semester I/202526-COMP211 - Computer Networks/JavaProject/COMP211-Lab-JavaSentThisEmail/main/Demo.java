@@ -6,90 +6,94 @@ import java.net.Socket;
 
 public class Demo {
     public static void main(String[] args) throws Exception {
-        // Establish a TCP connection with the mail server.
+        // 与邮件服务器建立TCP连接
         Socket socket = new Socket("35.246.112.180", 1025);
 
-        // Create a BufferedReader to read a line at a time.
+        // 创建BufferedReader用于读取服务器响应
         InputStream is = socket.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
 
-        // Read greeting from the server.
+        // 读取服务器的欢迎信息
         String response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("220")) {
-            throw new Exception("220 reply not received from server.");
+            throw new Exception("未从服务器收到220回复。");
         }
 
-        // Get a reference to the socket's output stream.
+        // 获取socket的输出流用于发送命令
         DataOutputStream os = new DataOutputStream(socket.getOutputStream());
 
-        // Send HELO command and get server response.
+        // 发送HELO命令并获取服务器响应
         String command = "HELO alice\r\n";
         System.out.print(command);
         os.writeBytes(command);
+        os.flush();
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("250")) {
-            throw new Exception("250 reply not received from server.");
+            throw new Exception("未从服务器收到250回复。");
         }
 
-        // Send MAIL FROM command.
+        // 发送MAIL FROM命令
         command = "MAIL FROM: <sender@example.com>\r\n";
         System.out.print(command);
         os.writeBytes(command);
+        os.flush();
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("250")) {
-            throw new Exception("250 reply not received from server.");
+            throw new Exception("MAIL FROM命令未收到250回复。");
         }
 
-        // Send RCPT TO command.
-        command = "RCPT TO: <recipient@example.com>\r\n";
+        // 发送RCPT TO命令
+        command = "RCPT TO: <receiver@example.org>\r\n";
         System.out.print(command);
         os.writeBytes(command);
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("250")) {
-            throw new Exception("250 reply not received from server.");
+            throw new Exception("RCPT TO命令未收到250回复。");
         }
 
-        // Send DATA command.
+        // 发送DATA命令
         command = "DATA\r\n";
         System.out.print(command);
         os.writeBytes(command);
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("354")) {
-            throw new Exception("354 reply not received from server.");
+            throw new Exception("DATA命令未收到354回复。");
         }
 
-        // Send message data.
-        // End with line with a single period.
-        System.out.print("Subject: Test Email\r\n");
-        os.writeBytes("Subject: Test Email\r\n");
-        System.out.print("This is the body of the email.\r\n");
-        os.writeBytes("This is the body of the email.\r\n");
-        System.out.print(".\r\n");
-        os.writeBytes(".\r\n");
+        // 发送邮件内容
+        os.writeBytes("SUBJECT: Hello\r\n");  // 邮件主题
+        os.writeBytes("\r\n");  // 主题与正文之间需要空行
+        os.writeBytes("Hi Bob, How's the weather?\r\n");  // 邮件正文
+        os.writeBytes("Alice.1523\r\n");
+        os.writeBytes(".\r\n");  // 单个句点表示邮件内容结束
+        System.out.println("发送邮件内容...");
+
+        // 读取服务器对邮件内容的响应
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("250")) {
-            throw new Exception("250 reply not received from server.");
+            throw new Exception("邮件内容发送后未收到250回复。");
         }
 
-        // Send QUIT command.
+        // 发送QUIT命令
         command = "QUIT\r\n";
         System.out.print(command);
         os.writeBytes(command);
         response = br.readLine();
         System.out.println(response);
         if (!response.startsWith("221")) {
-            throw new Exception("221 reply not received from server.");
+            throw new Exception("QUIT命令未收到221回复。");
         }
 
-        // Close the socket.
+        // 关闭连接
+        os.close();
+        br.close();
         socket.close();
-        System.out.println("Connection closed.");
     }
 }

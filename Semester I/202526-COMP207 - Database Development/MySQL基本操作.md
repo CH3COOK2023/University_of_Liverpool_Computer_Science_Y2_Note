@@ -150,6 +150,8 @@ SELECT {column1}, {column2}, ... FROM {table_name} WHERE {condition};
 
 
 
+此外，对于`NULL`值还有两个运算：`IS NULL`和`IS NOT NULL`。**[请看此处](#7_the_null_value)**
+
 ## [3] 排序 Order By
 
 语法
@@ -274,11 +276,201 @@ SELECT COUNT(*) AS COUNT_RESULT FROM
 
 ## [6] 插入 INSERT INTO
 
+### [6.1] 单行插入
+
 有多种插入方式，例如插入列名和值
 
+```sql
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+```
+
+或者直接插入，按照默认列顺序
+
+```sql
+INSERT INTO table_name
+VALUES (value1, value2, value3, ...);
+```
 
 
 
+```sql
+INSERT INTO user_data (PostalCode) VALUES ("L35AA");
+```
+
+这样插入，其他值为`NULL`，只有`PostalCode`是 L35AA 。
+
+
+
+### [6.2] 多行插入
+
+```sql
+INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+VALUES
+('Cardinal', 'Tom B. Erichsen', 'Skagen 21', 'Stavanger', '4006', 'Norway'),
+('Greasy Burger', 'Per Olsen', 'Gateveien 15', 'Sandnes', '4306', 'Norway'),
+('Tasty Tee', 'Finn Egan', 'Streetroad 19B', 'Liverpool', 'L1 0AA', 'UK');
+```
+
+<a id="7_the_null_value"></a>
+
+## [7] NULL 值
+
+`NULL` 值不能被比较运算符（例如`=`、`<=`）等运算比较。
+
+但是，`NULL`仍然有两种运算：
+
+- `IS NULL` 判断这个是否是NULL值。
+- `IS NOT NULL` 判断这个是否不是NULL值。
+
+
+
+```sql
+SELECT * FROM user_data WHERE CustomerID  IS NULL;
+```
+
+
+
+## [8] 更新 UPDATE
+
+基本语法
+
+```sql
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+```
+
+> [!CAUTION]
+>
+> 注意：`UPDATE` 必须和`WHERE` 一起用否则整个表都会更新！
+>
+> 反例：
+>
+> 更新前：
+>
+> ![image-20251001111318614](./imageResource/image-20251001111318614.png)
+>
+> ```sql
+> UPDATE user_data SET CustomerID = "C001";
+> ```
+>
+> ![image-20251001111402737](./imageResource/image-20251001111402737.png)
+
+
+
+正确的`UPDATE`语句
+
+```sql
+UPDATE user_data SET CustomerID = "SVIP001", ContactName = "SVIP Alpha Corp" 
+WHERE CustomerName = "Alpha Corp";
+```
+
+
+
+##  [9] DELETE 和 Drop
+
+基本语法
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+> [!CAUTION]
+>
+> 和`UPDATE`语句一样，必须指定`WHERE`条件。除非确定要删除整个表（但保留表）。
+>
+> 反例：
+>
+> ![image-20251001111851840](./imageResource/image-20251001111851840.png)
+>
+> ```sql
+> DELETE FROM user_data;
+> ```
+>
+> ![image-20251001111913079](./imageResource/image-20251001111913079.png)
+
+DELETE示例：删除所有SVIP客人
+
+```sql
+DELETE FROM user_data WHERE ContactName LIKE "SVIP%";
+```
+
+
+
+彻底删除表：
+
+```sql
+DROP TABLE user_data;
+```
+
+
+
+## [10] LIMIT
+
+MySQL 不支持 `TOP`，`FETCH FIRST 3 ROWS ONLY`等关键字。
+
+```sql
+SELECT * FROM user_data LIMIT 3;
+```
+
+`LIMIT`关键字应当放在末尾，例如不能放在`ORDER BY` 之前
+
+```sql
+SELECT * FROM user_data ORDER BY CustomerID DESC LIMIT 3;
+```
+
+如果要在`ORDER BY`前使用`LIMIT`：
+
+```sql
+SELECT * FROM (SELECT * FROM user_data LIMIT 3) AS TEMP1 ORDER BY CustomerID;
+```
+
+## [11] 聚合函数 
+
+聚合函数（Aggregate Functions）
+
+> [!NOTE]
+>
+> 聚合函数忽略空值（ `COUNT(*)` 除外）。
+
+### [11.1] MIN() 和 MAX()
+
+查看表格中城市名长度最小有多少，最大有多少：
+
+```sql
+SELECT MIN(LENGTH(City)) FROM user_data;
+```
+
+![image-20251001113849012](./imageResource/image-20251001113849012.png)
+
+`MAX()`同理。这代表这个表中最短成市是4个字的，但是可能不止一行，例如`town`，`TAZA`,`lidl`等
+
+
+
+如果希望**查看**具体行，那么使用：
+
+```sql
+SELECT * 
+FROM user_data 
+WHERE LENGTH(City) = (SELECT MIN(LENGTH(City)) FROM user_data);
+```
+
+![image-20251001114314809](./imageResource/image-20251001114314809.png)
+
+
+
+可以使用`COUNT`语句计数
+
+```sql
+SELECT COUNT(*) AS COUNT_NUMBER
+FROM user_data 
+WHERE LENGTH(City) = (SELECT MIN(LENGTH(City)) FROM user_data);
+```
+
+![image-20251001114412855](./imageResource/image-20251001114412855.png)
+
+可以和`GROUP BY`方法一同使用。
 
 
 
