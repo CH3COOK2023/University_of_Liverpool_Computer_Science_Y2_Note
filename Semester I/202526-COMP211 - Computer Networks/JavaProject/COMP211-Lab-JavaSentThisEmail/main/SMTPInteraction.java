@@ -2,7 +2,10 @@
  * Filename:  SMTPInteraction.java
  ************************************/
 
+import com.sun.net.httpserver.Headers;
+
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,10 +14,19 @@ import java.time.format.DateTimeFormatter;
  * 本类：跟邮件服务器建立个 SMTP 连接，然后发封邮件
  */
 public class SMTPInteraction {
+
     /**
      * 如果发送指令后服务器不会返回status code，使用此变量。用于<code>sentCommand()</code>中
      */
     private static final int NO_TARGET_STATUS_CODE = -1;
+    /**
+     * 控制台语句 - 返回
+     */
+    private static final String RESPONSE =  "RESPONSE | ";
+    /**
+     * 控制台语句 - 发送
+     */
+    private static final String SEND =      "SEND     | ";
     /**
      * 标准换行符
      */
@@ -31,22 +43,22 @@ public class SMTPInteraction {
      * 发送流
      */
     private final BufferedWriter toServer;
-    /**
-     * 用在<code>close()</code>函数中的变量
-     */
-    private boolean isConnected = false;
+
+
+    // /**
+    //  * 用在<code>close()</code>函数中的变量
+    //  */
+    // private boolean isConnected = false;
 
     /**
      * 对象构造方法函数。
      * 创建一个 SMTP 交互对象。创建套接字和相关的流。初始化 SMTP 连接
      *
-     * @param mailMessage
+     * @param mailMessage 储存了所有mail交互界面的信息，可从中获取
      * @throws IOException 任何可能的异常
      */
     public SMTPInteraction(EmailMessage mailMessage) throws IOException {
-        /**
-         * 这个 Socket的 host 和 port 应当从 EmailClient 的对象 mailMessage 交互界面中获取！
-         */
+        // 这个 Socket的 host 和 port 应当从 EmailClient 的对象 mailMessage 交互界面中获取！
         String host = mailMessage.DestHost == null || mailMessage.DestHost.isEmpty() ? "35.246.112.180" : mailMessage.DestHost;
         commandOut("Socket Host: ".concat(host));
         int port = mailMessage.DestHostPort;
@@ -57,17 +69,23 @@ public class SMTPInteraction {
         fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         toServer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
 
+
+        // 使用SMPT服务器进行握手！
         // 从服务器读取一行数据，检查 status code == 220?
         // 是：继续
         // 否：Throws new Exception();
-        String responseMessageFromServer = fromServer.readLine();
-        if (responseMessageFromServer == null || !responseMessageFromServer.startsWith("220"))
-            throw new IOException("Status code error!");
-        commandOut("RESPONSE | ".concat(responseMessageFromServer));
-        // 运行到这里应当是握手成功！
+        {
+            String responseMessageFromServer = fromServer.readLine();
+            if (responseMessageFromServer == null || !responseMessageFromServer.startsWith("220"))
+                throw new IOException("Status Code Error! Returned message is | ".concat(responseMessageFromServer != null ? responseMessageFromServer : ""));
+            commandOut(RESPONSE.concat(responseMessageFromServer));
+        }
+        // 运行到这里应当是握手成功！示例：
         // [2025-10-06 13:35:44] RESPONSE | 220 EventMachine SMTP Server
-        // String localhost = InetAddress.getLocalHost().getHostName();
-        isConnected = true;
+
+        // 使用localhost进行握手！
+        String localhost = InetAddress.getLocalHost().getHostName();
+        // isConnected = true;
     }
 
     /**
@@ -89,59 +107,61 @@ public class SMTPInteraction {
        caller. */
     public void send(EmailMessage emailMessage) throws IOException {
         String context = emailMessage.Body;
+        String headers = emailMessage.Headers;
         String sender = emailMessage.Sender;
         String receiver = emailMessage.Recipient;
         String subject = "";
-        try{
+        try {
             subject = emailMessage.Headers.split("\r\n")[2].split(" ")[1];
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
             commandOut("ERROR    | Can not get subject.");
         }
-
-        sendCommand("HELO alice",250);
-        sendCommand("MAIL FROM: ".concat(sender),250);
-        sendCommand("RCPT TO: ".concat(receiver),250);
-        sendCommand("DATA".concat(receiver),354);
-        sendCommand("SUBJECT: ".concat(subject),NO_TARGET_STATUS_CODE);
+        sendCommand("HELO alice", NO_TARGET_STATUS_CODE);
+        sendCommand("MAIL FROM: ".concat(sender), NO_TARGET_STATUS_CODE);
+        sendCommand("RCPT TO: ".concat(receiver), NO_TARGET_STATUS_CODE);
+        sendCommand("DATA", NO_TARGET_STATUS_CODE);
+        sendCommand(headers,NO_TARGET_STATUS_CODE);
+        sendCommand("",NO_TARGET_STATUS_CODE);
         String[] lines = context.replace("\r\n", "\n").split("\n");
         for (String line : lines) {
-            if(".".equals(line))
-                line = " ".concat(line);
-            sendCommand(line,NO_TARGET_STATUS_CODE);
+            if (".".equals(line)) line = " ".concat(line);
+            sendCommand(line, NO_TARGET_STATUS_CODE);
         }
-        sendCommand(".",250);
+
+        sendCommand(".", NO_TARGET_STATUS_CODE);
     }
 
     /**
      * 关闭 SMTP 服务器连接
      */
     public void close() {
-        isConnected = false;
+        // isConnected = false;
         try {
             sendCommand("QUIT", 221);
             connection.close();
         } catch (IOException e) {
             System.out.println("Unable to close connection: " + e);
-            isConnected = true;
+            // isConnected = true;
         }
     }
 
     /**
      * 把 SMTP 命令发给服务器
+     *
      * @param commandSendToServer 给服务器发送的命令
-     * @param targetStatusCode 目标 Status Code， 如果不一样，抛出异常。如果为 NO_TARGET_STATUS_CODE 则不检查。
+     * @param targetStatusCode    目标 Status Code， 如果不一样，抛出异常。如果为 NO_TARGET_STATUS_CODE 则不检查。
      * @throws IOException 非目标Status Code 异常
      */
     private void sendCommand(String commandSendToServer, int targetStatusCode) throws IOException {
         toServer.write(commandSendToServer);
         toServer.write(CRLF);
         toServer.flush();
-        commandOut("SEND     | ".concat(commandSendToServer));
-        if(targetStatusCode!= NO_TARGET_STATUS_CODE){
+        commandOut(SEND.concat(commandSendToServer));
+        if (targetStatusCode != NO_TARGET_STATUS_CODE) {
             String response = fromServer.readLine();
-            if(response == null || !response.startsWith(String.valueOf(targetStatusCode)))
-                throw new IOException("Status Code Error!");
-            commandOut("RESPONSE | ".concat(response));
+            if (response == null || !response.startsWith(String.valueOf(targetStatusCode)))
+                throw new IOException("Status Code Error! Returned message is | ".concat(response != null ? response : ""));
+            commandOut(RESPONSE.concat(response));
         }
     }
 }

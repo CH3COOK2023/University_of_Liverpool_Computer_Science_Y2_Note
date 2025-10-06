@@ -118,6 +118,27 @@ QUIT
 
 
 
+```baash
+[sgzjia24@lxfarm08 ~]$ nc 35.246.112.180 1025
+220 EventMachine SMTP Server
+HELO alice
+250 Ok EventMachine SMTP Server
+MAIL FROM: <sender@example.com>
+250 Ok
+RCPT TO: <receiver@example.org>
+250 Ok
+DATA
+354 Send it
+SUBJECT: Hello
+LINE 1
+LINE 2
+LINE ...
+.
+250 Message accepted
+QUIT
+221 Ok
+```
+
 
 
 

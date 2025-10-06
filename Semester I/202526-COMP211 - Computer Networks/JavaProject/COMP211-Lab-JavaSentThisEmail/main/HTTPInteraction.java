@@ -20,7 +20,10 @@ public class HTTPInteraction {
 	private static final int BUF_SIZE = 4096; 
 	private static final int MAX_OBJECT_SIZE = 102400;
 
- 	/** Create a HTTPInteraction object. ***/
+	/**
+	 * 构造方法，构造一个 HTTP交互请求对象
+	 * @param url 请求的网址
+	 */
 	public HTTPInteraction(String url) {
 		
 		/* Split "URL" into "host name" and "path name", and
