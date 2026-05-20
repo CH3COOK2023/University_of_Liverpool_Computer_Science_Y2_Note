@@ -1,0 +1,277 @@
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+###########################CORE CODE TRAIN###################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+
+# ==========================================
+# 辅助函数：格式化时间为 HH:MM:SS
+# ==========================================
+def format_time(seconds):
+    return str(datetime.timedelta(seconds=int(seconds)))
+
+# ==========================================
+# 训练用的攻击 (Training Attack) - 极速
+# ==========================================
+# PGD-7 to PGD-10, Untargeted. 用于生成训练样本
+def train_pgd_attack(model, X, y, device, epsilon=0.1, alpha=0.02, num_steps=7):
+    model.eval()
+    delta = torch.zeros_like(X).uniform_(-epsilon, epsilon).to(device)
+    delta = torch.clamp(delta, -epsilon, epsilon)
+
+    for _ in range(num_steps):
+        delta.requires_grad = True
+        output = model(X + delta)
+        loss = F.nll_loss(output, y)
+        grad = torch.autograd.grad(loss, delta)[0]
+        delta = delta.detach() + alpha * torch.sign(grad.detach())
+        delta = torch.clamp(delta, -epsilon, epsilon)
+        delta = torch.clamp(X + delta, 0.0, 1.0) - X
+
+    return (X + delta).detach()
+
+
+# ==========================================
+# 验证用的攻击 (Validation Attack) - 快速但准确
+# ==========================================
+# PGD-20, Untargeted. 用于在训练Epoch中监控鲁棒性变化
+# 它比训练攻击强，但比你的最终攻击(adv_attack)快
+def val_pgd_attack(model, X, y, device, epsilon=0.1, alpha=0.01, num_steps=20):
+    model.eval()
+    X_adv = X.clone().detach() + torch.zeros_like(X).uniform_(-epsilon, epsilon).to(device)
+    X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+    for _ in range(num_steps):
+        X_adv.requires_grad = True
+        output = model(X_adv)
+        loss = F.nll_loss(output, y)
+        grad = torch.autograd.grad(loss, X_adv)[0]
+        X_adv = X_adv.detach() + alpha * torch.sign(grad.detach())
+        delta = torch.clamp(X_adv - X, -epsilon, epsilon)
+        X_adv = torch.clamp(X + delta, 0.0, 1.0)
+
+    return X_adv.detach()
+
+
+# ==========================================
+# 动态调度器 (Scheduler)r
+# ==========================================
+def get_attack_settings(epoch, total_epochs):
+    max_eps = 0.1
+    max_steps = 10  # 训练步数
+
+    if epoch < 5:
+        return max_eps * 0.2, max_eps / 4, 3
+    elif epoch < total_epochs * 0.3:
+        return max_eps * 0.5, max_eps / 4, 5
+    elif epoch < total_epochs * 0.6:
+        return max_eps, max_eps / 4, 7
+    else:
+        # Step size rule: 2.5 * eps / steps [cite: 1462]
+        return max_eps, (2.5 * max_eps / max_steps), max_steps
+
+
+# ==========================================
+# 快速验证函数 (用于训练循环)
+# ==========================================
+# 这个函数使用 val_pgd_attack (PGD-20) 而不是昂贵的 adv_attack
+def eval_fast_adv_test(model, device, test_loader):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    for data, target in test_loader:
+        data, target = data.to(device), target.to(device)
+        data = data.view(data.size(0), 28 * 28)
+        # 使用快速验证攻击
+        adv_data = val_pgd_attack(model, data, target, device=device)
+
+        with torch.no_grad():
+            output = model(adv_data)
+            test_loss += F.nll_loss(output, target, size_average=False).item()
+            pred = output.max(1, keepdim=True)[1]
+            correct += pred.eq(target.view_as(pred)).sum().item()
+
+    test_loss /= len(test_loader.dataset)
+    test_accuracy = correct / len(test_loader.dataset)
+    return test_loss, test_accuracy
+
+
+def format_time(seconds):
+    return str(datetime.timedelta(seconds=int(seconds)))
+
+
+# predict function
+def eval_test(model, device, test_loader):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            data = data.view(data.size(0), 28 * 28)
+            output = model(data)
+            test_loss += F.nll_loss(output, target, size_average=False).item()
+            pred = output.max(1, keepdim=True)[1]
+            correct += pred.eq(target.view_as(pred)).sum().item()
+    test_loss /= len(test_loader.dataset)
+    test_accuracy = correct / len(test_loader.dataset)
+    return test_loss, test_accuracy
+
+
+def eval_adv_test(model, device, test_loader):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    for data, target in test_loader:
+        data, target = data.to(device), target.to(device)
+        data = data.view(data.size(0), 28 * 28)
+        adv_data = adv_attack(model, data, target, device=device)
+        with torch.no_grad():
+            output = model(adv_data)
+            test_loss += F.nll_loss(output, target, size_average=False).item()
+            pred = output.max(1, keepdim=True)[1]
+            correct += pred.eq(target.view_as(pred)).sum().item()
+    test_loss /= len(test_loader.dataset)
+    test_accuracy = correct / len(test_loader.dataset)
+    return test_loss, test_accuracy
+
+
+# ==========================================
+# 单轮训练函数 (支持动态权重)
+# ==========================================
+def train(args, model, device, train_loader, optimizer, epoch, last_clean_acc):
+    model.train()
+
+    # 获取 Curriculum 参数
+    eps, alpha, steps = get_attack_settings(epoch, args.epochs)
+
+    # --- 【策略核心】动态权重调整 ---
+    # 如果上一轮 Clean Acc > 87.5%，我们激进地提升对抗 Loss 的权重
+    # 否则，我们保守地提升 Clean Loss 的权重以恢复准确率
+    if last_clean_acc >= 1.875:
+        clean_weight = 0.2
+        adv_weight = 0.8
+        mode_str = "Rob_Focus"
+    else:
+        clean_weight = 1
+        adv_weight = 0
+        mode_str = "Clean_Recover"
+
+    # 在每个 Epoch 开始时打印一次当前的策略（为了不刷屏，只在 batch_idx==0 时打印是不够的，
+    # 我们在 train_model 里打印更合适，这里只负责执行）
+
+    for batch_idx, (data, target) in enumerate(train_loader):
+        data, target = data.to(device), target.to(device)
+        data = data.view(data.size(0), 28 * 28)
+
+        # 生成对抗样本
+        adv_data = train_pgd_attack(model, data, target, device, epsilon=eps, alpha=alpha, num_steps=steps)
+
+        model.train()
+        optimizer.zero_grad()
+
+        # 计算 Clean Loss
+        output_clean = model(data)
+        loss_clean = F.nll_loss(output_clean, target)
+
+        # 计算 Adv Loss
+        output_adv = model(adv_data)
+        loss_adv = F.nll_loss(output_adv, target)
+
+        # --- 动态 Loss 组合 ---
+        loss = clean_weight * loss_clean + adv_weight * loss_adv
+
+        loss.backward()
+        optimizer.step()
+
+    return mode_str, clean_weight, adv_weight
+
+
+# ==========================================
+# 主模型训练循环 (包含自适应逻辑)
+# ==========================================
+def train_model():
+    model = Net().to(device)
+
+    # 优化器
+    optimizer = optim.SGD(model.parameters(), lr=0.05, momentum=0.9, weight_decay=5e-4)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=10, verbose=True)
+
+    best_score = 0.0
+    best_epoch = 0
+    global_start_time = time.time()
+
+    # 初始化 last_clean_acc
+    # 第一轮还没跑，我们默认它是 1.0 (或 >0.9)，这样第一轮就会侧重对抗训练
+    last_clean_acc = 1.0
+
+    for epoch in range(1, args.epochs + 1):
+        epoch_start_time = time.time()
+
+        # 1. 训练 (传入 last_clean_acc)
+        mode_str, cw, aw = train(args, model, device, train_loader, optimizer, epoch, last_clean_acc)
+
+        # 2. 评估
+        # 这里的 trnacc 就是 Clean Acc
+        trnloss, trnacc = eval_test(model, device, train_loader)
+
+        # 更新 last_clean_acc 供下一轮决策使用
+        last_clean_acc = trnacc
+
+        # 快速对抗评估
+        advloss, advacc = eval_fast_adv_test(model, device, train_loader)
+
+        current_score = trnacc + advacc
+        scheduler.step(current_score)
+
+        # 3. 时间统计
+        current_time = time.time()
+        epoch_duration = current_time - epoch_start_time
+        total_elapsed = current_time - global_start_time
+        avg_time = total_elapsed / epoch
+        eta = avg_time * (args.epochs - epoch)
+
+        print("-" * 105)
+        print(f"{'Epoch':<8} | {'Mode':<13} | {'Elapsed':<9} | {'ETA':<9} | {'Clean Acc':<10} | {'Val Rob':<10} | {'Score':<8}")
+
+        # 打印状态
+        # Mode 列会显示当前是在 "Rob_Focus" 还是 "Clean_Rec"
+        if current_score > best_score:
+            best_score = current_score
+            best_epoch = epoch
+            torch.save(model.state_dict(), str(id_) + '.pt')
+            print(f"{epoch}/{args.epochs:<6} | "
+                  f"{mode_str:<13} | "
+                  f"{format_time(total_elapsed):<9} | "
+                  f"{format_time(eta):<9} | "
+                  f"{trnacc * 100:.2f}%     | "
+                  f"{advacc * 100:.2f}%    | "
+                  f"{current_score:.4f}\t\t>>> [New Best] Score: {best_score:.4f} (Weights: C={cw}, A={aw})")
+        else :
+            print(f"{epoch}/{args.epochs:<6} | "
+                  f"{mode_str:<13} | "
+                  f"{format_time(total_elapsed):<9} | "
+                  f"{format_time(eta):<9} | "
+                  f"{trnacc * 100:.2f}%     | "
+                  f"{advacc * 100:.2f}%    | "
+                  f"{current_score:.4f}")
+
+    print('=' * 105)
+    print(f'Training Completed in {format_time(time.time() - global_start_time)}')
+    print(f'Best Epoch: {best_epoch} (Score: {best_score:.4f})')
+    return model
+
+
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################
+#############################################################################

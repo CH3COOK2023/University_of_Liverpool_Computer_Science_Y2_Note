@@ -1,0 +1,13 @@
+我的设计思路：
+
+旅客 Traveller：旅客姓名、护照号码、出生日期
+客户Client：姓名、地址，LinkedHashSet<Reservation> 
+
+================父类==============
+Reservation：预订号码、客户、LinkedHashSet<Traveller>（里面包含这个Reservation的所有旅客）
+=================================
+飞机票（航空公司）预定 AirlineReservation：航空公司、航班号、座位等级、旅行日期和时间
+酒店预定 HotelReservation：房间类型（单人房、单人房、双人房）、开始日期和结束日期、酒店的名称、地址
+租车预定CarRentalReservation ：申请车辆类型、开始日期、租赁日期以及驾驶证号码
+旅游保险预定InsuranceReservation：起始日期、结束日期以及保障等级，包括铜、银或金
+

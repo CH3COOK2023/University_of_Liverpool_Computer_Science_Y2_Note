@@ -1,0 +1,11 @@
+# Round 1: pairwise DH
+K_AB = pow(B, a, p)   # = g^(ab); Bob verifies: pow(A, b, p)
+K_CD = pow(D, c, p)   # = g^(cd); Dave verifies: pow(C, d, p)
+
+# Round 2: cross-exchange
+K_alice = pow(pow(K_AB, c, p), d, p)  # (g^ab)^c^d = g^(abcd)
+K_bob   = pow(pow(K_AB, c, p), d, p)
+K_carol = pow(pow(K_CD, a, p), b, p)  # (g^cd)^a^b = g^(abcd)
+K_dave  = pow(pow(K_CD, a, p), b, p)
+
+assert K_alice == K_bob == K_carol == K_dave  # all match

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COMP202 — Algorithm Animation Demos</title>
+<style>
+:root {
+  --bg: #0a0a12;
+  --surface: #131320;
+  --border: #1e1e32;
+  --text: #d0d0e0;
+  --accent: #ff6b6b;
+  --accent2: #4ecdc4;
+  --gold: #ffd93d;
+  --dim: #555;
+  --radius: 10px;
+  --font-display: 'Georgia', 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: var(--font-mono);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 20%, #ff6b6b08 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, #4ecdc408 0%, transparent 50%);
+}
+
+/* ── Tab Nav ── */
+nav.tabs {
+  display:flex; justify-content:center; gap:0; padding:24px 16px 0;
+  position: sticky; top:0; z-index:10; backdrop-filter: blur(16px);
+}
+.tab-btn {
+  padding: 12px 36px; border: 2px solid var(--border); border-bottom: none;
+  background: var(--surface); color: var(--dim); cursor: pointer;
+  font-family: var(--font-display); font-size: 16px; font-weight: bold;
+  border-radius: var(--radius) var(--radius) 0 0;
+  transition: all 0.25s; margin: 0 -1px;
+}
+.tab-btn:hover { color: var(--text); border-color: #333; }
+.tab-btn.active {
+  color: var(--accent); border-color: var(--accent);
+  background: var(--bg); position: relative; z-index: 1;
+  box-shadow: 0 -4px 20px #ff6b6b22;
+}
+
+/* ── Sections ── */
+.section { display:none; max-width:800px; margin:0 auto; padding:20px 16px 40px; }
+.section.active { display:block; }
+.section h2 { font-family: var(--font-display); font-size: 24px; margin-bottom:4px; color: var(--accent); text-align:center; }
+.section .subtle { text-align:center; color: var(--dim); font-size:12px; margin-bottom:24px; }
+
+/* ── SVG Tree ── */
+svg#treeSvg { display:block; margin:10px auto; }
+
+/* ── Array Viz ── */
+.arr-row { display:flex; gap:6px; margin:16px 0; flex-wrap:wrap; justify-content:center; align-items:center; }
+.cell {
+  width:44px; height:44px; border:1px solid var(--border); border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; font-weight:bold; font-family: var(--font-mono);
+  background: var(--surface); transition: all 0.35s;
+}
+.cell.scan { border-color: var(--accent); background: #ff6b6b18; box-shadow: 0 0 14px #ff6b6b44; transform: translateY(-4px); }
+.cell.found { border-color: #4f4; background: #0f4120; transform: scale(1.15); }
+.cell.gone { border-color: var(--dim); opacity:0.25; text-decoration:line-through; }
+.cell.tail { border-color: var(--gold); background: #ffd93d18; animation: pulse 0.7s infinite; }
+
+/* ── DP Table ── */
+.dp-table { margin:16px auto; overflow-x:auto; display:flex; justify-content:center; }
+.dp-table table { border-collapse:collapse; font-size:12px; }
+.dp-table th, .dp-table td {
+  width:62px; height:36px; text-align:center; border:1px solid var(--border);
+  font-family: var(--font-mono); transition: all 0.4s;
+}
+.dp-table th { background: var(--surface); color: var(--accent2); font-size:10px; }
+.dp-table td { background: var(--bg); color: var(--dim); }
+.dp-table td.computed { background: #4ecdc418; color: var(--accent2); font-weight:bold; }
+.dp-table td.current { background: #ff6b6b22; border-color: var(--accent); box-shadow: inset 0 0 12px #ff6b6b33; }
+.dp-table td.answer { background: #ffd93d22; border-color: var(--gold); color: var(--gold); font-size:15px; }
+.dp-table td.skip-src { background: #ff6b6b22 !important; border: 2px dashed #ff6b6b !important; color: #ff6b6b !important; animation: srcPulse 0.8s; }
+.dp-table td.take-src { background: #4ecdc422 !important; border: 2px dashed #4ecdc4 !important; color: #4ecdc4 !important; animation: srcPulse 0.8s; }
+@keyframes srcPulse { 0% { transform:scale(0.85); } 50% { transform:scale(1.1); } 100% { transform:scale(1); } }
+
+.item-row { display:flex; gap:10px; margin:12px 0; flex-wrap:wrap; justify-content:center; }
+.item-card {
+  padding:8px 14px; border-radius:6px; border:1px solid var(--border);
+  background: var(--surface); font-size:12px; text-align:center; transition:all 0.3s;
+}
+.item-card.selected { border-color: var(--gold); background: #ffd93d15; }
+.item-card.rejected { opacity:0.25; text-decoration:line-through; }
+
+/* ── Controls & Log ── */
+.controls { display:flex; gap:12px; margin:20px 0; justify-content:center; flex-wrap:wrap; }
+.btn { padding:10px 24px; border:none; border-radius:6px; cursor:pointer; font-size:14px; font-weight:bold; font-family:var(--font-mono); transition:all 0.2s; }
+.btn-next { background: var(--accent); color:#fff; }
+.btn-next:hover:not(:disabled) { background:#ff8787; transform:translateY(-1px); }
+.btn-next:disabled { background:#333; color:#666; cursor:not-allowed; }
+.btn-reset { background: transparent; color: var(--dim); border:1px solid var(--border); }
+.btn-reset:hover { border-color: var(--text); color: var(--text); }
+.btn-auto { background: transparent; color: var(--accent2); border:1px solid var(--accent2); }
+.btn-auto:hover { background: #4ecdc415; }
+
+.step-text { text-align:center; color: var(--accent); font-weight:bold; font-size:14px; min-height:22px; margin:8px 0; }
+
+.log { max-width:650px; margin:12px auto; max-height:160px; overflow-y:auto; padding:0 8px; }
+.log-entry {
+  padding:6px 14px; margin:3px 0; background: var(--surface); border-radius:4px;
+  font-size:12px; border-left:3px solid var(--border); animation: fadeIn 0.3s;
+}
+.log-entry.hot { border-left-color: var(--accent); }
+@keyframes fadeIn { from { opacity:0; transform: translateY(-6px); } }
+@keyframes pulse { 0%,100% { box-shadow:0 0 4px #ffd93d44; } 50% { box-shadow:0 0 18px #ffd93d88; } }
+
+.legend { display:flex; gap:16px; justify-content:center; font-size:10px; color:var(--dim); margin:8px 0; flex-wrap:wrap; }
+.legend span { display:flex; align-items:center; gap:4px; }
+.legend .dot { width:10px; height:10px; border-radius:2px; display:inline-block; }
+
+.items-panel {
+  max-width:600px; margin:16px auto; padding:16px; background:var(--surface);
+  border-radius:var(--radius); border:1px solid var(--border);
+  text-align:center; font-size:13px;
+}
+.items-panel .val { color: var(--accent); font-weight:bold; }
+.items-panel .wgt { color: var(--accent2); }
+
+/* Bellman-Ford */
+.bf-table-wrap { overflow-x:auto; }
+.bf-table-wrap table { border-collapse:collapse; margin:0 auto; font-size:12px; }
+.bf-table-wrap th { background:var(--surface); color:var(--accent2); padding:6px 12px; border:1px solid var(--border); }
+.bf-table-wrap td { padding:6px 12px; text-align:center; border:1px solid var(--border); font-family:var(--font-mono); transition:all 0.4s; background:var(--bg); }
+.bf-table-wrap td.updated { background:#4ecdc422; color:var(--accent2); font-weight:bold; animation:flash 0.5s; }
+.bf-table-wrap td.final { background:#ffd93d18; color:var(--gold); font-weight:bold; }
+@keyframes flash { 0% { background:#ff6b6b44; } 100% { background:#4ecdc422; } }
+</style>
+</head>
+<body>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="switchTab('heap')">Sec 1 · Heap remove</button>
+  <button class="tab-btn" onclick="switchTab('knapsack')">Sec 2 · 0-1 Knapsack</button>
+  <button class="tab-btn" onclick="switchTab('bellman')">Sec 3 · Bellman-Ford</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════  HEAP SECTION  ═══════════════════ -->
+<section class="section active" id="sec-heap">
+<h2>Heap — remove(obj) 为什么是 O(n)</h2>
+<p class="subtle">堆: [19, 18, 17, 15, 11, 10, 6, 7, 10, 6] &nbsp;|&nbsp; 目标: 删除值 7</p>
+<svg id="treeSvg" width="700" height="320"></svg>
+<div class="arr-row" id="arrViz"></div>
+<p class="step-text" id="heapStepText"></p>
+<div class="controls">
+  <button class="btn btn-next" id="heapBtnNext" onclick="heapNextStep()">下一步 →</button>
+  <button class="btn btn-auto" onclick="heapAutoPlay()">自动播放</button>
+  <button class="btn btn-reset" onclick="heapReset()">重置</button>
+</div>
+<div class="log" id="heapLog"></div>
+<div class="legend">
+  <span><span class="dot" style="background:var(--accent)"></span> 扫描中</span>
+  <span><span class="dot" style="background:#4f4"></span> 找到</span>
+  <span><span class="dot" style="background:var(--gold)"></span> 末尾元素</span>
+  <span><span class="dot" style="background:var(--dim)"></span> 已删</span>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════  KNAPSACK SECTION  ═══════════════════ -->
+<section class="section" id="sec-knapsack">
+<h2>0-1 Knapsack — Dynamic Programming</h2>
+<p class="subtle">5 items &nbsp;|&nbsp; Benefits: [42, 21, 22, 36, 9] &nbsp;|&nbsp; Weights: [6, 3, 4, 5, 2] &nbsp;|&nbsp; W = 10 &nbsp;|&nbsp; 最优 = <span style="color:var(--gold)">71</span></p>
+
+<div class="items-panel" id="itemsPanel"></div>
+
+<div class="dp-table" id="dpTable"></div>
+<p class="step-text" id="knapStepText"></p>
+
+<div class="controls">
+  <button class="btn btn-next" id="knapBtnNext" onclick="knapNextStep()">下一步 →</button>
+  <button class="btn btn-auto" onclick="knapAutoPlay()">自动播放</button>
+  <button class="btn btn-reset" onclick="knapReset()">重置</button>
+</div>
+<div class="log" id="knapLog"></div>
+<div class="legend">
+  <span><span class="dot" style="background:var(--accent)"></span> 正在计算</span>
+  <span><span class="dot" style="background:var(--accent2);opacity:0.4"></span> 已计算</span>
+  <span><span class="dot" style="background:var(--gold)"></span> 最终答案</span>
+  <span><span class="dot" style="background:var(--accent);opacity:0.3;border:1px dashed var(--accent)"></span> 跳过源 B[k-1][w]</span>
+  <span><span class="dot" style="background:var(--accent2);opacity:0.3;border:1px dashed var(--accent2)"></span> 选入源 b_k+B[k-1][w-w_k]</span>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════  BELLMAN-FORD SECTION  ═══════════════════ -->
+<section class="section" id="sec-bellman">
+<h2>Bellman-Ford — Single-Source Shortest Paths</h2>
+<p class="subtle">6 vertices A–F &nbsp;|&nbsp; 9 directed edges (含负权) &nbsp;|&nbsp; Source: A &nbsp;|&nbsp; 5 passes</p>
+
+<svg id="bfSvg" width="700" height="380" style="display:block;margin:0 auto;"></svg>
+
+<div class="controls" style="margin:8px 0;">
+  <span style="color:var(--dim);font-size:12px;">Pass <span id="bfPassNum" style="color:var(--accent);font-weight:bold;">0</span>/5 &nbsp;|&nbsp;</span>
+  <span style="color:var(--dim);font-size:12px;">Edges relaxed: <span id="bfEdgeCount" style="color:var(--accent2);">0/9</span></span>
+</div>
+
+<p class="step-text" id="bfStepText"></p>
+
+<div class="bf-table-wrap" id="bfTable" style="margin:10px auto;max-width:550px;"></div>
+
+<div class="controls">
+  <button class="btn btn-next" id="bfBtnNext" onclick="bfNextStep()">下一步 →</button>
+  <button class="btn btn-auto" onclick="bfAutoPlay()">自动播放</button>
+  <button class="btn btn-reset" onclick="bfReset()">重置</button>
+</div>
+<div class="log" id="bfLog"></div>
+<div class="legend">
+  <span><span class="dot" style="background:var(--accent)"></span> 正在放松的边</span>
+  <span><span class="dot" style="background:var(--accent2)"></span> 距离被更新</span>
+  <span><span class="dot" style="background:var(--gold)"></span> 最终最短路径</span>
+</div>
+</section>
+
+<script>
+// ═══════════════════════  TAB SWITCHING  ═══════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i) => {
+    const tabNames = ['heap','knapsack','bellman'];
+    b.classList.toggle('active', tabNames[i] === tab);
+  });
+  ['heap','knapsack','bellman'].forEach(t => {
+    document.getElementById('sec-'+t).classList.toggle('active', t===tab);
+  });
+}
+
+// ═══════════════════════  HEAP DEMO  ═══════════════════
+const H = { arr:[19,18,17,15,11,10,6,7,10,6], targetIdx:7, step:0, scan:-1, found:false, gone:false };
+
+function heapGetPositions(arr) {
+  const pos = [];
+  for (let i=0; i<arr.length; i++) {
+    const lvl = Math.floor(Math.log2(i+1));
+    const first = Math.pow(2,lvl)-1, inLvl = i-first, nInLvl = Math.pow(2,lvl);
+    pos.push({x:350+(inLvl-(nInLvl-1)/2)*(650/(nInLvl+1)), y:50+lvl*70, lvl});
+  }
+  return pos;
+}
+
+function heapRender() {
+  const a = H.arr, pos = heapGetPositions(a);
+  let svg = '';
+  // edges
+  for (let i=1; i<a.length; i++) {
+    const p = Math.floor((i-1)/2);
+    let c = '#1e1e32', w = 2;
+    if (H.gone && i===H.targetIdx) { c='#333'; w=1; }
+    else if (H.found && i===H.targetIdx) { c='#4f42'; }
+    else if (H.scan===i) { c='#ff6b6b88'; w=2.5; }
+    svg += `<line x1="${pos[p].x}" y1="${pos[p].y}" x2="${pos[i].x}" y2="${pos[i].y}" stroke="${c}" stroke-width="${w}"/>`;
+  }
+  // nodes
+  for (let i=0; i<a.length; i++) {
+    const p = pos[i];
+    let fill='#131320', stroke='#1e1e32', sw=2, tc='#d0d0e0', op=1;
+    if (H.gone && i===H.targetIdx) { fill='#1a1a12'; stroke='#555'; op=0.3; tc='#555'; }
+    else if (H.found && i===H.targetIdx) { fill='#0f4120'; stroke='#4f4'; sw=3; }
+    else if (H.scan===i) { fill='#ff6b6b18'; stroke='#ff6b6b'; sw=3; }
+    else if (H.step>=12 && i===a.length-1) { fill='#ffd93d18'; stroke='var(--gold)'; sw=2.5; }
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="22" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" opacity="${op}"/>`;
+    svg += `<text x="${p.x}" y="${p.y}" text-anchor="middle" dy="5" fill="${tc}" font-size="15" font-weight="bold" opacity="${op}">${a[i]}</text>`;
+  }
+  document.getElementById('treeSvg').innerHTML = svg;
+
+  // array
+  let ah = '';
+  for (let i=0; i<a.length; i++) {
+    let cls = 'cell';
+    if (H.gone && i===H.targetIdx) cls+=' gone';
+    else if (H.found && i===H.targetIdx) cls+=' found';
+    else if (H.scan===i) cls+=' scan';
+    else if (H.step>=12 && i===a.length-1) cls+=' tail';
+    ah += `<div class="${cls}">${a[i]}</div>`;
+  }
+  document.getElementById('arrViz').innerHTML = ah;
+}
+
+function heapLog(msg, hot=false) {
+  const d = document.createElement('div');
+  d.className = 'log-entry' + (hot?' hot':'');
+  d.textContent = msg;
+  document.getElementById('heapLog').appendChild(d);
+  document.getElementById('heapLog').scrollTop = document.getElementById('heapLog').scrollHeight;
+}
+
+const heapSteps = [
+  ()=>{ H.scan=0; H.step++; heapLog('扫描 i=0: 19 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 0 → 19 ≠ 7'; },
+  ()=>{ H.scan=1; H.step++; heapLog('扫描 i=1: 18 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 1 → 18 ≠ 7'; },
+  ()=>{ H.scan=2; H.step++; heapLog('扫描 i=2: 17 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 2 → 17 ≠ 7'; },
+  ()=>{ H.scan=3; H.step++; heapLog('扫描 i=3: 15 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 3 → 15 ≠ 7'; },
+  ()=>{ H.scan=4; H.step++; heapLog('扫描 i=4: 11 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 4 → 11 ≠ 7'; },
+  ()=>{ H.scan=5; H.step++; heapLog('扫描 i=5: 10 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 5 → 10 ≠ 7'; },
+  ()=>{ H.scan=6; H.step++; heapLog('扫描 i=6: 6 ≠ 7', true); document.getElementById('heapStepText').textContent='扫描 index 6 → 6 ≠ 7'; },
+  ()=>{ H.scan=7; H.found=true; H.step++; heapLog('✅ 扫描 i=7: 7 == 7 找到！扫描 8 次 = O(n)', true); document.getElementById('heapStepText').textContent='找到！heap[7]=7，共扫描 8 次 = O(n)'; },
+  ()=>{ H.scan=-1; H.step++; heapLog('搜索阶段结束 — O(n)', true); document.getElementById('heapStepText').textContent='搜索耗时 O(n)，开始调整堆...'; },
+  ()=>{ H.step++; heapLog('末尾元素 heap[9]=6 移到 heap[7]', true); document.getElementById('heapStepText').textContent='用末尾元素 6 替换被删的 7'; },
+  ()=>{ H.arr[H.targetIdx]=H.arr[H.arr.length-1]; H.arr.pop(); H.gone=true; H.step++; heapLog(`替换后: [${H.arr.join(',')}]`, true); document.getElementById('heapStepText').textContent='删除末尾 — 堆从 10 个变成 9 个元素'; },
+  ()=>{ H.step++; const p=Math.floor((H.targetIdx-1)/2); heapLog(`检查堆序: ${H.arr[H.targetIdx]} < 父 ${H.arr[p]} ✓ 无需调整`, true); heapLog('6 是叶子，无孩子，无需下滤',true); document.getElementById('heapStepText').textContent='堆序检查: 父节点 OK，无孩子 → O(log n)'; },
+  ()=>{ H.step++; heapLog('✅ remove(7) 完成！O(n)+O(log n)=O(n)', true); heapLog('🔑 核心: 堆不是有序数组 → 无法二分查找 → 只能 O(n) 线性扫描', true); document.getElementById('heapStepText').textContent='✅ 完成！remove(obj) = O(n)'; document.getElementById('heapBtnNext').disabled=true; },
+];
+
+function heapNextStep() {
+  if (H.step < heapSteps.length) { heapSteps[H.step](); heapRender(); }
+}
+function heapReset() {
+  H.arr=[19,18,17,15,11,10,6,7,10,6]; H.step=0; H.scan=-1; H.found=false; H.gone=false;
+  document.getElementById('heapLog').innerHTML='';
+  document.getElementById('heapStepText').textContent='';
+  document.getElementById('heapBtnNext').disabled=false;
+  heapRender();
+  heapLog(`堆: [${H.arr.join(',')}]  |  目标: 删除值 7`, true);
+}
+let heapAutoTimer = null;
+function heapAutoPlay() {
+  if (heapAutoTimer) { clearInterval(heapAutoTimer); heapAutoTimer=null; return; }
+  heapAutoTimer = setInterval(()=>{
+    if (H.step >= heapSteps.length || document.getElementById('heapBtnNext').disabled) { clearInterval(heapAutoTimer); heapAutoTimer=null; return; }
+    heapNextStep();
+  }, 600);
+}
+
+// ═══════════════════════  0-1 KNAPSACK DEMO  ═══════════════════
+const K = {
+  benefits: [0, 42, 21, 22, 36, 9],
+  weights:  [0, 6, 3, 4, 5, 2],
+  n: 5, W: 10,
+  table: [],
+  step: 0, totalSteps: 0,
+  currentK: 0, currentW: 0,    // cell being computed
+  skipKey: null, takeKey: null, // source cells being compared: {k,w} each
+  computed: new Set(),
+  answerCell: null,
+  backtrack: [],
+};
+
+function knapInitTable() {
+  K.table = [];
+  for (let k=0; k<=K.n; k++) {
+    K.table[k] = new Array(K.W+1).fill(null);
+    for (let w=0; w<=K.W; w++) K.table[k][w] = 0;
+  }
+  K.computed = new Set();
+  K.computed.add('0,all'); // row 0 all computed (B[0,w]=0)
+  K.answerCell = null;
+  K.backtrack = [];
+}
+
+function knapRenderItems() {
+  const panel = document.getElementById('itemsPanel');
+  let h = '<div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">';
+  for (let i=1; i<=K.n; i++) {
+    const sel = K.backtrack.includes(i);
+    const rej = K.backtrack.length > 0 && !sel && K.step >= K.totalSteps - 1;
+    let cls = 'item-card';
+    if (sel) cls += ' selected';
+    else if (rej) cls += ' rejected';
+    h += `<div class="${cls}">item ${i}<br><span class="val">b=${K.benefits[i]}</span> <span class="wgt">w=${K.weights[i]}</span>${sel?'<br>✓ 选入':''}${rej?'<br>✗':''}</div>`;
+  }
+  h += '</div>';
+  panel.innerHTML = h;
+}
+
+function knapRenderTable() {
+  const container = document.getElementById('dpTable');
+  let h = '<table><thead><tr><th>k\\w</th>';
+  for (let w=0; w<=K.W; w++) h += `<th>w=${w}</th>`;
+  h += '</tr></thead><tbody>';
+
+  for (let k=0; k<=K.n; k++) {
+    h += `<tr><th>k=${k}${k>0?` (b=${K.benefits[k]},w=${K.weights[k]})`:''}</th>`;
+    for (let w=0; w<=K.W; w++) {
+      let cls = '';
+      const key = `${k},${w}`;
+      if (K.answerCell && k===K.n && w===K.W) cls += ' answer';
+      else if (K.currentK===k && K.currentW===w) cls += ' current';
+      else if (K.computed.has(key)) cls += ' computed';
+      else if (K.computed.has(`${k},all`)) cls += ' computed';
+      // highlight source cells being compared
+      if (K.skipKey && K.skipKey.k===k && K.skipKey.w===w) cls += ' skip-src';
+      if (K.takeKey && K.takeKey.k===k && K.takeKey.w===w) cls += ' take-src';
+      const val = K.table[k][w];
+      h += `<td class="${cls}">${val !== null ? val : ''}</td>`;
+    }
+    h += '</tr>';
+  }
+  h += '</tbody></table>';
+  container.innerHTML = h;
+}
+
+function knapLog(msg, hot=false) {
+  const d = document.createElement('div');
+  d.className = 'log-entry' + (hot?' hot':'');
+  d.textContent = msg;
+  document.getElementById('knapLog').appendChild(d);
+  document.getElementById('knapLog').scrollTop = document.getElementById('knapLog').scrollHeight;
+}
+
+// Build all steps upfront
+function knapBuildSteps() {
+  const steps = [];
+  // Row 0
+  for (let w=0; w<=K.W; w++) {
+    steps.push(()=>{
+      K.currentK=0; K.currentW=w;
+      K.table[0][w]=0; K.computed.add(`0,${w}`);
+      knapLog(`初始化 B[0][${w}] = 0`, true);
+      document.getElementById('knapStepText').textContent=`初始化: B[0][${w}] = 0`;
+    });
+  }
+
+  // Fill table row by row
+  for (let k=1; k<=K.n; k++) {
+    for (let w=0; w<=K.W; w++) {
+      ((k,w) => {
+        steps.push(()=>{
+          K.currentK=k; K.currentW=w;
+          if (K.weights[k] > w) {
+            K.skipKey = {k:k-1, w:w}; K.takeKey = null;
+            K.table[k][w] = K.table[k-1][w];
+            knapLog(`B[${k}][${w}]: w_${k}=${K.weights[k]} > w=${w} → 装不下 → 继承 B[${k-1}][${w}] = ${K.table[k][w]}`, true);
+            document.getElementById('knapStepText').textContent=`B[${k}][${w}]: 装不下 item ${k} → 继承 B[${k-1}][${w}]=${K.table[k][w]}`;
+          } else {
+            const skip = K.table[k-1][w];
+            const take = K.benefits[k] + K.table[k-1][w - K.weights[k]];
+            K.skipKey = {k:k-1, w:w};
+            K.takeKey = {k:k-1, w:w - K.weights[k]};
+            K.table[k][w] = Math.max(skip, take);
+            const choice = K.table[k][w] === take ? '选入' : '跳过';
+            knapLog(`B[${k}][${w}]: max(跳过=${skip}, 选入=${K.benefits[k]}+B[${k-1}][${w-K.weights[k]}]=${take}) = ${K.table[k][w]} → ${choice}`, true);
+            document.getElementById('knapStepText').textContent=`B[${k}][${w}]: max(${skip}, ${take}) = ${K.table[k][w]} → ${choice}`;
+          }
+          K.computed.add(`${k},${w}`);
+        });
+      })(k,w);
+    }
+  }
+
+  // Highlight answer
+  steps.push(()=>{
+    K.answerCell = true;
+    K.currentK=-1; K.currentW=-1; K.skipKey=null; K.takeKey=null;
+    knapLog(`✅ 最优解: B[5][10] = ${K.table[K.n][K.W]}`, true);
+    document.getElementById('knapStepText').textContent=`DP 表完成！最优 = B[5][10] = ${K.table[K.n][K.W]}`;
+  });
+
+  // Backtrack
+  steps.push(()=>{
+    knapLog('回溯找方案...', true);
+    document.getElementById('knapStepText').textContent='回溯: 从 B[5][10] 倒推选哪些物品';
+    let k=K.n, w=K.W;
+    while (k>0) {
+      if (K.weights[k] <= w && K.table[k][w] !== K.table[k-1][w]) {
+        K.backtrack.push(k);
+        w -= K.weights[k];
+      }
+      k--;
+    }
+    K.backtrack.reverse();
+    const totalB = K.backtrack.reduce((s,i)=>s+K.benefits[i], 0);
+    knapLog(`选中 items: [${K.backtrack.join(', ')}], 总价值=${totalB}, 总重=${K.backtrack.reduce((s,i)=>s+K.weights[i],0)}`, true);
+    document.getElementById('knapStepText').textContent=`方案: items [${K.backtrack.join(', ')}], benefit=${totalB}`;
+  });
+
+  // Complexity
+  steps.push(()=>{
+    knapLog(`复杂度: 外层 n=${K.n} × 内层 W=${K.W} = O(nW) = O(${K.n*K.W})`, true);
+    knapLog('🔑 DP 表有 (n+1)×(W+1) = 6×11 = 66 个格子，每个 O(1) → 总计 O(nW)', true);
+    document.getElementById('knapStepText').textContent='✅ 完成！运行时间 O(nW) = O(50)';
+    document.getElementById('knapBtnNext').disabled=true;
+  });
+
+  return steps;
+}
+
+let knapSteps = [];
+function knapInit() {
+  knapInitTable();
+  knapSteps = knapBuildSteps();
+  K.step = 0; K.currentK = -1; K.currentW = -1; K.skipKey = null; K.takeKey = null; K.answerCell = null; K.backtrack = [];
+  document.getElementById('knapLog').innerHTML = '';
+  document.getElementById('knapStepText').textContent = '';
+  document.getElementById('knapBtnNext').disabled = false;
+  knapRenderTable();
+  knapRenderItems();
+  knapLog(`0-1 Knapsack: n=${K.n} items, W=${K.W}`, true);
+  knapLog(`B[k][w] = max(B[k-1][w], b_k + B[k-1][w-w_k])`, true);
+}
+
+function knapNextStep() {
+  if (K.step < knapSteps.length) { knapSteps[K.step](); K.step++; knapRenderTable(); knapRenderItems(); }
+}
+function knapReset() { knapInit(); }
+
+let knapAutoTimer = null;
+function knapAutoPlay() {
+  if (knapAutoTimer) { clearInterval(knapAutoTimer); knapAutoTimer=null; return; }
+  knapAutoTimer = setInterval(()=>{
+    if (K.step >= knapSteps.length || document.getElementById('knapBtnNext').disabled) { clearInterval(knapAutoTimer); knapAutoTimer=null; return; }
+    knapNextStep();
+  }, 150);
+}
+
+// ═══════════════════════  BELLMAN-FORD DEMO  ═══════════════════
+const BF = {
+  vertices: ['A','B','C','D','E','F'],
+  edges: [
+    {from:0, to:1, w:6}, {from:0, to:2, w:4}, {from:0, to:3, w:5},
+    {from:1, to:4, w:-1}, {from:2, to:1, w:-2}, {from:2, to:4, w:3},
+    {from:3, to:2, w:-2}, {from:3, to:5, w:-1}, {from:4, to:5, w:3}
+  ],
+  source: 0, // A
+  dist: [],   // current distances
+  prev: [],   // predecessors
+  passes: [], // all pass history: [{edgeIdx, from, to, w, oldDist, newDist, changed}]
+  passNum: 0,
+  edgeIdxInPass: 0,
+  currentEdge: null,
+  finalDist: [],
+  n: 6,
+  step: 0,
+  done: false,
+};
+
+function bfInit() {
+  BF.dist = [0, Infinity, Infinity, Infinity, Infinity, Infinity];
+  BF.prev = ['-','-','-','-','-','-'];
+  BF.passes = [];
+  BF.passNum = 0;
+  BF.edgeIdxInPass = 0;
+  BF.currentEdge = null;
+  BF.done = false;
+  BF.step = 0;
+
+  // Pre-compute all passes
+  const d = [0, Infinity, Infinity, Infinity, Infinity, Infinity];
+  const p = ['-','-','-','-','-','-'];
+  for (let pass=1; pass<=BF.n-1; pass++) {
+    let anyChange = false;
+    for (let ei=0; ei<BF.edges.length; ei++) {
+      const e = BF.edges[ei];
+      const oldD = d[e.to];
+      if (d[e.from] !== Infinity && d[e.from] + e.w < d[e.to]) {
+        d[e.to] = d[e.from] + e.w;
+        p[e.to] = BF.vertices[e.from];
+        anyChange = true;
+      }
+      BF.passes.push({
+        pass, edgeIdx:ei, from:e.from, to:e.to, w:e.w,
+        oldDist: oldD === Infinity ? '∞' : oldD,
+        newDist: d[e.to],
+        changed: d[e.to] !== oldD
+      });
+    }
+    if (!anyChange) break;
+  }
+  BF.finalDist = [...d];
+}
+
+function bfNodePositions() {
+  // Arrange vertices in a rough hexagon layout
+  const cx=350, cy=170, rx=200, ry=120;
+  // A=source top-left, B top-right, C middle-left, D middle-right, E bottom-left, F bottom-right
+  const offsets = [
+    {x:cx-120, y:cy-100}, // A (source, top left)
+    {x:cx+120, y:cy-100}, // B (top right)
+    {x:cx-140, y:cy-10},  // C (middle left)
+    {x:cx+140, y:cy-10},  // D (middle right)
+    {x:cx-120, y:cy+100}, // E (bottom left)
+    {x:cx+120, y:cy+100}, // F (bottom right)
+  ];
+  return offsets;
+}
+
+function bfRenderGraph() {
+  const pos = bfNodePositions();
+  let svg = '';
+
+  // Draw edges
+  for (let ei=0; ei<BF.edges.length; ei++) {
+    const e = BF.edges[ei], f = pos[e.from], t = pos[e.to];
+    let stroke = '#1e1e32', width = 2;
+    if (BF.currentEdge && BF.currentEdge.edgeIdx === ei) {
+      stroke = '#ff6b6b'; width = 3;
+    }
+    // Arrow
+    const dx = t.x - f.x, dy = t.y - f.y;
+    const len = Math.sqrt(dx*dx+dy*dy);
+    const ux = dx/len, uy = dy/len;
+    const sx = f.x + ux*28, sy = f.y + uy*28;
+    const ex = t.x - ux*28, ey = t.y - uy*28;
+    const arrowId = stroke === '#ff6b6b' ? 'arrowRed' : 'arrow';
+    svg += '<line x1="' + sx + '" y1="' + sy + '" x2="' + ex + '" y2="' + ey + '" stroke="' + stroke + '" stroke-width="' + width + '" marker-end="url(#' + arrowId + ')"/>';
+    // Weight label
+    const mx = (f.x+t.x)/2 + uy*18, my = (f.y+t.y)/2 - ux*18;
+    svg += `<text x="${mx}" y="${my}" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">${e.w}</text>`;
+  }
+
+  // Arrow markers
+  svg += `<defs><marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ff6b6b"/></marker><marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#1e1e32"/></marker></defs>`;
+
+  // Draw vertices
+  for (let i=0; i<BF.n; i++) {
+    const p = pos[i];
+    let fill = '#131320', stroke = '#1e1e32', sw = 2, tc = '#d0d0e0';
+    if (i === BF.source) { fill = '#ffd93d18'; stroke = '#ffd93d'; tc = '#ffd93d'; }
+    if (BF.done) { fill = '#4ecdc418'; stroke = '#4ecdc4'; tc = '#4ecdc4'; }
+    const d = BF.dist[i];
+    const label = d === Infinity ? '∞' : d;
+    svg += `<circle cx="${p.x}" cy="${p.y}" r="28" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+    svg += `<text x="${p.x}" y="${p.y-4}" text-anchor="middle" fill="${tc}" font-size="18" font-weight="bold">${BF.vertices[i]}</text>`;
+    svg += `<text x="${p.x}" y="${p.y+14}" text-anchor="middle" fill="#888" font-size="11">${label}</text>`;
+  }
+
+  document.getElementById('bfSvg').innerHTML = svg;
+}
+
+function bfRenderTable() {
+  let h = '<table><thead><tr><th>Vertex</th>';
+  for (let pass=0; pass<=BF.passNum; pass++) h += `<th>Pass ${pass}</th>`;
+  h += '</tr></thead><tbody>';
+
+  for (let v=0; v<BF.n; v++) {
+    h += `<tr><th>${BF.vertices[v]}</th>`;
+
+    // Pass 0
+    let cls = '';
+    if (v === BF.source && BF.passNum >= 0) cls = ' final';
+    const d0 = v === BF.source ? '0' : '∞';
+    h += `<td class="${cls}">${d0}</td>`;
+
+    // Subsequent passes: use the distance at the END of each pass
+    for (let p=1; p<=BF.passNum; p++) {
+      // Find the last update for this vertex in this pass
+      let d = '—';
+      let isFinal = false;
+      for (let s=BF.passes.length-1; s>=0; s--) {
+        const ps = BF.passes[s];
+        if (ps.pass === p && ps.to === v) { d = BF.dist[v] === Infinity ? '∞' : ps.newDist; break; }
+      }
+      // If not found in this pass, carry over from previous
+      if (d === '—') {
+        for (let s=BF.passes.length-1; s>=0; s--) {
+          const ps = BF.passes[s];
+          if (ps.pass < p && ps.to === v) {
+            d = ps.changed ? (BF.finalDist[v] === Infinity ? '∞' : ps.newDist) : '—';
+            break;
+          }
+        }
+        if (d === '—') d = v === BF.source ? '0' : (p===1 ? '∞' : '—');
+      }
+      // Determine class
+      cls = '';
+      if (BF.passNum===BF.n-1 && BF.finalDist[v]!==Infinity) cls = ' final';
+      h += `<td class="${cls}">${d}</td>`;
+    }
+    h += '</tr>';
+  }
+  h += '</tbody></table>';
+  document.getElementById('bfTable').innerHTML = h;
+}
+
+function bfLog(msg, hot=false) {
+  const l = document.createElement('div');
+  l.className = 'log-entry' + (hot?' hot':'');
+  l.textContent = msg;
+  document.getElementById('bfLog').appendChild(l);
+  document.getElementById('bfLog').scrollTop = document.getElementById('bfLog').scrollHeight;
+}
+
+function bfNextStep() {
+  if (BF.done) return;
+  const ps = BF.passes[BF.step];
+  if (!ps) { bfFinish(); return; }
+
+  BF.currentEdge = {edgeIdx: ps.edgeIdx, from: ps.from, to: ps.to, w: ps.w};
+  BF.passNum = ps.pass;
+  BF.edgeIdxInPass = ps.edgeIdx;
+
+  // Apply update
+  if (ps.changed) {
+    BF.dist[ps.to] = ps.newDist;
+    BF.prev[ps.to] = BF.vertices[ps.from];
+    bfLog(`Pass ${ps.pass} · 放松 (${BF.vertices[ps.from]},${BF.vertices[ps.to]},${ps.w}): d[${BF.vertices[ps.from]}]=${BF.dist[ps.from]} + ${ps.w} = ${BF.dist[ps.from]+ps.w} < d[${BF.vertices[ps.to]}]=${ps.oldDist} → 更新为 ${ps.newDist}`, true);
+    document.getElementById('bfStepText').textContent = `放松 ${BF.vertices[ps.from]}→${BF.vertices[ps.to]} (${ps.w}): ${BF.dist[ps.from]}+${ps.w}=${BF.dist[ps.from]+ps.w} < ${ps.oldDist} → 更新!`;
+  } else if (BF.dist[ps.from] !== Infinity && BF.dist[ps.from] + ps.w < BF.dist[ps.to]) {
+    // First discovery from Infinity — also an update
+    BF.dist[ps.to] = ps.newDist;
+    BF.prev[ps.to] = BF.vertices[ps.from];
+    const oldDisplay = BF.dist[ps.to] === Infinity ? '∞' : BF.dist[ps.to];
+    bfLog(`Pass ${ps.pass} · 放松 (${BF.vertices[ps.from]},${BF.vertices[ps.to]},${ps.w}): d[${BF.vertices[ps.from]}]=${BF.dist[ps.from]} + ${ps.w} = ${BF.dist[ps.from]+ps.w} < d[${BF.vertices[ps.to]}] → 更新为 ${ps.newDist}`, true);
+    document.getElementById('bfStepText').textContent = `放松 ${BF.vertices[ps.from]}→${BF.vertices[ps.to]} (${ps.w}): 首次发现 → ${ps.newDist}`;
+  } else if (BF.dist[ps.from] !== Infinity && BF.dist[ps.from] + ps.w >= BF.dist[ps.to]) {
+    const sum = BF.dist[ps.from] + ps.w;
+    bfLog(`Pass ${ps.pass} · 放松 (${BF.vertices[ps.from]},${BF.vertices[ps.to]},${ps.w}): ${sum} ≥ d[${BF.vertices[ps.to]}]=${BF.dist[ps.to]} → 无变化`, false);
+    document.getElementById('bfStepText').textContent = `放松 ${BF.vertices[ps.from]}→${BF.vertices[ps.to]} (${ps.w}): ${sum} ≥ ${BF.dist[ps.to]} → 不变`;
+  } else {
+    bfLog(`Pass ${ps.pass} · 放松 (${BF.vertices[ps.from]},${BF.vertices[ps.to]},${ps.w}): d[${BF.vertices[ps.from]}] = ${BF.dist[ps.from] === Infinity?'∞':BF.dist[ps.from]} → 无法放松`, false);
+    document.getElementById('bfStepText').textContent = `放松 ${BF.vertices[ps.from]}→${BF.vertices[ps.to]} (${ps.w}): 源不可达`;
+  }
+
+  document.getElementById('bfPassNum').textContent = ps.pass;
+  document.getElementById('bfEdgeCount').textContent = `${ps.edgeIdx+1}/9`;
+
+  BF.step++;
+  bfRenderGraph();
+  bfRenderTable();
+
+  // Check if next step crosses a pass boundary
+  if (BF.step >= BF.passes.length) {
+    bfFinish();
+  } else if (BF.passes[BF.step] && BF.passes[BF.step].pass > ps.pass) {
+    bfLog(`─── Pass ${ps.pass} 完成 ───`, true);
+  }
+}
+
+function bfFinish() {
+  BF.done = true;
+  BF.currentEdge = null;
+  BF.dist = [...BF.finalDist];
+  bfRenderGraph();
+  bfRenderTable();
+  bfLog('✅ Bellman-Ford 完成！', true);
+  bfLog(`总运行时间: |V|=${BF.n} passes × |E|=9 edges = O(|V|·|E|) = O(nm)`, true);
+  bfLog('没有负权环 — 所有最短路径已找到。', true);
+  document.getElementById('bfStepText').textContent = '✅ 完成！5 passes, 45 relaxations, O(|V|·|E|)';
+  document.getElementById('bfBtnNext').disabled = true;
+  document.getElementById('bfPassNum').textContent = '5';
+}
+
+let bfAutoTimer = null;
+function bfAutoPlay() {
+  if (bfAutoTimer) { clearInterval(bfAutoTimer); bfAutoTimer=null; return; }
+  bfAutoTimer = setInterval(()=>{
+    if (BF.done || document.getElementById('bfBtnNext').disabled) { clearInterval(bfAutoTimer); bfAutoTimer=null; return; }
+    bfNextStep();
+  }, 400);
+}
+
+function bfReset() {
+  bfInit();
+  document.getElementById('bfLog').innerHTML = '';
+  document.getElementById('bfStepText').textContent = '';
+  document.getElementById('bfBtnNext').disabled = false;
+  document.getElementById('bfPassNum').textContent = '0';
+  document.getElementById('bfEdgeCount').textContent = '0/9';
+  bfRenderGraph();
+  bfRenderTable();
+  bfLog('Bellman-Ford: source=A, 6 vertices, 9 edges (含负权)', true);
+  bfLog(`每条边按固定顺序放松: AB→AC→AD→BE→CB→CE→DC→DF→EF`, true);
+  bfLog('共需 |V|-1 = 5 轮 (passes)，每轮放松全部 |E|=9 条边', true);
+}
+
+// ── Init ──
+heapRender();
+heapLog(`堆: [${H.arr.join(',')}]  |  目标: 删除 7`, true);
+knapInit();
+bfInit();
+bfRenderGraph();
+bfRenderTable();
+bfLog('Bellman-Ford: source=A, 6 vertices, 9 edges (含负权)', true);
+bfLog(`边放松顺序: AB→AC→AD→BE→CB→CE→DC→DF→EF`, true);
+bfLog('共需 |V|-1 = 5 轮 (passes)', true);
+</script>
+</body>
+</html>

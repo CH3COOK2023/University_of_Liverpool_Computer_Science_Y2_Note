@@ -1,0 +1,165 @@
+INSERT INTO Customers (first_name, last_name, birthday, c_id) VALUES
+('Alice', 'Brown', '2001-03-15', 1),
+('Ben', 'Thompson', '1992-07-21', 2),
+('Clara', 'Nguyen', '2000-08-22', 3),
+('David', 'Smith', '1999-05-30', 4),
+('Ella', 'Martinez', '1978-12-10', 5);
+
+INSERT INTO Employees (first_name, last_name, birthday, e_id) VALUES
+('Clara', 'Nguyen', '2000-08-22', 1),
+('Alice', 'Brown', '1990-02-11', 2),
+('William', 'Johnson', '2001-03-15', 3),
+('David', 'Smith', '1999-05-30', 4);
+
+INSERT INTO Deals (value,d_id) VALUES
+(700,1),
+(300,2);
+
+INSERT INTO TypesInDeals(d_id, type) VALUES
+(1,'Main'),
+(1,'Alcohol'),
+(1,'Side dish'),
+(2,'Drink'),
+(2,'Lunch'),
+(2,'Sweet');
+
+INSERT INTO Stock (amount,type,name) VALUES
+(5,'Drink','Milk'),
+(12,null,'Eggs'),
+(4,'Drink','Soda'),
+(3,null,'Butter'),
+(4,'Lunch','Sandwich'),
+(4,'Main','Chicken breast'),
+(8,'Sweet','Apple'),
+(15,'Sweet','Banana'),
+(4,'Drink','Orange juice'),
+(8,'Side dish','Spaghetti'),
+(12,'Drink','Coffee'),
+(9,'Drink','Tea'),
+(3,null,'Cereal'),
+(3,'Side dish','Fried rice'),
+(7,'Main','Steak'),
+(3,null,'Toilet paper'),
+(4,null,'Soap'),
+(20,'Alcohol','Beer'),
+(8,'Alcohol','Wine'),
+(7,'Lunch','Pasta salad'),
+(3,'Lunch','Sushi'),
+(5,'Main','Pizza'),
+(11,'Main','Pie'),
+(6,'Side dish','Potato'),
+(9,'Sweet','Chocolate');
+
+INSERT INTO Transactions (date,challenge,c_id, e_id, t_id) VALUES
+('2024-08-12',0,5,4,1),
+('2024-07-01',1,1,4,2),
+('2025-07-24',0,3,4,3),
+('2025-07-24',0,2,1,4),
+('2025-07-31',0,1,4,5),
+('2025-08-01',1,1,2,6),
+('2025-08-06',0,1,4,7),
+('2025-08-11',0,2,4,8),
+('2025-08-12',1,3,2,9),
+('2025-08-14',0,3,4,10),
+('2025-08-14',1,3,4,11),
+('2025-08-19',1,2,2,12),
+('2025-08-19',0,4,3,13),
+('2025-08-22',0,1,1,14),
+('2025-08-27',1,3,4,15),
+('2025-08-30',0,2,4,16),
+('2025-09-01',1,1,4,17);
+
+
+INSERT INTO ItemsInTransactions (name, cost, t_id) VALUES
+-- Transaction 1
+('Milk', 120, 1),
+('Eggs', 250, 1),
+('Butter', 230, 1),
+
+-- Transaction 2
+('Chicken breast', 540, 2),
+('Spaghetti', 150, 2),
+('Wine',500,2),
+
+-- Transaction 3
+('Sandwich', 350, 3),
+('Pasta salad', 400, 3),
+('Chocolate', 120, 3),
+('Banana',100,3),
+('Apple',140,3),
+('Soda', 100, 3),
+('Orange juice',240,3),
+('Coffee',480,3),
+('Tea',300,3),
+
+-- Transaction 4
+('Chicken breast', 540, 4),
+('Steak', 600, 4),
+('Spaghetti', 150, 4),
+
+-- Transaction 5
+('Tea', 200, 5),
+('Pie', 450, 5),
+('Apple', 80, 5),
+
+-- Transaction 6
+('Beer', 300, 6),
+('Wine', 500, 6),
+('Steak', 790, 6),
+('Potato', 250, 6),
+('Toilet paper', 380, 6),
+
+-- Transaction 7
+('Wine', 850, 7),
+('Pasta salad', 520, 7),
+
+-- Transaction 8
+('Pizza', 600, 8),
+('Soda', 100, 8),
+('Chocolate', 120, 8),
+
+-- Transaction 9
+('Beer', 300, 9),
+('Wine', 500, 9),
+('Steak', 790, 9),
+('Toilet paper', 380, 9),
+
+-- Transaction 10
+('Soap', 100, 10),
+('Toilet paper', 380, 10),
+
+-- Transaction 11
+('Beer', 300, 11),
+('Sandwich', 350, 11),
+
+-- Transaction 12
+('Fried rice', 450, 12),
+('Chicken breast', 540, 12),
+('Wine',800,12),
+('Beer',300,12),
+('Tea', 200, 12),
+('Pasta salad',400,12),
+('Apple',120,12),
+
+-- Transaction 13
+('Milk', 120, 13),
+('Cereal', 340, 13),
+('Banana', 110, 13),
+
+-- Transaction 14
+('Sushi', 620, 14),
+('Wine', 850, 14),
+
+-- Transaction 15
+('Apple', 80, 15),
+('Beer',300, 15),
+('Coffee', 480, 15),
+
+-- Transaction 16
+('Pasta salad', 520, 16),
+('Beer', 300, 16),
+
+-- Transaction 17
+('Steak', 790, 17),
+('Potato', 250, 17),
+('Wine', 850, 17);

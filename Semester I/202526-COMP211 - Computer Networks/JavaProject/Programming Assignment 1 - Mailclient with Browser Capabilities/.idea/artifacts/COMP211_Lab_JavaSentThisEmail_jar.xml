@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="COMP211-Lab-JavaSentThisEmail:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/COMP211_Lab_JavaSentThisEmail_jar</output-path>
+    <root id="archive" name="COMP211-Lab-JavaSentThisEmail.jar">
+      <element id="module-output" name="COMP211-Lab-JavaSentThisEmail" />
+    </root>
+  </artifact>
+</component>

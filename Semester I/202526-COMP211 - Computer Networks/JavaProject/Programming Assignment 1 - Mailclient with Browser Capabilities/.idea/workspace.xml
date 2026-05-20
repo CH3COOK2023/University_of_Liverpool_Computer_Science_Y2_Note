@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="COMP211-Lab-JavaSentThisEmail:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c052ec58-ac5f-4350-8437-ab8bb69da338" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP201 - Software Engineering I/笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../202526-COMP201 - Software Engineering I/笔记.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP201 - Software Engineering I/课件资料/Week2-4 Requirements Analysis/SE_L006.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP201 - Software Engineering I/课件资料/Week2-4 Requirements Analysis/SE_L007_L008.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP201 - Software Engineering I/课件资料/Week2-4 Requirements Analysis/SE_L009.pptx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP207 - Database Development/MySQL基本操作.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../202526-COMP207 - Database Development/MySQL基本操作.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../202526-COMP207 - Database Development/笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../202526-COMP207 - Database Development/笔记.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/HTTPInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/HTTPInteraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/SMTPInteraction.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/SMTPInteraction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COMP211-Lab-JavaSentThisEmail/HTTPInteraction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COMP211-Lab-JavaSentThisEmail/HTTPInteraction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/COMP211-Lab-JavaSentThisEmail/SMTPInteraction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/COMP211-Lab-JavaSentThisEmail/SMTPInteraction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../笔记.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../笔记.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../课程说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../课程说明.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;CH3COOK2023&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/CH3COOK2023/University_of_Liverpool_Computer_Science_Y2_Note&quot;,
+    &quot;accountId&quot;: &quot;8ffbbab1-a81a-4b10-9e8c-832fab397157&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="33NJtFNdGFLWazQ53fWlh7GUy6N" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Demo.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.EmailClient.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.EmailSender.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.HTTPInteraction.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SMTPInteraction.executor&quot;: &quot;Run&quot;,
+    &quot;Application.a.executor&quot;: &quot;Run&quot;,
+    &quot;Application.apaxiaaans.executor&quot;: &quot;Run&quot;,
+    &quot;Application.busassignment.executor&quot;: &quot;Run&quot;,
+    &quot;Application.decimaldeletion.executor&quot;: &quot;Run&quot;,
+    &quot;Application.plantingtrees.executor&quot;: &quot;Run&quot;,
+    &quot;Application.recount.executor&quot;: &quot;Run&quot;,
+    &quot;Application.snowflakes.executor&quot;: &quot;Run&quot;,
+    &quot;Application.test.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.timeloop.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Desktop/Liverpool/University_of_Liverpool_Computer_Science_Y2_Note/Semester I/202526-COMP211 - Computer Networks/JavaProject/COMP211-Lab-JavaSentThisEmail&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Desktop\Liverpool\University_of_Liverpool_Computer_Science_Y2_Note\Semester I\202526-COMP211 - Computer Networks\JavaProject\COMP211-Lab-JavaSentThisEmail" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Desktop\Liverpool\University_of_Liverpool_Computer_Science_Y2_Note\Semester I\202526-COMP211 - Computer Networks\JavaProject\COMP211-Lab-JavaSentThisEmail\main" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="EmailClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="EmailClient" />
+      <module name="COMP211-Lab-JavaSentThisEmail" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.EmailClient" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c052ec58-ac5f-4350-8437-ab8bb69da338" name="Changes" comment="" />
+      <created>1759151809053</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759151809053</updated>
+      <workItem from="1759151810258" duration="1424000" />
+      <workItem from="1759154771420" duration="2269000" />
+      <workItem from="1759241337843" duration="622000" />
+      <workItem from="1759242356133" duration="411000" />
+      <workItem from="1759242917175" duration="66000" />
+      <workItem from="1759243023900" duration="338000" />
+      <workItem from="1759325022961" duration="7000" />
+      <workItem from="1759325035539" duration="7711000" />
+      <workItem from="1759334360402" duration="767000" />
+      <workItem from="1759413882035" duration="5298000" />
+      <workItem from="1759486648018" duration="599000" />
+      <workItem from="1759499409796" duration="9000" />
+      <workItem from="1759751838487" duration="10168000" />
+      <workItem from="1759763091072" duration="2790000" />
+      <workItem from="1759771081853" duration="5000" />
+      <workItem from="1759845818450" duration="5798000" />
+      <workItem from="1760000750576" duration="6000" />
+      <workItem from="1760011258591" duration="69000" />
+      <workItem from="1760018617552" duration="6074000" />
+      <workItem from="1760356546968" duration="1827000" />
+      <workItem from="1760363832264" duration="940000" />
+      <workItem from="1760364851389" duration="28000" />
+      <workItem from="1760452184139" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/main/test/busassignment.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/main/test/recount.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+# origin
+def your_attack(model, X, y, device):
+    X_adv = Variable(X.data)
+    """
+    Replace this with your attack implementation from Competition.py
+    Example: copy your adv_attack function here
+    """
+    random_noise = torch.FloatTensor(*X_adv.shape).uniform_(-0.1, 0.1).to(device)
+    X_adv = Variable(X_adv.data + random_noise)
+
+    return X_adv

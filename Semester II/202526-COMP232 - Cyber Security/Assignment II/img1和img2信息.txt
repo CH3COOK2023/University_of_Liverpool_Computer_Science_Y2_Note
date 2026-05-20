@@ -1,0 +1,44 @@
+❯ robot@robot:~/Desktop$ echo "hello" > prefix.txt                                                                                                                          
+  robot@robot:~/Desktop$ ./md5collgen prefix.txt                                                                                                                            
+  MD5 collision generator v1.5                                                                                                                                              
+  by Marc Stevens (http://www.win.tue.nl/hashclash/)                                                                                                                        
+                                                                                                                                                                            
+  Using output filenames: 'prefix_msg1.txt' and 'prefix_msg2.txt'                                                                                                           
+  Using prefixfile: 'prefix.txt'                                                                                                                                            
+  Using initial value: 91e1e88548a4bef54d09a7c23bd03682                                                                                                                     
+                                                                                                                                                                            
+  Generating first block: ............................                                                                                                                      
+  Generating second block: W..                                                                                                                                              
+  Running time: 6.60666 s                                                                                                                                                   
+  robot@robot:~/Desktop$ md5sum prefix_msg1.txt prefix_msg2.txt                                                                                                             
+  6019b3d8f823ba7cc5b07862e6a1926e  prefix_msg1.txt                                                                                                                         
+  6019b3d8f823ba7cc5b07862e6a1926e  prefix_msg2.txt                                                                                                                         
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+  以上是 image1.png                                                                                                                                                         
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+  robot@robot:~/Desktop$ diff <(xxd prefix_msg1.txt) <(xxd prefix_msg2.txt)                                                                                                 
+  6,8c6,8                                                                                                                                                                   
+  < 00000050: 69b3 1c10 12c9 9e4f 0e12 39e2 8b27 18ee  i......O..9..'..                                                                                                     
+  < 00000060: c411 13e7 684d cd8e 87cc cd43 85c9 a7c0  ....hM.....C....                                                                                                     
+  < 00000070: a1ec b42f fac6 6db2 e1f5 bc58 72b0 4e4e  .../..m....Xr.NN                                                                                                     
+  ---                                                                                                                                                                       
+  > 00000050: 69b3 1c90 12c9 9e4f 0e12 39e2 8b27 18ee  i......O..9..'..                                                                                                     
+  > 00000060: c411 13e7 684d cd8e 87cc cd43 8549 a8c0  ....hM.....C.I..                                                                                                     
+  > 00000070: a1ec b42f fac6 6db2 e1f5 bcd8 72b0 4e4e  .../..m.....r.NN                                                                                                     
+  10,12c10,12                                                                                                                                                               
+  < 00000090: fa70 ec25 00f9 022c 1e55 e3c5 50f5 31be  .p.%...,.U..P.1.                                                                                                     
+  < 000000a0: 4def 79e8 ce14 1026 0e7e d561 8e9c da1c  M.y....&.~.a....                                                                                                     
+  < 000000b0: 17d9 9d97 85c4 93df 6c5b 676c 4e57 c28a  ........l[glNW..                                                                                                     
+  ---                                                                                                                                                                       
+  > 00000090: fa70 eca5 00f9 022c 1e55 e3c5 50f5 31be  .p.....,.U..P.1.                                                                                                     
+  > 000000a0: 4def 79e8 ce14 1026 0e7e d561 8e1c da1c  M.y....&.~.a....                                                                                                     
+  > 000000b0: 17d9 9d97 85c4 93df 6c5b 67ec 4e57 c28a  ........l[g.NW..                                                                                                     
+                                                                                                                                                                            
+                                                                                                                                                                            
+                                                                                                                                                                            
+  以上是 image2.png 

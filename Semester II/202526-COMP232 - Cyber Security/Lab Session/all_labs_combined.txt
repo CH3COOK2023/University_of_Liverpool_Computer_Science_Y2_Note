@@ -1,0 +1,764 @@
+
+================================================================================
+FILE: Lab 8/COMP232 Lab 8.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 8
+Formal Methods, and ProVerif
+The goal of this session is to try working with a modern formal verification tool for security
+protocols, ProVerif by Bruno Blanchet et al. The tool with all related documentation can be
+found at https://bblanche.gitlabpages.inria.fr/proverif/
+We will use the online demo of ProVerif available here: http://proverif24.paris.inria.fr/
+References:
+ProVerif User Manual
+Task 1: Exploring ProVerif Online Demo
+In a web browser go to the online demo of ProVerif: http://proverif24.paris.inria.fr/
+Load one of the available protocols (Eg: Needham-Schroeder public key).
+Observe, in the text box on the right, that the protocol is described using formal syntax of
+ProVerif. The text enclosed inside (* and *) are comments, and can be easily
+understood.
+Click Verify.
+Click ProVerif HTML output, after the previous process is complete.
+Some parts of the formal protocol specification can be understood without any preliminary
+knowledge of ProVerif. For other parts, you can refer to the User Manual linked above.
+Task 2: Getting Started with ProVerif
+Go through Chapter 2, Getting Started (pages 7–9) of the User Manual linked earlier.
+Load and execute ProVerif scripts hello.pv and hello_ext.pv discussed there in
+ProVerif. The files hello.pv and hello_ext.pv are available on the same Canvas
+module.
+Make sure you understand the meaning of the key words free , process and query ,
+and the role they play in the verification process.
+Explain what condition is being checked by the query:
+Query event(evCocks) ==> event(evRSA) .
+Task 3: Advanced ProVerif Usage (after the lab optional)
+Go through the Chapter 3, Using ProVerif, follow the proposed steps using Online Demo
+and handshake protocol specified in Proverif script ex_handshake.pv
+--- Page 2 ---
+Understand all parts of the handshake protocol specification, in particular, the let
+construction used there.
+Understand how the example handshake protocol is verified, and what is the attack
+found by ProVerif.
+
+================================================================================
+FILE: Lab 9/COMP232 Lab 9.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 9
+Linux Firewall Exploration
+For the purpose of this Lab session we will continue using SEED Labs. Please use the
+following references.
+References:
+SEED Project
+SEED Labs Firewall Exploration
+SEED Labs 16.04 Firewalls.pdf
+SEED Labs 20.04 Firewalls.pdf
+Recall that we have already have a Virtual Machine running Ubuntu 20.04 operating system
+with all required packages for Seed Labs in the University Labs as an application. Please
+locate this (on the Desktop), and run the application as you did in Lab 7.
+Task 1
+Revise, and expand, on the theory behind Firewalls from the lectures. In particular, make
+sure you understand the following, and where they operate with respect to the OSI layers:
+Packet level gateway (Layer 3)
+Firewall with stateful packet inspection (Layers 3,4)
+Circuit level gateway (Layer 4,5)
+Application layer gateway (Layer 7)
+In addition to the lectures, use the following references to get a deeper understanding of
+firewalls.
+References
+OSI model - Wikipedia
+Packet filtering
+Stateful firewall
+Circuit-level gateway
+Application firewall - Wikipedia
+--- Page 2 ---
+Task 2
+Read the Linux Firewall Exploration Lab overview SEED Project.
+Work through Task 1 (Section 2) in this link: SEED Labs 16.04 Firewalls.pdf. In particular,
+perform the following part (third item at the top of page 2):
+Prevent A from visiting an external web site. You can choose any web site that you like to
+block, but keep in mind, some web servers have multiple IP addresses.
+Solving the above will require knowledge of iptables . Please read through Section 4.1 and
+4.2 (page 8) in the new version of the SEED Labs lab sheet: SEED Labs 20.04 Firewalls.pdf
+Please note that the application installed in the University Lab supports single VM only. So,
+please ignore all tasks which require two or more VMs.
+
+================================================================================
+FILE: Lab1/Resource/COMP232 Lab 1.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 1
+Lab 1: Practical Attacks on Passwords
+In this lab session, you will learn about basic attacks on passwords, and password strength.
+Passwords are stored in an encrypted form. This involves running an encryption algorithm on
+the plain text password, and storing the output of the algorithm. A very popular algorithm for
+encryption was the Secure Hash Algorithm 1 (SHA1), which computes a hash function. The
+output of hash functions are typically called hash strings, or simply hash. The SHA1
+algorithm has now been discontinued and more sophisticated ones have taken its place.
+However, it is still a nice example to study.
+1. SHA1 Hash table attack
+Can you recover a password from its hash?
+1. Create a hash of any password that you want to attack using an online sha1 hash
+generator (Eg: www.sha1-online.com). For example, the SHA1 hash for the string "
+(MyPassword)" is ee484a6183ce6c6ccb171933aa9b4698f777de35
+2. Copy the hash and go to any public SHA1 hash decrypter website and try to get
+equivalent text to it. (Eg: https://www.dcode.fr/sha1-hash, or https://sha1.web-max.ca/)
+3. Try a hash table attack for the following passwords (sha1 hash) by using the same
+website. (i.e., compute the hash for the password string as in part 1, and then try to
+decrypt the hash as done in part 2).
+Sl No. Password Worked? (Yes/No)
+1 P@$$W0rD
+2 Thisismypassword
+3 VeryLongP@$$W0rD
+2. Has my account password been leaked?
+1. Open https://haveibeenpwned.com/
+2. Provide your email and check if your account password has been leaked previously. If
+yes, you have to change your password!
+--- Page 2 ---
+3. Password strength against brute-force attacks
+Note:
+1. Don’t Enter your real password!
+2. The time it will take depends on processing speed.
+1. Open the following password strength evaluators:
+1. Security.org: https://www.security.org/how-secure-is-my-password/
+2. Kaspersky https://password.kaspersky.com/.
+2. Try the passwords in the table and check the time needed to brute-force them.
+3. Can you propose a password which you would easily remember, and which has an
+estimated 1 Day to crack (by either services)?
+Password Time on Time on
+security.org Kaspersky
+P@S$W0rD
+thisismypassword
+VeryLongP@$$W0rD
+%O^t#2Fv0JUjVdRV2RW%
+
+================================================================================
+FILE: Lab2/Resource/COMP232 Lab 2.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 2
+Encryption in Java or Python
+In this lab session, you will study some simple Java or Python programs implementing DES
+encryption/decryption with standard JCA/JCE libraries.
+Note:
+No specific IDE or other development tools are assumed. All exercises can be done
+using simple editors and command line for compiling and executing programs.
+References:
+JCA/JCE Reference Manual
+DES Encryption in Java
+DES Encryption in Python
+Note: If you are using the Python version, please install the pycryptodome package using:
+pip install pycryptodome for this lab.
+1. DES Encryption
+Compile and run the programs for the following:
+DES encryption in ECB mode.
+DES encryption in CBC mode with an inline IV.
+DES encryption in CBC mode with IV generated by Cipher object.
+Look into the code and see how the encryption is implemented.
+Task 1
+Using the programs above (and their modifications) demonstrate the advantage of CBC
+mode over ECB mode.
+2. Password-Based Encryption (PBE)
+In the examples of programs given in the previous section, the keys used in encryption were
+generated automatically without any user input. In many cases we would like to implement
+password-based encryption.
+Password-based encryption mechanisms in JCE are based on cryptographic hashing
+mechanisms. In short, a password and a salt, which is a random data is fed into a mixing
+--- Page 2 ---
+function (a kind of hash function) which is applied iteratively the number of times defined by
+iteration count. All this happens in the Secret Key Factory object. The result is used then to
+create a key in the Cipher object. To decrypt one has to know the password (secret piece of
+data), the salt and iteration count (these two are usually not considered as secret and may
+be known to the attacker).
+Task 2
+Java Version
+Download the Password-based encryption program PBEs.java and auxiliary utility
+program Util.java .
+Compile both programs (e.g. > javac *.java ), execute PBEs and explore the code to
+find out how to do password-based encryption.
+Try then to change iteration count to a smaller value and see how this affects the
+execution time.
+Modify the program, so it can decrypt the encrypted message.
+Implementation of decryption is very similar to the case of encryption. You need to do the
+same preparatory steps as for encryption (including salt and iteration count initialization,
+creation PBE parameter set, initialization of password, etc).
+The only difference is that initialization of PBE Cipher should be done differently, as shown in
+the fragment below:
+// Initialize PBE Cipher with key and parameters
+pbeCipher.init(Cipher.DECRYPT_MODE, pbeKey, pbeParamSpec);
+// Decrypt the ciphertext
+byte[] plaintext = pbeCipher.doFinal(aCyphertext);
+String StringPlaintext = new String (plaintext);
+Python Version
+Download the Password-based encryption program PBE.py
+Run the script using python3 PBE.py
+Try then to change iteration count to a smaller value and see how this affects the
+execution time.
+Modify the program, so it can decrypt the encrypted message.
+3. After the Lab: from DES to AES
+Once you have tried all the above, try to repeat Task 1 above with AES rather than DES
+encryption algorithm. Essentially you will need to replace ”DES” with ”AES” everywhere.
+Java Version
+--- Page 3 ---
+In the case of difficulties please consult the Reference Manual of JCA/JCE, which contains
+fragments of code illustrating the use of AES. Please notice that password-based encryption
+for AES implemented in JCA/JCE is limited to the key size 128 bits.
+You can further explore the sample programs PBE_AES.java and PBE_AES2.java for
+password-based AES encryption.
+Python Version
+In the case of difficulties please consult the Reference Manual of Python, which contains
+fragments of code illustrating the use of AES. You can explore PBEs using AES with different
+key size.
+
+================================================================================
+FILE: Lab2/Resource/COMP232_LAB 2_Notes.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 LAB02(WEEK03)
+Saturday, February 10, 2024 12:22 PM
+Achilleas Koufonikos, COMP232 2023-2024
+Theory Notes:
+Part 1:
+EBC vs CBC XOR IMAGE, ECB VS CBC IMAGE
+353513
+ECB( Electronic CodeBook)
+ECB uses the same key and encrypts/decrypts each block indepdently.
+Not reccoemnded for large blocks.
+Pros:
+- Encryption Parellelitation: Different blocks can be encrypted and decrypted simultaneously.
+This means that:
+• It is faster
+• If there is an error in the encryption of one block, this error does not affect other block encryptions.
+Cons:
+- Pattern preservation: Patterns in the plaintext will be transferred to the cipher text. Also, the same
+simple text will be encrypted to the exact same cipher text.
+This makes it vulnerable to attacks.
+This is why it is only recommended for small blocks such as keys, to avoid pattern preservation
+from the plaintext to the ciphertext.
+CBC(Cipher Block Chaining):
+CBC encrypts each block, by XORing the plaintext of the current block, with the ciphertext of the previous
+block. This means that each new ciphertext block depends on all previously processed plaintext blocks.
+-For the first plaintext block, an IV is used(Initialization Vector)
+-Recommended for large blocks
+Pros:
+- No pattern preservation!
+Cons:
+- No encryption parallelization (But decryption can be parallelized!)
+- An error in one ciphertext block can cause errors in all further blocks!
+Th
+CBC Encryption and Decryption process:
+CBC Encryption:
+- The plain text is XORed with the previous ciphertext(if this is the first plaintext block, XOR with the IV)
+- The XORed plaintext is then encrypted using the key.
+CBC Decryption:
+- The ciphertext is decrypted using the key
+- The plaintext produced is XORed with the previous ciphertext block
+Part 2:
+PBE(Password Based Encryption)
+• Non-technical users can remember a very password as a key.
+• Key Derivation: The password, along with a salt, is hashed multiple times. This creates the key
+• This generated key is then used to encrypt data using an encyrption algorithm
+DES and AES
+DES (The Data Encryption Standard): An outdated symmetric key encryption method
+- It uses 56-bit keys, intially considered secure but advances in computing it has become vunurable to
+brute force attacks
+- It operates on 64-bit blocks of data.
+- Due to its short key, it is considered insecure
+AES( Advanced Encryption Standard): The current encryption standard, used worldwide
+- Key length: 128, 192 and 256. Far greater security than DES
+- It operates of 128-bit blocks of data
+- Sigingiciantly more secure thatn DES. Its adoption is widespread worldwide
+- Faster than DES!
+Practical Notes:
+LAB 2 Page 1
+--- Page 2 ---
+Part 1:
+Understand the theory behind EBC vs CBC
+EBC
+• For the same key, the same exact cipher text will be produced.
+• There is no IV used
+CBC
+• For the same key, but with a randomized IV, completely different cipher text will be produced.
+Change the code to use the same key each time the code is run! You can do this on your own
+or research how to do it.
+Now demonstrate the differences between EBC and CBC (with a randomized IV)
+Part 3:
+What are the differnes between AES and DES?
+What do you need to change in the code to make it from DES to AES?
+LAB 2 Page 2
+
+================================================================================
+FILE: Lab3/Resource/COMP232 Lab 3.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 3
+Running time of JCA library functions
+For this lab session, you will learn to estimate the running time of password-based
+encryption/decryption functions in JCA. To do this, you will first need to learn about
+measuring running time in Java. There are several ways of doing this. You should
+experiment with them to get comfortable with these constructs.
+Measuring Execution time in Java
+You can use either System.nanoTime() to measure elapsed time or
+System.currentTimeMillis() to measure wall-clock time. A good discussion of
+differences between these two, and several other methods, with examples of code can be
+found at the link in the References section below. Observe that for most of these methods,
+you will need to compute the difference between end-time and start-time similar to how you
+might use a wall clock to measure elapsed time.
+Measuring Execution time in Python
+You can use time.perf_counter() or timeit.timeit() to measure execution time of
+small code snippets in Python .
+References:
+JCA/JCE Reference Manual
+Comparison of different functions for measuring execution times
+Python Reference Manual
+Task 1
+Modify the Password-Based Encryption Program PBEs.java or or PEB.py used in Lab 2,
+so it can measure execution time of
+Key generation and encryption (repeated 5 times);
+Key generation and decryption (repeated 5 times).
+Measure the above times for a fixed password, fixed plain text, salt and iteration count.
+Repeat experiments a few times for each measurement. Make a record of your
+measurements.
+--- Page 2 ---
+Task 2
+Change your program to try different iteration counts: 1, 2, 8, 64, 256, 65536, etc. How
+does it affect time measurements above?
+Try various passwords. Are time measurements affected?
+Try plain texts of different sizes. Are time measurements affected?
+Question:
+Should we increase or decrease iteration count to make an encryption more resistant to
+brute-force search attack? What are potential disadvantages of doing that?
+Task 3 (After the lab): Take user input.
+Learn about the System.console().readPassword() method in Java or the
+getpass.getpass method in Python to take passwords as input from the user.
+Take input from user for both encrypting and decrypting.
+Output the decrypted text, and observe what happens when the password entered for
+decryption does not match the one entered for encryption.
+Learn how to write a simple try-catch block in Java or try-except block in Python to
+handle exceptions. Implement this to handle mismatched passwords.
+Extend this further to take the plaintext to be encrypted also as input from console.
+
+================================================================================
+FILE: Lab4/Resource/COMP232 Lab 4.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 4
+Diffie-Hellman Key Exchange
+This lab session focuses on the Diffie-Hellman key exchange protocol. Download the
+following from the Canvas page (use DH.py and DH3.py for Python):
+DHKeyAgreement2.java
+DHKeyAgreement3.java
+References:
+JCA/JCE Reference Manual
+Python Diffie-Hellman key exchange Reference Manual
+Python AES Reference Manual
+1. Two-party Diffie-Hellman key exchange
+Compile and run DHKeyAgreement2.java ( DH.py for Python).
+Look into the code and see how the key exchange is implemented and how the shared
+secret is further used in the AES encryption.
+Then try the following:
+Find a key size setting in the code. It should be 2048 bits. Try to increase it to 4096,
+compile and run again. What do you observe? (Hint: It should not work, the compiler will
+report a possible range of key sizes).
+Try to set the key size to the minimal possible value, compile and run the program again.
+Try other possible values. Notice how the size of the shared secret changes.
+Measure the time (see Lab 3 for the details) required to perform key generation and key
+agreement for the minimal and maximal possible key sizes.
+2. Three-party Diffie-Hellman key exchange
+Compile, and run DHKeyAgreement3.java ( DH3.py for Python).
+Look into the code and understand how the key exchange is implemented for three
+parties.
+Write the process of key exchange for three parties in terms of the modular exponent,
+similar to the two-party protocol that we discussed in Lecture 6.
+
+================================================================================
+FILE: Lab5/Resource/COMP232 Lab 5.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 5
+Message Authentication Codes
+For this lab session, you will learn to use JCA or Python for message authentication. In
+particular, you will learn two ways of doing this, both of which have been discussed in the
+lectures:
+1. Computing a hash, and sending the encrypted hash along with the message.
+2. Using a Digital Signature.
+References:
+JCA/JCE Reference Manual
+JCA Digital Signature Algorithm implementation
+Python Hash Algorithm Documentation
+Python RSA Documentation
+1. RSA encryption and SHA-1 digests
+For Java, download, compile and run the following programs:
+RandomKeyRSAExample.java -- RSA encryption/decryption with random keys.
+MessageDigestExample.java -- SHA-1 hashing.
+For Python, download, compile and run the following programs:
+RSA.py (RSA encryption/decryption)
+HASH.py (SHA-256 hashing).
+Look into the code and see how the encryption and hashing are implemented.
+Write a program which combines both RSA encryption and SHA-1 to demonstrate the
+message authentication protocol variant (b) shown below (from Lecture 9).
+The program needs to model activities of two participants, Sender and Verifier, as follows:
+Sender:
+Takes a text message, and calculates the message digest (hash) using SHA-1
+Generates a (private key, public key)-pair using RSA
+Encrypts the message digest with the private key
+Passes the original message, encrypted digest, and public key to the Verifier.
+--- Page 2 ---
+By experimenting with this program, show that the Verifier can detect the following attacks:
+The message has been changed in passing from Sender to Verifier
+The encrypted digest has been changed in passing from Sender to Verifier
+Both message and encrypted digest have been changed.
+Note:
+In practical scenarios, the public key will indeed be publicly available. It does not have
+to be sent along with the message.
+If you are comfortable with programming, you should write two separate
+functions: MACDigest , and VerifyDigest as follows:
+1. MACDigest computes the SHA-1 hash of an input message, and then encrypt this
+hash. It should return the original message, encrypted hash, and public key.
+2. VerifyDigest takes a message, encrypted digest, and public key as input, and
+verifies the authenticity.
+--- Page 3 ---
+2. Digital Signature Algorithm
+Use the Digital Signature Algorithm (DSA) available in JCA or Python to achieve message
+authentication. See details on use of DSA in:
+JCA Digital Signature Algorithm Implementation
+Python Digital Signature Algorithm Implementation
+3. After the lab (optional)
+1. Go ahead and implement the other two variants of MAC discussed in Lecture 9.
+2. If you want to practice Object Oriented Programming:
+Write a class that takes the variant as an argument in the constructor. Then complete
+this class to obtain a neat implementation of MAC that can return the message digest
+for any variant on demand.
+
+================================================================================
+FILE: Lab6/Resource/COMP232 Lab 6.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 6
+HMAC Message Authentication
+This lab exercise is about the hash-based authentication code HMAC-SHA256 that uses a
+secret key. The key itself is assumed to be a shared secret that has already been
+established between the sender and receiver.
+References:
+JCA/JCE Reference Manual
+Python HMAC Reference Manual
+Python hashlib Reference Manual
+HMAC - Wikipedia
+1. Understand HMAC-SHA256
+Compile and run the program initMac.java (for Python download and run HMAC.py ).
+Study the code and see how Message Authentical Code (MAC) generation is implemented.
+It is in fact an implementation of the authentication scheme presented in Lecture 9.
+More details on this authentication scheme can be found at
+https://en.wikipedia.org/wiki/HMAC
+Modify the code to show that indeed, it computes MAC:
+If a Verifier uses the same secret key to initialize his/her MAC object and recalculates
+MAC code of the same text then the result will be the same.
+If a Verifier uses the same secret key, but calculates MAC code of a different text then
+the result will be different.
+If a Verifier uses a different secret key, but calculates MAC code of the same text then...
+(complete the sentence)
+2. Compare, and contrast
+Compare HMAC-SHA256 with hash functions (e.g. SHA-256), and the authentication
+schemes considered in LAB 5, in terms which of these methods can be used to establish:
+Message integrity.
+Authentication (the origin of the message can be proved to the receiver).
+Non-repudiation (the origin of the message can be proved to a third party, not only to the
+receiver).
+--- Page 2 ---
+3. Combine with Diffie-Hellman (after the lab, optional!)
+Since HMAC assumes that the sender and recipient share a secret key already, you should
+combine the Diffie-Hellman protocol (that you learned in Lab 4) with HMAC-SHA256.
+More precisely:
+Write a program that first executes Diffie-Hellman to establish a shared secret key K .
+Then use K when creating an HMAC-SHA256 authentication code. (You might want to
+first learn about the relationship between key length and block size from the Wikipedia
+link above.)
+As a trivial extension, take user input for the message M . Then compute the HMAC hash
+for M with key K . Put all of them together for the final packet that contains the message
+and the hash.
+
+================================================================================
+FILE: Lab7/Resource/COMP232 Lab 7.pdf
+================================================================================
+
+--- Page 1 ---
+COMP232 Lab 7
+Seed Labs
+For the purpose of this Lab session we will use Seed Labs. Please familiarise yourself with
+this project by following the link in the Reference section below. We will be working on the
+MD5 Collision Attack lab from within the Cryptography section of Seed Labs.
+References:
+SEED Project
+SEED Labs MD5 collision
+We have pre-installed a Virtual Machine running Ubuntu 20.04 operating system with all
+required for Seed Labs software in the University Labs as an application. Please locate this
+(on the desktop), and run the application.
+Task 1
+Basic knowledge of Linux operating system is required to perform the tasks with Seed
+Labs. In particular, learn the following terminal commands/tools: ls , cd , cat , less ,
+diff , clear .
+Read the page SEED Labs MD5 Collision
+Read the Introduction of the MD5 Collision Lab Sheet (also available on Canvas)
+Task 2
+Perform Task 1 (from Section 2) titled "Generating Two Different Files with the Same
+MD5 Hash" described in the same MD5 Collision Lab Sheet: MD5 Collision Lab Sheet
+
+================================================================================
+FILE: Lab7/Resource/Crypto_MD5_Collision.pdf
+================================================================================
+
+--- Page 1 ---
+SEEDLabs–MD5CollisionAttackLab 1
+MD5 Collision Attack Lab
+Copyright©2018 byWenliangDu.
+ThisworkislicensedunderaCreativeCommonsAttribution-NonCommercial-ShareAlike4.0International
+License. If you remix, transform, or build upon the material, this copyright notice must be left intact, or
+reproducedinawaythatisreasonabletothemediuminwhichtheworkisbeingre-published.
+1 Introduction
+A secure one-way hash function needs to satisfy two properties: the one-way property and the collision-
+resistanceproperty. Theone-waypropertyensuresthatgivenahashvalueh,itiscomputationallyinfeasible
+tofindaninputM,suchthathash(M) = h. Thecollision-resistancepropertyensuresthatitiscompu-
+tationallyinfeasibletofindtwodifferentinputsM andM ,suchthathash(M ) = hash(M ).
+1 2 1 2
+Several widely-used one-way hash functions have trouble maintaining the collision-resistance prop-
+erty. AttherumpsessionofCRYPTO2004,XiaoyunWangandco-authorsdemonstratedacollisionattack
+against MD5 [1]. In February 2017, CWI Amsterdam and Google Research announced the SHAttered at-
+tack,whichbreaksthecollision-resistancepropertyofSHA-1[3]. Whilemanystudentsdonothavetrouble
+understandingtheimportanceoftheone-wayproperty,theycannoteasilygraspwhythecollision-resistance
+propertyisnecessary,andwhatimpacttheseattackscancause.
+Thelearningobjectiveofthislabisforstudentstoreallyunderstandtheimpactofcollisionattacks,and
+seeinfirsthandwhatdamagescanbecausedifawidely-usedone-wayhashfunction’scollision-resistance
+property is broken. To achieve this goal, students need to launch actual collision attacks against the MD5
+hash function. Using the attacks, students should be able to create two different programs that share the
+same MD5 hash but have completely different behaviors. This lab covers a number of topics described in
+thefollowing:
+• One-wayhashfunction,MD5
+• Thecollision-resistanceproperty
+• Collisionattacks
+Readings. Detailedcoverageoftheone-wayhashfunctioncanbefoundinthefollowing:
+• Chapter 22 of the SEED Book, Computer & Internet Security: A Hands-on Approach, 2nd Edition,
+byWenliangDu. Seedetailsathttps://www.handsonsecurity.net.
+LabEnvironment. Thislabhasbeentestedonourpre-builtUbuntu20.04VM,whichcanbedownloaded
+from the SEED website. The lab uses a tool called “Fast MD5 Collision Generation”, which was written
+by Marc Stevens. The name of the binary is called md5collgen in our VM, and it is installed inside the
+/usr/binfolder. Ifitisnotthere,youcandownloaditfromthelab’swebsite(insideLabsetup.zip).
+Ifyouareinterestedininstallingthetooltoyourownmachine,youcandownloadthesourcecodedirectly
+fromhttps://www.win.tue.nl/hashclash/.
+Acknowledgment This lab was developed with the help of Vishtasp Jokhi, a graduate student in the De-
+partmentofElectricalEngineeringandComputerScienceatSyracuseUniversity.
+--- Page 2 ---
+SEEDLabs–MD5CollisionAttackLab 2
+2 Lab Tasks
+2.1 Task1: GeneratingTwoDifferentFileswiththeSameMD5Hash
+Inthistask,wewillgeneratetwodifferentfileswiththesameMD5hashvalues. Thebeginningpartsofthese
+twofilesneedtobethesame,i.e.,theysharethesameprefix. Wecanachievethisusingthemd5collgen
+program,whichallowsustoprovideaprefixfilewithanyarbitrarycontent. Thewayhowtheprogramworks
+isillustratedinFigure1. Thefollowingcommandgeneratestwooutputfiles,out1.binandout2.bin,
+foragivenaprefixfileprefix.txt:
+$ md5collgen -p prefix.txt -o out1.bin out2.bin
+Prefix + (Padding) + P
+MD5 Collision
+Prefix
+Generation
+Prefix + (Padding) + Q
+Figure1: MD5collisiongenerationfromaprefix
+Wecancheckwhethertheoutputfilesaredistinctornotusingthediffcommand. Wecanalsousethe
+md5sumcommandtochecktheMD5hashofeachoutputfile. Seethefollowingcommands.
+$ diff out1.bin out2.bin
+$ md5sum out1.bin
+$ md5sum out2.bin
+Sinceout1.binandout2.binarebinary,wecannotviewthemusingatext-viewerprogram,such
+as cat or more; we need to use a binary editor to view (and edit) them. We have already installed a hex
+editor software called bless in our VM. Please use such an editor to view these two output files, and
+describeyourobservations. Inaddition,youshouldanswerthefollowingquestions:
+– Question1. Ifthelengthofyourprefixfileisnotmultipleof64,whatisgoingtohappen?
+– Question2. Create aprefix filewith exactly64 bytes, and run thecollision toolagain, andsee what
+happens.
+– Question 3. Are the data (128 bytes) generated by md5collgen completely different for the two
+outputfiles? Pleaseidentifyallthebytesthataredifferent.
+2.2 Task2: UnderstandingMD5’sProperty
+In this task, we will try to understand some of the properties of the MD5 algorithm. These properties are
+important for us to conduct further tasks in this lab. MD5 is a quite complicated algorithm, but from very
+highlevel,itisnotsocomplicated. AsFigure2shows,MD5dividestheinputdataintoblocksof64bytes,
+and then computes the hash iteratively on these blocks. The core of the MD5 algorithm is a compression
+function, which takes two inputs, a 64-byte data block and the outcome of the previous iteration. The
+compression function produces a 128-bit IHV, which stands for “Intermediate Hash Value”; this output is
+then fed into the next iteration. If the current iteration is the last one, the IHV will be the final hash value.
+TheIHVinputforthefirstiteration(IHV )isafixedvalue.
+0
+--- Page 3 ---
+SEEDLabs–MD5CollisionAttackLab 3
+M M M
+1 2 n
+Final Hash
+Compression Compression Compression
+IHV IHV IHV IHV IHV
+0 Function 1 Function 2 n‐1 Function n
+Figure2: HowtheMD5algorithmworks
+Based on how MD5 works, we can derive the following property of the MD5 algorithm: Given two
+inputs M and N, if MD5(M) = MD5(N), i.e., the MD5 hashes of M and N are the same, then for any input
+T,MD5(M (cid:107) T) = MD5(N (cid:107) T),where(cid:107)representsconcatenation.
+Thatis,ifinputsMandNhavethesamehash,addingthesamesuffixTtothemwillresultintwooutputs
+thathavethesamehashvalue. ThispropertyholdsnotonlyfortheMD5hashalgorithm,butalsoformany
+other hash algorithms. Yourjobinthistask is to design an experiment to demonstrates that this property
+holdsforMD5.
+You can use the cat command to concatenate two files (binary or text files) into one. The following
+commandconcatenatesthecontentsoffile2tothecontentsoffile1,andplacestheresultinfile3.
+$ cat file1 file2 > file3
+2.3 Task3: GeneratingTwoExecutableFileswiththeSameMD5Hash
+In this task, you are given the following C program. Your job is to create two different versions of this
+program,suchthatthecontentsoftheirxyzarraysaredifferent,butthehashvaluesoftheexecutablesare
+thesame.
+#include <stdio.h>
+unsigned char xyz[200] = {
+/* The actual contents of this array are up to you */
+};
+int main()
+{
+int i;
+for (i=0; i<200; i++){
+printf("%x", xyz[i]);
+}
+printf("\n");
+}
+Youmaychoosetoworkatthesourcecodelevel,i.e.,generatingtwoversionsoftheaboveCprogram,
+such that after compilation, their corresponding executable files have thesame MD5 hash value. However,
+it may be easier to directly work on the binary level. You can put some arbitrary values in the xyz array,
+compiletheabovecodetobinary. Thenyoucanuseahexeditortooltomodifythecontentofthexyzarray
+directlyinthebinaryfile.
+Findingwherethecontentsofthearrayarestoredinthebinaryisnoteasy. However,ifwefillthearray
+withsomefixedvalues,wecaneasilyfindtheminthebinary. Forexample,thefollowingcodefillsthearray
+with0x41,whichistheASCIIvalueforletterA.Itwillnotbedifficulttolocate200A’sinthebinary.
+--- Page 4 ---
+SEEDLabs–MD5CollisionAttackLab 4
+unsigned char xyz[200] = {
+0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
+0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
+0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
+... (omitted) ...
+0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41, 0x41,
+}
+Guidelines. From inside the array, we can find two locations, from where we can divide the executable
+file into three parts: a prefix, a 128-byte region, and a suffix. The length of the prefix needs to be multiple
+of64bytes. SeeFigure3foranillustrationofhowthefileisdivided.
+Prefix (multiple of 64 bytes) Suffix (the rest of the program)
+AAAAAA…AAAAAAAAAAA
+A 128‐byte region
+Figure3: Breaktheexecutablefileintothreepieces.
+We can run md5collgen on the prefix to generate two outputs that have the same MD5 hash value.
+LetususePandQtorepresentthesecondpart(eachhaving128bytes)oftheseoutputs(i.e.,thepartafter
+theprefix). Therefore,wehavethefollowing:
+MD5 (prefix (cid:107) P) = MD5 (prefix (cid:107) Q)
+BasedonthepropertyofMD5,weknowthatifweappendthesamesuffixtotheabovetwooutputs,the
+resultantdatawillalsohavethesamehashvalue. Basically,thefollowingistrueforanysuffix:
+MD5 (prefix (cid:107) P (cid:107) suffix) = MD5 (prefix (cid:107) Q (cid:107) suffix)
+Therefore, we just need to use P and Q to replace 128 bytes of the array (between the two dividing
+points), and we will be able to create two binary programs that have the same hash value. Their outcomes
+aredifferent,becausetheyeachprintouttheirownarrays,whichhavedifferentcontents.
+Tools. You can use bless to view the binary executable file and find the location for the array. For
+dividing a binary file, there are some tools that we can use to divide a file from a particular location. The
+headandtailcommandsaresuchusefultools. Youcanlookattheirmanualstolearnhowtousethem.
+Wegivethreeexamplesinthefollowing:
+$ head -c 3200 a.out > prefix
+$ tail -c 100 a.out > suffix
+$ tail -c +3300 a.out > suffix
+Thefirstcommandabovesavesthefirst3200bytesofa.outtoprefix. Thesecondcommandsaves
+the last 100 bytes of a.out to suffix. The third command saves the data from the 3300th byte to the
+--- Page 5 ---
+SEEDLabs–MD5CollisionAttackLab 5
+endofthefilea.outtosuffix. Withthesetwocommands,wecandivideabinaryfileintopiecesfrom
+anylocation. Ifweneedtogluesomepiecestogether,wecanusethecatcommand.
+Ifyouuseblesstocopy-and-pasteablockofdatafromonebinaryfiletoanotherfile,themenuitem
+"Edit -> Select Range"isquitehandy,becauseyoucanselectablockofdatausingastartingpoint
+andarange,insteadofmanuallycountinghowmanybytesareselected.
+2.4 Task4: MakingtheTwoProgramsBehaveDifferently
+In the previous task, we have successfully created two programs that have the same MD5 hash, but their
+behaviors are different. However, their differences are only in the data they print out; they still execute the
+samesequenceofinstructions. Inthistask, wewouldliketoachievesomethingmoresignificantandmore
+meaningful.
+Assume that you have created a software which does good things. You send the software to a trusted
+authority to get certified. The authority conducts a comprehensive testing of your software, and concludes
+thatyoursoftwareisindeeddoinggoodthings. Theauthoritywillpresentyouwithacertificate,statingthat
+your program is good. To prevent you from changing your program after getting the certificate, the MD5
+hash value of your program is also included in the certificate; the certificate is signed by the authority, so
+youcannotchangeanythingonthecertificateoryourprogramwithoutrenderingthesignatureinvalid.
+You would like to get your malicious software certified by the authority, but you have zero chance to
+achieve that goal if you simply send your malicious software to the authority. However, you have noticed
+thattheauthorityusesMD5togeneratethehashvalue. Yougotanidea. Youplantopreparetwodifferent
+programs. Oneprogramwillalwaysexecutebenigninstructionsanddogoodthings,whiletheotherprogram
+will execute malicious instructions and cause damages. You find a way to get these two programs to share
+thesameMD5hashvalue.
+Youthensendthebenignversiontotheauthorityforcertification. Sincethisversiondoesgoodthings,it
+willpassthecertification,andyouwillgetacertificatethatcontainsthehashvalueofyourbenignprogram.
+Because your malicious program has the same hash value, this certificate is also valid for your malicious
+program. Therefore,youhavesuccessfullyobtainedavalidcertificateforyourmaliciousprogram. Ifother
+peopletrustedthecertificateissuedbytheauthority,theywilldownloadyourmaliciousprogram.
+Theobjectiveofthistask is to launch the attack described above. Namely, you need to create two pro-
+gramsthatsharethesameMD5hash. However,oneprogramwillalwaysexecutebenigninstructions,while
+theotherprogramwillexecutemaliciousinstructions. Inyourwork,whatbenign/maliciousinstructionsare
+executedisnotimportant;itissufficienttodemonstratethattheinstructionsexecutedbythesetwoprograms
+aredifferent.
+Guidelines. Creating two completely different programs that produce the same MD5 hash value is quite
+hard. Thetwohash-collidingprogramsproducedbymd5collgenneedtosharethesameprefix;moreover,
+aswecanseefromtheprevioustask,ifweneedtoaddsomemeaningfulsuffixtotheoutputsproducedby
+md5collgen, the suffix added to both programs also needs to be the same. These are the limitations of
+the MD5 collision generation program that we use. Although there are other more complicated and more
+advancedtoolsthatcanliftsomeofthelimitations,suchasacceptingtwodifferentprefixes[2],theydemand
+much more computing power, so they are out of the scope for this lab. We need to find a way to generate
+twodifferentprogramswithinthelimitations.
+There are many ways to achieve the above goal. We provide one approach as a reference, but students
+are encouraged to come up their own ideas. Instructors may consider rewarding students for their own
+ideas. Inourapproach,wecreatetwoarraysXandY.Wecomparethecontentsofthesetwoarrays;ifthey
+--- Page 6 ---
+SEEDLabs–MD5CollisionAttackLab 6
+are the same, the benign code is executed; otherwise, the malicious code is executed. See the following
+pseudo-code:
+Array X;
+Array Y;
+main()
+{
+if(X’s contents and Y’s contents are the same)
+run benign code;
+else
+run malicious code;
+return;
+}
+We can initialize the arrays X and Y with some values that can help us find their locations in the exe-
+cutable binary file. Our job is to change the contents of these two arrays, so we can generate two different
+versionsthathavethesameMD5hash. Inoneversion,thecontentsofXandYarethesame,sothebenign
+code is executed; in the other version, the contents of X and Y are different, so the malicious code is exe-
+cuted. WecanachievethisgoalusingatechniquesimilartotheoneusedinTask3. Figure4illustrateswhat
+thetwoversionsoftheprogramlooklike.
+Prefix (multiple of 64 bytes) Suffix (the rest of the program)
+AAAAAA… P AAAAAAAAAAA AAAAAA… P AAAAAAAAAAA
+Q P
+AAAAAA…AAAAAAAAAAA AAAAAA…AAAAAAAAAAA
+P and Q are generated to
+cause collision Array X Array Y
+Figure4: Anapproachtogeneratetwohash-collidingprogramswithdifferentbehaviors.
+From Figure 4, we know that these two binary files have the same MD5 hash value, as long as P and
+Q are generated accordingly. In the first version, we make the contents of arrays X and Y the same, while
+inthesecondversion, wemaketheircontentsdifferent. Therefore, theonlythingweneedtochangeisthe
+contentsofthesetwoarrays,andthereisnoneedtochangethelogicoftheprograms.
+3 Submission
+You need to submit a detailed lab report, with screenshots, to describe what you have done and what you
+have observed. You also need to provide explanation to the observations that are interesting or surprising.
+Please also list the important code snippets followed by explanation. Simply attaching code without any
+explanationwillnotreceivecredits.
+--- Page 7 ---
+SEEDLabs–MD5CollisionAttackLab 7
+References
+[1] JohnBlack, MartinCochran, andTrevorHighland. Astudyofthemd5attacks: Insightsandimprove-
+ments.InProceedingsofthe13thInternationalConferenceonFastSoftwareEncryption,FSE’06,pages
+262–277,Berlin,Heidelberg,2006.Springer-Verlag.
+[2] MarcStevens. Oncollisionsformd5. Master’sthesis,EindhovenUniversityofTechnology,62007.
+[3] Marc Stevens, Elie Bursztein, Pierre Karpman, Ange Albertini, and Yarik Markov. The first collision
+forfullSHA-1. CWIAmsterdamandGoogleResearch,https://shattered.io/,2017.

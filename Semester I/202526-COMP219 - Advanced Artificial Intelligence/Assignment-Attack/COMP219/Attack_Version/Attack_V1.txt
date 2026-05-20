@@ -1,0 +1,65 @@
+def your_attack(model, X, y, device):
+    # 参数设置：为了最强效果，保持你的配置
+    epsilon = 0.1
+    num_steps = 40
+    num_restarts = 3
+    alpha = epsilon / num_steps * 2.0  # 动态步长
+
+    model.eval()  # 攻击时必须固定模型
+
+    X_orig = X.detach().clone().to(device)
+    y = y.to(device)
+    batch_size = X_orig.size(0)
+
+    # 记录最好的攻击结果
+    best_adv = X_orig.clone()
+    best_loss = torch.full((batch_size,), -1e9, device=device)
+
+    for _ in range(num_restarts):
+        # 随机初始化
+        X_adv = X_orig + torch.empty_like(X_orig).uniform_(-epsilon, epsilon).to(device)
+        X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+        for _ in range(num_steps):
+            X_adv.requires_grad_()
+            with torch.enable_grad():  # 确保能计算梯度
+                out = model(X_adv)
+
+                # --- CW Margin Loss 计算 (核心) ---
+                # 找到正确标签的得分
+                true_logit = out.gather(1, y.view(-1, 1)).squeeze(1)
+
+                # 找到除正确标签外，最高的那个错误标签得分
+                num_classes = out.size(1)
+                one_hot = F.one_hot(y, num_classes=num_classes).bool()
+                other_logits = out.masked_fill(one_hot, -1e9)
+                max_other_logit, _ = other_logits.max(dim=1)
+
+                # Loss = 错误得分 - 正确得分 (我们希望最大化这个差值)
+                loss = (max_other_logit - true_logit).mean()
+
+            # 计算梯度
+            grad = torch.autograd.grad(loss, X_adv)[0]
+
+            # 梯度上升更新
+            X_adv = X_adv.detach() + alpha * torch.sign(grad.detach())
+
+            # 投影回 epsilon 球内
+            eta = torch.clamp(X_adv - X_orig, min=-epsilon, max=epsilon)
+            X_adv = X_orig + eta
+            X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+        # 本轮重启结束，记录比之前更好的攻击样本
+        with torch.no_grad():
+            out_final = model(X_adv)
+            true_logit = out_final.gather(1, y.view(-1, 1)).squeeze(1)
+            one_hot = F.one_hot(y, num_classes=out_final.size(1)).bool()
+            other_logits = out_final.masked_fill(one_hot, -1e9)
+            max_other_logit, _ = other_logits.max(dim=1)
+            # 对于每个样本，如果现在的 margin 更大（攻击更成功），就更新 best_adv
+            final_margin = (max_other_logit - true_logit)
+            mask = final_margin > best_loss
+            best_loss[mask] = final_margin[mask]
+            best_adv[mask] = X_adv[mask]
+
+    return best_adv.detach()

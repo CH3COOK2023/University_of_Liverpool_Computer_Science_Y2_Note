@@ -1,0 +1,77 @@
+    def your_attack(model, X, y, device,
+                    epsilon=0.1,
+                    alpha=None,
+                    num_steps=40,
+                    num_restarts=3):
+
+
+
+        model.eval()
+
+
+        X_orig = X.detach().clone().to(device)
+        y = y.to(device)
+
+        if alpha is None:
+
+            alpha = epsilon / num_steps * 2.0
+
+        batch_size = X_orig.size(0)
+
+
+        best_adv = X_orig.clone()
+        best_loss = torch.full((batch_size,), -1e9, device=device)
+
+        for _ in range(num_restarts):
+
+            X_adv = X_orig + torch.empty_like(X_orig).uniform_(-epsilon, epsilon).to(device)
+            X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+            for _ in range(num_steps):
+                X_adv.requires_grad_()
+
+
+                out = model(X_adv)
+
+
+                true_logit = out.gather(1, y.view(-1, 1)).squeeze(1)
+
+
+                num_classes = out.size(1)
+                one_hot = F.one_hot(y, num_classes=num_classes).bool()
+                other_logits = out.masked_fill(one_hot, -1e9)
+                max_other_logit, _ = other_logits.max(dim=1)
+
+
+                margin = max_other_logit - true_logit
+
+
+                loss = margin.mean()
+
+                grad = torch.autograd.grad(loss, X_adv)[0]
+
+
+                X_adv = X_adv.detach() + alpha * torch.sign(grad.detach())
+
+
+                eta = torch.clamp(X_adv - X_orig, min=-epsilon, max=epsilon)
+                X_adv = X_orig + eta
+
+
+                X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+
+            with torch.no_grad():
+                out_final = model(X_adv)
+                true_logit = out_final.gather(1, y.view(-1, 1)).squeeze(1)
+                one_hot = F.one_hot(y, num_classes=out_final.size(1)).bool()
+                other_logits = out_final.masked_fill(one_hot, -1e9)
+                max_other_logit, _ = other_logits.max(dim=1)
+                final_margin = (max_other_logit - true_logit)  # [B]
+
+
+                mask = final_margin > best_loss
+                best_loss[mask] = final_margin[mask]
+                best_adv[mask] = X_adv[mask]
+
+        return best_adv.detach()

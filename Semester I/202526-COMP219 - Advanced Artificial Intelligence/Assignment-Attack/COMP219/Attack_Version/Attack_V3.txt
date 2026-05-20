@@ -1,0 +1,106 @@
+def your_attack(model, X, y, device):
+    # --- 参数设置 ---
+    epsilon = 0.1  # 严格遵守 < 0.11
+    num_steps = 100  # 增加步数以获得更强攻击 (既然时间充裕)
+    alpha = 0.01  # 步长，通常设为 epsilon / 10 或 epsilon / 4
+    num_classes = 10
+
+    model.eval()
+
+    # 复制原始数据
+    X_orig = X.detach().clone().to(device)
+    y = y.to(device)
+    batch_size = X_orig.size(0)
+
+    # 初始化全局最佳结果
+    # best_adv: 存储目前为止找到的最具攻击性的样本
+    # best_margin: 存储误导的确信度 (越高越好)
+    best_adv = X_orig.clone()
+    best_margin = torch.full((batch_size,), -1e9, device=device)
+
+    # --- 策略: Multi-target Attack (遍历所有错误类别) ---
+    # 相比单纯的 Untargeted Attack，这种方法能更彻底地搜索决策边界的漏洞
+    for target_class in range(num_classes):
+
+        # 创建目标标签
+        target_labels = torch.full((batch_size,), target_class, device=device, dtype=torch.long)
+
+        # 只攻击那些 target != true_label 的样本
+        # 这是一个 mask，用于过滤
+        target_neq_true = (target_labels != y)
+
+        if target_neq_true.sum() == 0:
+            continue
+
+        # --- Random Start (随机初始化) ---
+        # 这一点很重要，防止陷入局部最优
+        X_adv = X_orig + torch.zeros_like(X_orig).uniform_(-epsilon, epsilon).to(device)
+        X_adv = torch.clamp(X_adv, 0.0, 1.0)
+
+        # --- PGD 迭代 ---
+        for step in range(num_steps):
+            X_adv.requires_grad = True
+            with torch.enable_grad():
+                output = model(X_adv)
+
+                # --- CW-like Loss (Margin Loss) ---
+                # 我们希望: Target Class Score > Max(Other Classes Score)
+
+                # 1. 获取目标类别的 logit
+                target_logits = output.gather(1, target_labels.view(-1, 1)).squeeze(1)
+
+                # 2. 获取“除目标类别外”的最大 logit (Max Other)
+                # 注意：这里是针对“目标类别”而言的 Others。
+                # 在 CW 原始定义中，是 max(Logit_real, Logit_other_wrong)，
+                # 但在 Targeted Attack 中，我们只想让 Target 胜出。
+                # 为了简化，我们直接让 Target 超过所有其他类别中最高的一个。
+                one_hot_target = F.one_hot(target_labels, num_classes=num_classes).bool()
+                # 把 target 对应位置设为负无穷，方便取 max
+                logits_without_target = output.masked_fill(one_hot_target, -1e9)
+                max_other_logits, _ = logits_without_target.max(dim=1)
+
+                # Loss: 我们希望 (Target - Other) 越大越好 => Minimize -(Target - Other)
+                # 也就是 Minimize (Other - Target)
+                # 【关键修正】使用 .sum() 而不是 .mean()，避免梯度抵消
+                loss = (max_other_logits - target_logits).sum()
+
+            # 计算梯度
+            grad = torch.autograd.grad(loss, X_adv)[0]
+
+            # 只更新 target != true 的样本
+            grad[~target_neq_true] = 0
+
+            # 更新 X_adv
+            # 因为我们要 Minimize Loss，所以沿 -grad 方向走
+            X_adv = X_adv.detach() - alpha * torch.sign(grad.detach())
+
+            # 投影 (Projection)
+            delta = torch.clamp(X_adv - X_orig, min=-epsilon, max=epsilon)
+            X_adv = torch.clamp(X_orig + delta, min=0.0, max=1.0)
+
+            # --- 【增强】在迭代过程中实时更新最佳结果 ---
+            # 很多时候最佳攻击样本出现在中间步骤
+            with torch.no_grad():
+                # 重新计算输出（如果显存紧张，可以每隔几步算一次，但 FashionMNIST 很小，没关系）
+                current_output = model(X_adv)
+
+                # 计算 Margin: Max_Wrong_Logit - True_Logit
+                # 只要这个值 > 0，就代表攻击成功。值越大，错得越离谱。
+
+                true_logits = current_output.gather(1, y.view(-1, 1)).squeeze(1)
+
+                one_hot_true = F.one_hot(y, num_classes=num_classes).bool()
+                logits_without_true = current_output.masked_fill(one_hot_true, -1e9)
+                max_wrong_logits, _ = logits_without_true.max(dim=1)
+
+                current_margin = max_wrong_logits - true_logits
+
+                # 如果当前样本的 Margin 比之前记录的更好，就更新
+                # 并且只更新 target != true 的部分
+                update_mask = (current_margin > best_margin) & target_neq_true
+
+                if update_mask.sum() > 0:
+                    best_adv[update_mask] = X_adv[update_mask]
+                    best_margin[update_mask] = current_margin[update_mask]
+
+    return best_adv.detach()

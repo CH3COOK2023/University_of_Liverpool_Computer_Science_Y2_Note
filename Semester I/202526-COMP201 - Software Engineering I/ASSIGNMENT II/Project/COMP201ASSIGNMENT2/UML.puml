@@ -1,0 +1,81 @@
+@startuml
+
+' 1. 基类 Traveller (旅客)
+' 包含了所有旅客共有的属性：姓名、护照、生日
+class Traveller {
+    - String fullName
+    - String passportNumber
+    - LocalDate dateOfBirth
+}
+
+' 2. 子类 Client (客户)
+' 继承自 Traveller (Is-A关系)
+' 这样 Client 自动拥有了姓名、护照和生日，避免了数据重复
+' Client 特有的属性是地址
+class Client {
+    - String address
+}
+
+' 3. 抽象父类 Reservation
+abstract class Reservation {
+    - String bookingNumber
+    '  题目叫 booking number，建议与题目保持一致
+}
+
+' --- 具体预订子类 ---
+
+class HotelReservation {
+    - String roomType
+    - LocalDate startDate
+    - LocalDate endDate
+    - String hotelName
+    - String hotelAddress
+    ' [cite: 20]
+}
+
+class InsuranceReservation {
+    - LocalDate startDate
+    - LocalDate endDate
+    - String levelOfCover
+    ' [cite: 22] bronze, silver or gold
+}
+
+class AirlineReservation {
+    - String airlineName
+    - String flightNumber
+    - String classOfSeat
+    - LocalDate travelDate
+    - LocalTime travelTime
+    '
+}
+
+class CarReservation {
+    - String typeOfCar
+    - LocalDate startDate
+    - int daysOfHire
+    - Set<String> driverLicenseNumbers
+    ' [cite: 21]
+}
+
+' --- 关系定义 (Relationships) ---
+
+' [继承关系]
+' 关键修改：Client 继承 Traveller
+Traveller <|-- Client
+
+Reservation <|-- HotelReservation
+Reservation <|-- InsuranceReservation
+Reservation <|-- AirlineReservation
+Reservation <|-- CarReservation
+
+' [关联关系]
+' 1. Client 发起预订 (Primary Client)
+' 题目: referenced by the primary client [cite: 15]
+Client "1" -- "0..*" Reservation : places / primary contact >
+
+' 2. 预订包含多个旅客
+' 题目: reference to the names... of all the travelers
+' 因为 Client 也是 Traveller，所以 Client 对象也可以被加进这个列表里
+Reservation "1" o-- "1..*" Traveller : involves >
+
+@enduml

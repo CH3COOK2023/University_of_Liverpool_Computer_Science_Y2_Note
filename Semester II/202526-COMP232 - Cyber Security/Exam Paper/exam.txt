@@ -1,0 +1,162 @@
+
+================================================================================
+EXAM: COMP232_2025
+================================================================================
+
+--- Page 1 ---
+PAPER CODE NO. EXAMINER: Anish Mukherjee Tel. No. 0151 795 4179
+COMP232 DEPARTMENT: Computer Science
+SECOND SEMESTER EXAMINATIONS 2024/25
+CYBERSECURITY
+TIME ALLOWED : Two Hours
+INSTRUCTIONS TO CANDIDATES
+Answer FOUR out of FIVE questions.
+All questions have the same maximum mark of 25.
+If you answer five questions, the question with the lowest mark will be disregarded.
+Calculators are NOT permitted.
+PAPER CODE COMP232 page 1 of 3 Continued
+--- Page 2 ---
+Answer FOUR out of FIVE questions.
+1. (a) Describe the packet-filtering technique used in firewalls. What are advantages and disad-
+vantages of this technique?
+(6 marks)
+(b) What is a weak collision resistance property of a hash function and what the role does it play
+in applications of hash functions?
+(6 marks)
+(c) Propose a variant of the Diffie-Hellman (DH) Key Exchange algorithm which would allow to
+exchange secret keys between three participants. How do you argue it is secure algorithm?
+(13 marks)
+2. (a) How is protection against passive attacks guaranteed in BB84 quantum key exchange algo-
+rithm?
+(10 marks)
+(b) Explain why RSA can be considered as a partially homomorphic encryption algorithm.
+(7 marks)
+(c) List three main categories of authentication techniques. Discuss advantages and disadvan-
+tages of using physical or behavioural characteristics for authentication.
+(8 marks)
+3. (a) Describe how a digital signature can be realised using a public-key cryptosystem.
+(6 marks)
+(b) Describe briefly 4 levels of information protection and the methods used at each level.
+(4 marks)
+(c) What is a mix-network? Describe functioning of a mix node and the process of communica-
+tion in a mix-network.
+(7 marks)
+(d) Explain what are Secure Multi Party Computations and give an example of their possible
+applications.
+(8 marks)
+4. (a) What is an iteration count in implementations of password-based encryption? How may
+setting different values to iteration count affect the brute force search attack against an en-
+cryption algorithm?
+(7 marks)
+(b)Whatarethetwomaincategoriesofintrusiondetectionmethods? Describeadvantagesand
+disadvantages of methods from each category.
+(5 marks)
+(c) A simple key exchange protocol shown below can be used to establish a key over an open
+channel. Here K is a public key of A, N and N are random numbers (nonces) chosen by A
+a a b
+and B, respectively, and k is the key for symmetric encryption to be exchanged.
+ab
+PAPER CODE COMP232 page 2 of 3 Continued
+--- Page 3 ---
+• Message 1. A → B : N
+a
+• Message 2. B → A : N
+b
+• Message 3. A → B : {k ,A,N }
+ab b Ka
+• Message 4. B → A : {N }
+a k
+ab
+What is the possible issue with this protocol? How can it be fixed?
+(9 marks)
+(d) What is aggregated information? What is anonymized information? Is privacy protected if
+only some records of anonymized and aggregated information are known about a person?
+(4 marks)
+5. (a) For a block cipher, what is the Electronic Codebook mode (ECB)? Describe the main disad-
+vantage of this mode and how it can be fixed.
+(7 marks)
+(b) What is the reason for the anonymity protection system Tor to use both symmetric and
+public-key encryption?
+(8 marks)
+(c) What is a purpose of using multiple layers of encryption in CryptDB approach to querying
+encrypted databases?
+(10 marks)
+PAPER CODE COMP232 page 3 of 3 End
+
+================================================================================
+EXAM: COMP232_MOCK
+================================================================================
+
+--- Page 1 ---
+PAPER CODE NO. EXAMINER : Alexei Lisitsa
+COMP232 DEPARTMENT : Computer Science Tel. No. 0151 795 4250
+Mock Exam Paper
+CYBERSECURITY
+TIME ALLOWED : Two Hours
+INSTRUCTIONS TO CANDIDATES
+Answer FOUR out of FIVE questions.
+If you attempt to answer more questions than the required number of questions (in any
+section), the marks awarded for the excess questions answered will be discarded (starting with
+your lowest mark).
+--- Page 2 ---
+Answer four out of five questions listed.
+1. (a) What are potential problems with the security protection based on the secrecy of an
+encryption algorithm?
+(5 marks)
+(b) A simple way of finding a collision in a hash function H is as follows
+1. Pick initial value I and calculate H(I);
+2. Pick randomly further value J an compare H(J) to H(I);
+3. Repeat step 2 until H(J) = H(I).
+Suggest an improvement of this attack, which would likely lead to faster discovery of the
+collision.
+(10 marks)
+(c) Describe the Diffie-Hellman (DH) Key Exchange algorithm and the attack on this algorithm
+that uses the computation of discrete logarithms. Why is DH considered secure?
+(10 marks)
+2. (a) Define passive security attacks. Explain how the development of quantum cryptography
+may change the way of dealing with passive attacks.
+(8 marks)
+(b) Explain why RSA can be considered as a partially-homomorphic encryption algorithm.
+(7 marks)
+(c) What is wrong in the following algorithm for computing a hash function? Take a
+messageM, generate a random private RSA key K. Encrypt M with K and take the first 240
+bits of the result as a hash of M.
+(10 marks)
+3. (a) Explain what are the advantages and disadvantages of using quantum generator of
+random numbers in cryptography
+(5 marks)
+(b) Describe the RSA-based blind signature technique. Discuss its role in the
+implementationof electronic payment systems and electronic voting systems.
+--- Page 3 ---
+(10 marks)
+(c) Explain what is a zero-knowldge proof (ZKP). What are the possible applications of ZKP?
+(10 marks)
+4. (a) What is the common factor attack on RSA and why is it practically possible?
+(8 marks)
+(b) What are the two main categories of intrusion detection methods? Describe advantages
+and disadvantages of methods from each category.
+(7 marks)
+(c) A simple key exchange protocol shown below can be used to establish a key over an open
+channel. Here K is a public key of B, N and N are random numbers (nonces) chosen by A
+b a b
+and B, respectively, and k is the key for symmetric encryption to be exchanged.
+ab
+• Message 1. A → B : N
+a
+• Message 2. B → A : N
+b
+• Message 3. A → B : {k ,A,N }
+ab b Kb
+• Message 4. B → A : {N }
+a kab
+What is the possible issue with this protocol? How can it be fixed?
+(10 marks)
+5. (a) For a block cipher, what is the Cipher Block Chaining mode (CBC)? What is the main
+purpose of using CBC mode? What is the main disadvantage of this mode?
+(7 marks)
+(b) What is a multifactor authentication technique? Give an example and explain the rationale
+behind it.
+(8 marks)
+(c) What is Fully Homomorphic Encryption (FHE)? What is the main issue with applications of
+FHE? Give an example of an application which would benefit from using FHE.
+(10 marks)
